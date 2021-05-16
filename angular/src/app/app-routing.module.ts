@@ -25,6 +25,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
+  {
+      path: '1000-bombs-and-grenades',
+      loadChildren: () => 
+        import('../../projects/ThousandBombsAndGrenades/projects/thousand-bombs-and-grenades/src/public-api').then(m => m.ThousandBombsAndGrenadesModule.forLazy()),
+  }
 ];
 
 @NgModule({
