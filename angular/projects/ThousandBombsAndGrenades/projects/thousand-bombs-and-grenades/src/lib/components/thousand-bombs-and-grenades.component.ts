@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ThousandBombsAndGrenadesService } from '../services/thousand-bombs-and-grenades.service';
 
 @Component({
@@ -10,6 +11,8 @@ export class ThousandBombsAndGrenadesComponent implements OnInit {
   constructor(private service: ThousandBombsAndGrenadesService) {}
 
   ngOnInit(): void {
-    this.service.sample().subscribe(console.log);
+    this.service.sample().subscribe((sample) => {
+        console.log("Sample value: " + sample.value)
+    });
   }
 }
