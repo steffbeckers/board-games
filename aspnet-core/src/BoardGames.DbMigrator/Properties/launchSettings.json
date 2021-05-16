@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BoardGames.DbMigrator": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
