@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using BoardGames.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -13,6 +13,7 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using ThousandBombsAndGrenades;
 
 namespace BoardGames
 {
@@ -29,6 +30,7 @@ namespace BoardGames
         typeof(AbpTenantManagementDomainModule),
         typeof(AbpEmailingModule)
     )]
+    [DependsOn(typeof(ThousandBombsAndGrenadesDomainModule))]
     public class BoardGamesDomainModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -9,6 +9,7 @@ using Volo.Abp.IdentityServer.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using ThousandBombsAndGrenades.EntityFrameworkCore;
 
 namespace BoardGames.EntityFrameworkCore
 {
@@ -43,6 +44,7 @@ namespace BoardGames.EntityFrameworkCore
             /* Configure your own tables/entities inside the ConfigureBoardGames method */
 
             builder.ConfigureBoardGames();
+            builder.ConfigureThousandBombsAndGrenades();
         }
     }
 }

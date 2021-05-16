@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BoardGames.Domain\BoardGames.Domain.csproj" />
     <ProjectReference Include="..\BoardGames.Application.Contracts\BoardGames.Application.Contracts.csproj" />
-  </ItemGroup>
+  <ProjectReference Include="..\..\modules\ThousandBombsAndGrenades\src\ThousandBombsAndGrenades.Application\ThousandBombsAndGrenades.Application.csproj" /></ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Account.Application" Version="4.3.0" />

@@ -1,4 +1,4 @@
-﻿using Localization.Resources.AbpUi;
+using Localization.Resources.AbpUi;
 using BoardGames.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -8,6 +8,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using ThousandBombsAndGrenades;
 
 namespace BoardGames
 {
@@ -20,6 +21,7 @@ namespace BoardGames
         typeof(AbpFeatureManagementHttpApiModule),
         typeof(AbpSettingManagementHttpApiModule)
         )]
+    [DependsOn(typeof(ThousandBombsAndGrenadesHttpApiModule))]
     public class BoardGamesHttpApiModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
