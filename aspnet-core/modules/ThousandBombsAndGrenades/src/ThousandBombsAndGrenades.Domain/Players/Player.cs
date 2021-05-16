@@ -6,7 +6,7 @@ namespace ThousandBombsAndGrenades.Players
 {
     public class Player : FullAuditedAggregateRoot<Guid>
     {
-        public virtual string Name { get; set; }
+        public virtual string Name { get; private set; }
 
         public Player()
         {

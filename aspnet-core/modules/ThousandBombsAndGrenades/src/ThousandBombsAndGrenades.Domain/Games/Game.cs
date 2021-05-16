@@ -8,10 +8,10 @@ namespace ThousandBombsAndGrenades.Games
 {
     public class Game : FullAuditedAggregateRoot<Guid>
     {
-        private DateTime? StartDate { get; set; }
-        private DateTime? EndDate { get; set; }
-        private ICollection<GamePlayer> Players { get; set; }
-        private Guid? TurnOfPlayerId { get; set; }
+        public virtual DateTime? StartDate { get; private set; }
+        public virtual DateTime? EndDate { get; private set; }
+        public virtual ICollection<GamePlayer> Players { get; private set; }
+        public virtual Guid? TurnOfPlayerId { get; private set; }
 
         private Game()
         {
