@@ -13,11 +13,19 @@ namespace ThousandBombsAndGrenades.Games
         {
         }
 
-        public Game(Guid id, DateTime? startDate = null, DateTime? endDate = null)
+        public Game(Guid id)
         {
             Id = id;
-            StartDate = startDate;
-            EndDate = endDate;
+        }
+
+        public void Start()
+        {
+            this.StartDate = DateTime.Now;
+        }
+
+        public void End()
+        {
+            this.EndDate = DateTime.Now;
         }
     }
 }
