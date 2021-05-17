@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Volo.Abp.Domain.Services;
 
 namespace ThousandBombsAndGrenades.Games
@@ -22,7 +19,7 @@ namespace ThousandBombsAndGrenades.Games
         public async Task<Game> CreateAsync()
         {
             // TODO: Check for existing running game for current user
-            
+
             // Create a new game
             Game newGame = new Game(GuidGenerator.Create());
 

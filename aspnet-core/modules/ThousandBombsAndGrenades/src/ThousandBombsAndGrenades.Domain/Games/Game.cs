@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.GamePlayers;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -12,6 +13,7 @@ namespace ThousandBombsAndGrenades.Games
         public virtual DateTime? EndDate { get; private set; }
         public virtual ICollection<GamePlayer> Players { get; private set; }
         public virtual Guid? TurnOfPlayerId { get; private set; }
+        public virtual DeckOfCards DeckOfCards { get; set; }
 
         private Game()
         {
@@ -21,6 +23,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Id = id;
             this.Players = new List<GamePlayer>();
+            this.DeckOfCards = new DeckOfCards();
         }
 
         /// <summary>
