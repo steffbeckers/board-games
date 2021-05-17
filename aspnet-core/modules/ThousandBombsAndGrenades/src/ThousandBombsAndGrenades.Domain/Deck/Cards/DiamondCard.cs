@@ -2,6 +2,9 @@
 {
     public class DiamondCard : Card
     {
-        public int Points { get; private set; } = 100;
+        public DiamondCard()
+        {
+            Points = 100;
+        }
     }
 }

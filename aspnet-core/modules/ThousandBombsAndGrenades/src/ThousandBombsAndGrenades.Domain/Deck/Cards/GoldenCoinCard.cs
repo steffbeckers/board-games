@@ -2,6 +2,9 @@
 {
     public class GoldenCoinCard : Card
     {
-        public int Points { get; private set; } = 100;
+        public GoldenCoinCard()
+        {
+            Points = 100;
+        }
     }
 }
