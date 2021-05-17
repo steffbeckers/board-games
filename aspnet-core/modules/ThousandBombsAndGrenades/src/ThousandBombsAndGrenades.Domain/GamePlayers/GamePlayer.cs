@@ -8,6 +8,6 @@ namespace ThousandBombsAndGrenades.GamePlayers
         public Guid GameId { get; set; }
         public Guid PlayerId { get; set; }
         public int SortOrder { get; set; }
-        public int Score { get; set; }
+        public int Points { get; set; }
     }
 }

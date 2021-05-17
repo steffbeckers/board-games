@@ -8,5 +8,6 @@ namespace ThousandBombsAndGrenades.Games
     {
         public const int MinPlayerCount = 2;
         public const int MaxPlayerCount = 5;
+        public const int DiceCount = 8;
     }
 }

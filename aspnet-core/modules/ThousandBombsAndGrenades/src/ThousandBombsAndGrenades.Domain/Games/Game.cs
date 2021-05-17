@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.GamePlayers;
+using ThousandBombsAndGrenades.PlayerTurns;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace ThousandBombsAndGrenades.Games
@@ -11,8 +12,8 @@ namespace ThousandBombsAndGrenades.Games
     {
         public virtual DateTime? StartDate { get; private set; }
         public virtual DateTime? EndDate { get; private set; }
-        public virtual ICollection<GamePlayer> Players { get; private set; }
-        public virtual Guid? TurnOfPlayerId { get; private set; }
+        public virtual List<GamePlayer> Players { get; private set; }
+        public virtual List<PlayerTurn> PlayerTurns { get; private set; }
         public virtual DeckOfCards DeckOfCards { get; set; }
 
         private Game()
@@ -22,8 +23,9 @@ namespace ThousandBombsAndGrenades.Games
         public Game(Guid id)
         {
             Id = id;
-            this.Players = new List<GamePlayer>();
-            this.DeckOfCards = new DeckOfCards();
+            Players = new List<GamePlayer>();
+            PlayerTurns = new List<PlayerTurn>();
+            DeckOfCards = new DeckOfCards();
         }
 
         /// <summary>
@@ -50,10 +52,38 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Update the start date
-            this.StartDate = DateTime.Now;
+            StartDate = DateTime.Now;
 
             // Select first player
-            this.TurnOfPlayerId = Players.OrderBy(x => x.SortOrder).First().PlayerId;
+            NextPlayerTurn();
+        }
+
+        public void NextPlayerTurn()
+        {
+            PlayerTurn playerTurn = new PlayerTurn(this);
+
+            // First player's turn
+            if (!PlayerTurns.Any())
+            {
+                playerTurn.PlayerId = Players.OrderBy(x => x.SortOrder).First().PlayerId;
+            }
+            else
+            {
+                PlayerTurn lastTurn = PlayerTurns.Last();
+                GamePlayer gamePlayer = Players.OrderBy(x => x.SortOrder).First(x => x.PlayerId == lastTurn.PlayerId);
+                int gamePlayerIndex = Players.IndexOf(gamePlayer);
+                if (gamePlayerIndex + 1 >= Players.Count)
+                {
+                    gamePlayerIndex = 0;
+                }
+            }
+
+            PlayerTurns.Add(playerTurn);
+        }
+
+        public void PlayersTurnEnded()
+        {
+            NextPlayerTurn();
         }
 
         /// <summary>
@@ -62,7 +92,6 @@ namespace ThousandBombsAndGrenades.Games
         public void End()
         {
             this.EndDate = DateTime.Now;
-            this.TurnOfPlayerId = null;
         }
 
         /// <summary>
