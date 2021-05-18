@@ -72,10 +72,13 @@ namespace ThousandBombsAndGrenades.Games
                 PlayerTurn lastTurn = PlayerTurns.Last();
                 GamePlayer gamePlayer = Players.OrderBy(x => x.SortOrder).First(x => x.PlayerId == lastTurn.PlayerId);
                 int gamePlayerIndex = Players.IndexOf(gamePlayer);
-                if (gamePlayerIndex + 1 >= Players.Count)
+                gamePlayerIndex++;
+                if (gamePlayerIndex >= Players.Count)
                 {
                     gamePlayerIndex = 0;
                 }
+
+                playerTurn.PlayerId = Players[gamePlayerIndex].PlayerId;
             }
 
             PlayerTurns.Add(playerTurn);
