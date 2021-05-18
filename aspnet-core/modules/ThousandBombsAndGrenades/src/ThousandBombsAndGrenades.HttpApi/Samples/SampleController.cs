@@ -6,7 +6,7 @@ using Volo.Abp;
 namespace ThousandBombsAndGrenades.Samples
 {
     [RemoteService]
-    [Route("api/ThousandBombsAndGrenades/sample")]
+    [Route("api/thousand-bombs-and-grenades/sample")]
     public class SampleController : ThousandBombsAndGrenadesController, ISampleAppService
     {
         private readonly ISampleAppService _sampleAppService;

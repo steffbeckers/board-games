@@ -21,12 +21,14 @@ namespace ThousandBombsAndGrenades.Games
             // TODO: Check for existing running game for current user
 
             // Create a new game
-            Game newGame = new Game(GuidGenerator.Create());
+            Game game = new Game(GuidGenerator.Create());
 
             // TODO: Add the current user's player ID to the game?
             //newGame.AddPlayer(...);
 
-            return newGame;
+            game = await _gameRepository.InsertAsync(game, autoSave: true);
+
+            return game;
         }
     }
 }

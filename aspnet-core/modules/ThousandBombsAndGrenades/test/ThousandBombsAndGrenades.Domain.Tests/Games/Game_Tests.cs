@@ -16,13 +16,8 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = new Game(Guid.NewGuid());
 
-            Player playerSteff = new Player(Guid.NewGuid(), "Steff");
-            Player playerDaisy = new Player(Guid.NewGuid(), "Daisy");
-            Player playerTest = new Player(Guid.NewGuid(), "Test");
-
-            game.AddPlayer(playerSteff.Id);
-            game.AddPlayer(playerDaisy.Id);
-            game.AddPlayer(playerTest.Id);
+            game.AddPlayer("Steff");
+            game.AddPlayer("Daisy");
 
             game.Start();
 

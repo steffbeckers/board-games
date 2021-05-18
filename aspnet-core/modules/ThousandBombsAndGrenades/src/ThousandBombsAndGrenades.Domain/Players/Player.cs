@@ -1,12 +1,18 @@
 ﻿using System;
+using ThousandBombsAndGrenades.Games;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace ThousandBombsAndGrenades.Players
 {
-    public class Player : FullAuditedAggregateRoot<Guid>
+    public class Player : FullAuditedEntity<Guid>
     {
         public virtual string Name { get; private set; }
+        public int SortOrder { get; set; }
+        public int Points { get; set; }
+
+        public Guid GameId { get; set; }
+        public Game Game { get; set; }
 
         public Player()
         {

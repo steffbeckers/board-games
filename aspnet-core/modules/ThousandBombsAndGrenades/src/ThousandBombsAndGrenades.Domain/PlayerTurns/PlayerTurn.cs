@@ -4,28 +4,30 @@ using System.Linq;
 using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Games;
+using ThousandBombsAndGrenades.Players;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace ThousandBombsAndGrenades.PlayerTurns
 {
     public class PlayerTurn : AuditedEntity<Guid>
-    {
-        public PlayerTurn(Game game)
-        {
-            Game = game;
-            GameId = Game.Id;
+    {        
+        public Card Card { get; private set; }
+        public int Points { get; private set; }
 
+        public Guid GameId { get; set; }
+        public Game Game { get; set; }
+
+        public Guid PlayerId { get; set; }
+        public Player Player { get; set; }
+
+        public List<DiceRoll> DiceRolls { get; private set; }
+        public List<Dice.Dice> PickedDice { get; private set; }
+
+        public PlayerTurn()
+        {
             DiceRolls = new List<DiceRoll>();
             PickedDice = new List<Dice.Dice>();
         }
-
-        public Game Game { get; }
-        public Guid GameId { get; private set; }
-        public Guid PlayerId { get; set; }
-        public Card Card { get; private set; }
-        public List<DiceRoll> DiceRolls { get; private set; }
-        public List<Dice.Dice> PickedDice { get; private set; }
-        public int Points { get; private set; }
 
         public void DrawCard()
         {

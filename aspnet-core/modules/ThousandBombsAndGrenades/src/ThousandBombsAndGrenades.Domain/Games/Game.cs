@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ThousandBombsAndGrenades.Deck;
-using ThousandBombsAndGrenades.GamePlayers;
+using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -12,9 +12,11 @@ namespace ThousandBombsAndGrenades.Games
     {
         public virtual DateTime? StartDate { get; private set; }
         public virtual DateTime? EndDate { get; private set; }
-        public virtual List<GamePlayer> Players { get; private set; }
-        public virtual List<PlayerTurn> PlayerTurns { get; private set; }
+
         public virtual DeckOfCards DeckOfCards { get; set; }
+
+        public virtual List<Player> Players { get; private set; }
+        public virtual List<PlayerTurn> PlayerTurns { get; private set; }
 
         private Game()
         {
@@ -23,9 +25,9 @@ namespace ThousandBombsAndGrenades.Games
         public Game(Guid id)
         {
             Id = id;
-            Players = new List<GamePlayer>();
-            PlayerTurns = new List<PlayerTurn>();
             DeckOfCards = new DeckOfCards();
+            Players = new List<Player>();
+            PlayerTurns = new List<PlayerTurn>();
         }
 
         /// <summary>
@@ -60,25 +62,30 @@ namespace ThousandBombsAndGrenades.Games
 
         public void NextPlayerTurn()
         {
-            PlayerTurn playerTurn = new PlayerTurn(this);
+            PlayerTurn playerTurn = new PlayerTurn();
+            playerTurn.GameId = Id;
+            playerTurn.Game = this;
 
             // First player's turn
             if (!PlayerTurns.Any())
             {
-                playerTurn.PlayerId = Players.OrderBy(x => x.SortOrder).First().PlayerId;
+                Player firstPlayer = Players.OrderBy(x => x.SortOrder).First();
+                playerTurn.PlayerId = firstPlayer.Id;
+                playerTurn.Player = firstPlayer;
             }
             else
             {
                 PlayerTurn lastTurn = PlayerTurns.Last();
-                GamePlayer gamePlayer = Players.OrderBy(x => x.SortOrder).First(x => x.PlayerId == lastTurn.PlayerId);
-                int gamePlayerIndex = Players.IndexOf(gamePlayer);
-                gamePlayerIndex++;
-                if (gamePlayerIndex >= Players.Count)
+                Player player = Players.OrderBy(x => x.SortOrder).First(x => x.Id == lastTurn.PlayerId);
+                int playerIndex = Players.IndexOf(player);
+                playerIndex++;
+                if (playerIndex >= Players.Count)
                 {
-                    gamePlayerIndex = 0;
+                    playerIndex = 0;
                 }
 
-                playerTurn.PlayerId = Players[gamePlayerIndex].PlayerId;
+                playerTurn.PlayerId = Players[playerIndex].Id;
+                playerTurn.Player = Players[playerIndex];
             }
 
             PlayerTurns.Add(playerTurn);
@@ -100,8 +107,8 @@ namespace ThousandBombsAndGrenades.Games
         /// <summary>
         /// To add a player to the game.
         /// </summary>
-        /// <param name="playerId">The player's ID</param>
-        public void AddPlayer(Guid playerId)
+        /// <param name="name">The player's name</param>
+        public void AddPlayer(string name)
         {
             // We can't add players when the game is already finished
             if (IsFinished())
@@ -116,7 +123,7 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Check if player is already added to the game
-            if (Players.Any(x => x.PlayerId == playerId))
+            if (Players.Any(x => x.Name.ToLower() == name.ToLower()))
             {
                 // If the player is already added, we don't need to add him again
                 return;
@@ -129,12 +136,7 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Add the player to the game
-            Players.Add(new GamePlayer()
-            {
-                GameId = Id,
-                PlayerId = playerId,
-                SortOrder = Players.Count + 1
-            });
+            Players.Add(new Player(Guid.NewGuid(), name));
         }
 
         /// <summary>
@@ -156,10 +158,10 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Remove the player from the game
-            GamePlayer gamePlayer = Players.FirstOrDefault(x => x.PlayerId == playerId);
-            if (gamePlayer != null)
+            Player player = Players.FirstOrDefault(x => x.Id == playerId);
+            if (player != null)
             {
-                Players.Remove(gamePlayer);
+                Players.Remove(player);
             }
         }
 
