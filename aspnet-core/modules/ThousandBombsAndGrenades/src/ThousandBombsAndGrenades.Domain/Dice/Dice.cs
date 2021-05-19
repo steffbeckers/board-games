@@ -4,6 +4,7 @@ using ThousandBombsAndGrenades.Dice.Sides;
 
 namespace ThousandBombsAndGrenades.Dice
 {
+    [Serializable]
     public class Dice
     {
         public List<DiceSide> Sides { get; private set; }

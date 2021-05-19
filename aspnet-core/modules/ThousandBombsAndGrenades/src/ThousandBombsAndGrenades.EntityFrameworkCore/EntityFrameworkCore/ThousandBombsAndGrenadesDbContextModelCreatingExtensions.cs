@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Newtonsoft.Json;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
@@ -59,8 +58,8 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.Property(x => x.DeckOfCards).HasConversion(
-                    v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
-                    v => JsonConvert.DeserializeObject<DeckOfCards>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
+                    v => v.SerializeXML(false),
+                    v => v.DeserializeXML<DeckOfCards>()
                 );
             });
 
@@ -84,40 +83,49 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.HasOne(x => x.Player).WithOne().OnDelete(DeleteBehavior.NoAction);
 
                 b.Property(x => x.Card).HasConversion(
-                    v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
-                    v => JsonConvert.DeserializeObject<Card>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
+                    v => v.SerializeXML(false),
+                    v => v.DeserializeXML<Card>()
                 );
-                //b.Property(x => x.Card as AnimalsCard).HasJsonConversion();
 
-                b.Property(x => x.DiceRolls).HasJsonConversion();
-                b.Property(x => x.PickedDice).HasJsonConversion();
+                b.Property(x => x.DiceRolls).HasConversion(
+                    v => v.SerializeXML(false),
+                    v => v.DeserializeXML<List<DiceRoll>>()
+                );
+
+                b.Property(x => x.PickedDice).HasConversion(
+                    v => v.SerializeXML(false),
+                    v => v.DeserializeXML<List<Dice.Dice>>()
+                );
             });
         }
     }
 
-    public static class ValueConversionExtensions
+    public static class XMLExtensions
     {
-        public static PropertyBuilder<T> HasJsonConversion<T>(this PropertyBuilder<T> propertyBuilder) where T : class, new()
+        public static string SerializeXML<T>(this T value, bool indent = false)
         {
-            ValueConverter<T, string> converter = new ValueConverter<T, string>
-            (
-                v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<T>(v) ?? new T()
-            );
+            if (value == null) return string.Empty;
 
-            ValueComparer<T> comparer = new ValueComparer<T>
-            (
-                (l, r) => JsonConvert.SerializeObject(l) == JsonConvert.SerializeObject(r),
-                v => v == null ? 0 : JsonConvert.SerializeObject(v).GetHashCode(),
-                v => JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(v))
-            );
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
 
-            propertyBuilder.HasConversion(converter);
-            propertyBuilder.Metadata.SetValueConverter(converter);
-            propertyBuilder.Metadata.SetValueComparer(comparer);
-            propertyBuilder.HasColumnType("nvarchar(max)");
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { Indent = indent }))
+                {
+                    xmlSerializer.Serialize(xmlWriter, value);
+                    return stringWriter.ToString();
+                }
+            }
+        }
 
-            return propertyBuilder;
+        public static T DeserializeXML<T>(this string value)
+        {
+            if (string.IsNullOrEmpty(value)) return default(T);
+
+            using (StringReader stringReader = new StringReader(value))
+            {
+                return (T)new XmlSerializer(typeof(T)).Deserialize(stringReader);
+            }
         }
     }
 }

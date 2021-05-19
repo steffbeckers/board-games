@@ -1,5 +1,8 @@
-﻿namespace ThousandBombsAndGrenades.Dice.Sides
+﻿using System;
+
+namespace ThousandBombsAndGrenades.Dice.Sides
 {
+    [Serializable]
     public class GoldenCoinSide : DiceSide
     {
         public GoldenCoinSide()

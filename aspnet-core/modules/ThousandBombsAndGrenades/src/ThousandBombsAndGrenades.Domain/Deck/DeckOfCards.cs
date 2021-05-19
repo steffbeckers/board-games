@@ -5,6 +5,7 @@ using ThousandBombsAndGrenades.Deck.Cards;
 
 namespace ThousandBombsAndGrenades.Deck
 {
+    [Serializable]
     public class DeckOfCards
     {
         public List<Card> Cards { get; private set; }

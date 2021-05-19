@@ -2,10 +2,14 @@
 
 namespace ThousandBombsAndGrenades.Deck.Cards
 {
+    [Serializable]
     public class PirateShipCard : Card
     {
-        public int SwordCount { get; private set; }
-        public int Points { get; private set; }
+        public int SwordCount { get; set; }
+
+        public PirateShipCard()
+        {
+        }
 
         public PirateShipCard(int swordCount)
         {

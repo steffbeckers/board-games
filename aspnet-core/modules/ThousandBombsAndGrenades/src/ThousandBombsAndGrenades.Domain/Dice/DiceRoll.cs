@@ -5,6 +5,7 @@ using ThousandBombsAndGrenades.PlayerTurns;
 
 namespace ThousandBombsAndGrenades.Dice
 {
+    [Serializable]
     public class DiceRoll
     {
         public List<Dice> Dice { get; private set; }

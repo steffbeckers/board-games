@@ -2,9 +2,14 @@
 
 namespace ThousandBombsAndGrenades.Deck.Cards
 {
+    [Serializable]
     public class SkullCard : Card
     {
-        public int Count { get; private set; }
+        public int Count { get; set; }
+
+        public SkullCard()
+        {
+        }
 
         public SkullCard(int count)
         {
