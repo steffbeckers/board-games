@@ -10,22 +10,16 @@ namespace ThousandBombsAndGrenades.Games
 {
     public class Game : FullAuditedAggregateRoot<Guid>
     {
-        public virtual DateTime? StartDate { get; private set; }
-        public virtual DateTime? EndDate { get; private set; }
+        public DateTime? StartDate { get; private set; }
+        public DateTime? EndDate { get; private set; }
 
-        public virtual DeckOfCards DeckOfCards { get; set; }
+        public DeckOfCards DeckOfCards { get; set; }
 
-        public virtual List<Player> Players { get; private set; }
-        public virtual List<PlayerTurn> PlayerTurns { get; private set; }
+        public List<Player> Players { get; private set; }
+        public List<PlayerTurn> PlayerTurns { get; private set; }
 
-        private Game()
+        public Game()
         {
-        }
-
-        public Game(Guid id)
-        {
-            Id = id;
-            DeckOfCards = new DeckOfCards();
             Players = new List<Player>();
             PlayerTurns = new List<PlayerTurn>();
         }
@@ -137,6 +131,8 @@ namespace ThousandBombsAndGrenades.Games
 
             // Add the player to the game
             Players.Add(new Player(Guid.NewGuid(), name));
+
+            CalculatePlayersSortOrders();
         }
 
         /// <summary>
@@ -162,6 +158,16 @@ namespace ThousandBombsAndGrenades.Games
             if (player != null)
             {
                 Players.Remove(player);
+            }
+
+            CalculatePlayersSortOrders();
+        }
+
+        private void CalculatePlayersSortOrders()
+        {
+            for (int i = 0; i < Players.Count; i++)
+            {
+                Players[i].SortOrder = i + 1;
             }
         }
 

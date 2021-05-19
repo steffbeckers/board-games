@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ThousandBombsAndGrenades.Games;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.DependencyInjection;
 using Volo.Abp.Modularity;
 
 namespace ThousandBombsAndGrenades.EntityFrameworkCore
@@ -19,6 +21,16 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                  * options.AddRepository<Question, EfCoreQuestionRepository>();
                  */
                 options.AddRepository<Game, EfCoreGameRepository>();
+            });
+
+            Configure<AbpEntityOptions>(options =>
+            {
+                options.Entity<Game>(gameOptions =>
+                {
+                    gameOptions.DefaultWithDetailsFunc = query =>
+                        query.Include(x => x.Players)
+                            .Include(x => x.PlayerTurns);
+                });
             });
         }
     }

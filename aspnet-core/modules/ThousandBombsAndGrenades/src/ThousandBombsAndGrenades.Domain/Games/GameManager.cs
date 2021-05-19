@@ -21,7 +21,9 @@ namespace ThousandBombsAndGrenades.Games
             // TODO: Check for existing running game for current user
 
             // Create a new game
-            Game game = new Game(GuidGenerator.Create());
+            Game game = new Game() {
+                DeckOfCards = new Deck.DeckOfCards()
+            };
 
             // TODO: Add the current user's player ID to the game?
             //newGame.AddPlayer(...);

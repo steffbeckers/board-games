@@ -51,11 +51,12 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PickedDice.Add(dice);
 
+            // TODO: Calculate points?
         }
 
         public void End()
         {
-            // TODO: Calculate points
+            // TODO: Calculate points?
 
             Game.PlayersTurnEnded();
         }

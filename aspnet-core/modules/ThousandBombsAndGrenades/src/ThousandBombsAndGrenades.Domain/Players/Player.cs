@@ -7,7 +7,7 @@ namespace ThousandBombsAndGrenades.Players
 {
     public class Player : FullAuditedEntity<Guid>
     {
-        public virtual string Name { get; private set; }
+        public string Name { get; private set; }
         public int SortOrder { get; set; }
         public int Points { get; set; }
 

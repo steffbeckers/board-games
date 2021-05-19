@@ -61,6 +61,16 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     v => v.SerializeXML(false),
                     v => v.DeserializeXML<DeckOfCards>()
                 );
+
+                b.HasMany(x => x.Players)
+                    .WithOne(x => x.Game)
+                    .HasForeignKey(x => x.GameId)
+                    .IsRequired();
+
+                b.HasMany(x => x.PlayerTurns)
+                    .WithOne(x => x.Game)
+                    .HasForeignKey(x => x.GameId)
+                    .IsRequired();
             });
 
             builder.Entity<Player>(b =>
