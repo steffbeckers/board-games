@@ -1,8 +1,6 @@
-﻿using Volo.Abp;
-
-namespace BoardGames.EntityFrameworkCore
+﻿namespace BoardGames.EntityFrameworkCore
 {
-    public abstract class BoardGamesEntityFrameworkCoreTestBase : BoardGamesTestBase<BoardGamesEntityFrameworkCoreTestModule> 
+    public abstract class BoardGamesEntityFrameworkCoreTestBase : BoardGamesTestBase<BoardGamesEntityFrameworkCoreTestModule>
     {
 
     }

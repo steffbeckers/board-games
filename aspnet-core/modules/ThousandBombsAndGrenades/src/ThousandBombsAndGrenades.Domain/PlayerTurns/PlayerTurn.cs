@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 namespace ThousandBombsAndGrenades.PlayerTurns
 {
     public class PlayerTurn : AuditedEntity<Guid>
-    {        
+    {
         public Card Card { get; set; }
         public int Points { get; private set; }
 

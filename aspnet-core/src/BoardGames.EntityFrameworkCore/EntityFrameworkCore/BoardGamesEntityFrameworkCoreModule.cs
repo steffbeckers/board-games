@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using ThousandBombsAndGrenades.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,7 +11,6 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using ThousandBombsAndGrenades.EntityFrameworkCore;
 
 namespace BoardGames.EntityFrameworkCore
 {

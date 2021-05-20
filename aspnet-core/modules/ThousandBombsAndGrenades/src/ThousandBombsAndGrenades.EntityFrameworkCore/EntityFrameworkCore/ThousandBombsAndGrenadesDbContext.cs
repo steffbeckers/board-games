@@ -13,7 +13,7 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
          */
         public DbSet<Game> Games { get; set; }
 
-        public ThousandBombsAndGrenadesDbContext(DbContextOptions<ThousandBombsAndGrenadesDbContext> options) 
+        public ThousandBombsAndGrenadesDbContext(DbContextOptions<ThousandBombsAndGrenadesDbContext> options)
             : base(options)
         {
         }

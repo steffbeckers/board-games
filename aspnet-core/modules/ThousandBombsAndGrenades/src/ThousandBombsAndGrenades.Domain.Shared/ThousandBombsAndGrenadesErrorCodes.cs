@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace ThousandBombsAndGrenades
+﻿namespace ThousandBombsAndGrenades
 {
     public static class ThousandBombsAndGrenadesErrorCodes
     {

@@ -1,12 +1,12 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using BoardGames.Data;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BoardGames.Data;
 using Serilog;
-using Volo.Abp;
-using Microsoft.Extensions.Configuration;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Volo.Abp;
 
 namespace BoardGames.DbMigrator
 {

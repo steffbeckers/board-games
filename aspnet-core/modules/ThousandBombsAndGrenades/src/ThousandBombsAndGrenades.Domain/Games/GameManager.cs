@@ -21,7 +21,8 @@ namespace ThousandBombsAndGrenades.Games
             // TODO: Check for existing running game for current user
 
             // Create a new game
-            Game game = new Game() {
+            Game game = new Game()
+            {
                 DeckOfCards = new Deck.DeckOfCards()
             };
 

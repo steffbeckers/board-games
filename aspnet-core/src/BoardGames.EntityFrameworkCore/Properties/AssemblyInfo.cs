@@ -1,2 +1,2 @@
 ﻿using System.Runtime.CompilerServices;
-[assembly:InternalsVisibleToAttribute("BoardGames.EntityFrameworkCore.Tests")]
+[assembly: InternalsVisibleToAttribute("BoardGames.EntityFrameworkCore.Tests")]

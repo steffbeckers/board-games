@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using BoardGames.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using BoardGames.Data;
+using System;
+using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 
 namespace BoardGames.EntityFrameworkCore

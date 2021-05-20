@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BoardGames.Users;
+﻿using BoardGames.Users;
+using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using System;
 using System.Linq;

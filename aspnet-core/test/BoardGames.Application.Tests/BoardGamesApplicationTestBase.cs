@@ -1,6 +1,6 @@
 ﻿namespace BoardGames
 {
-    public abstract class BoardGamesApplicationTestBase : BoardGamesTestBase<BoardGamesApplicationTestModule> 
+    public abstract class BoardGamesApplicationTestBase : BoardGamesTestBase<BoardGamesApplicationTestModule>
     {
 
     }

@@ -57,7 +57,7 @@ namespace BoardGames.Users
 
         private AppUser()
         {
-            
+
         }
     }
 }

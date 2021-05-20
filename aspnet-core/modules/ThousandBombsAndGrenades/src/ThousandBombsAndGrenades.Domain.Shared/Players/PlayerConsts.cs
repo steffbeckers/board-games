@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ThousandBombsAndGrenades.Players
+﻿namespace ThousandBombsAndGrenades.Players
 {
     public static class PlayerConsts
     {
