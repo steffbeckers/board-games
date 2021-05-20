@@ -55,5 +55,19 @@ namespace ThousandBombsAndGrenades.Controllers.Games
         {
             return _gamesAppService.RemovePlayerAsync(id, playerId);
         }
+
+        [HttpPost]
+        [Route("{id}/start")]
+        public virtual Task<GameDto> StartAsync(Guid id)
+        {
+            return _gamesAppService.StartAsync(id);
+        }
+
+        [HttpPost]
+        [Route("{id}/end")]
+        public virtual Task<GameDto> EndAsync(Guid id)
+        {
+            return _gamesAppService.EndAsync(id);
+        }
     }
 }

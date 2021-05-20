@@ -5,6 +5,7 @@ namespace ThousandBombsAndGrenades.Deck.Cards
     [Serializable]
     public class SkullCard : Card
     {
+        public override string Name { get; set; } = "Skull";
         public int Count { get; set; }
 
         public SkullCard()

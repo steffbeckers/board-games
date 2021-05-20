@@ -7,6 +7,7 @@ namespace ThousandBombsAndGrenades.Deck.Cards
     {
         public DiamondCard()
         {
+            Name = "Diamond";
             Points = 100;
         }
     }

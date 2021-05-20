@@ -5,6 +5,7 @@ namespace ThousandBombsAndGrenades.Deck.Cards
     [Serializable]
     public class PirateShipCard : Card
     {
+        public override string Name { get; set; } = "Pirate ship";
         public int SwordCount { get; set; }
 
         public PirateShipCard()

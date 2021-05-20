@@ -7,6 +7,7 @@ namespace ThousandBombsAndGrenades.Deck.Cards
     {
         public TresureChestCard()
         {
+            Name = "Tresure chest";
         }
     }
 }

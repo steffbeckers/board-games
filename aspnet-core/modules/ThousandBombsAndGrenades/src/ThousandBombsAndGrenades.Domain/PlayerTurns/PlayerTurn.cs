@@ -11,7 +11,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 {
     public class PlayerTurn : AuditedEntity<Guid>
     {        
-        public Card Card { get; private set; }
+        public Card Card { get; set; }
         public int Points { get; private set; }
 
         public Guid GameId { get; set; }
@@ -36,6 +36,12 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public void RollDice()
         {
+            // Validation
+            if (Card == null)
+            {
+                throw new PlayerTurnHasToStartByDrawingACardFirstException();
+            }
+
             DiceRoll diceRoll = new DiceRoll();
             diceRoll.RollDice(GameConsts.DiceCount - PickedDice.Count);
             DiceRolls.Add(diceRoll);
@@ -43,6 +49,9 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public void PickDice(int index)
         {
+            // Validation
+            // TODO: You can't pick a dice if there are no dice rolled
+
             DiceRoll diceRoll = DiceRolls.LastOrDefault();
             if (diceRoll == null) return;
 

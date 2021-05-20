@@ -7,8 +7,8 @@ namespace ThousandBombsAndGrenades.Dice
     [Serializable]
     public class Dice
     {
-        public List<DiceSide> Sides { get; private set; }
-        public DiceSide FacingUp { get; private set; }
+        public List<DiceSide> Sides { get; set; }
+        public DiceSide FacingUp { get; set; }
 
         public Dice()
         {

@@ -63,5 +63,21 @@ namespace ThousandBombsAndGrenades.Games
             await _gameRepository.UpdateAsync(game, autoSave: true);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
+
+        public async Task<GameDto> StartAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.Start();
+            await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<GameDto> EndAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.End();
+            await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
     }
 }

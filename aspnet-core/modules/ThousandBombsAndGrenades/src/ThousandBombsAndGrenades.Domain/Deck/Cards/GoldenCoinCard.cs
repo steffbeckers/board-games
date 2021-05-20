@@ -7,6 +7,7 @@ namespace ThousandBombsAndGrenades.Deck.Cards
     {
         public GoldenCoinCard()
         {
+            Name = "Golden coin";
             Points = 100;
         }
     }
