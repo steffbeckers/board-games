@@ -8,6 +8,7 @@ namespace ThousandBombsAndGrenades.Dice.Sides
     [XmlInclude(typeof(MonkeySide))]
     [XmlInclude(typeof(ParrotSide))]
     [XmlInclude(typeof(SkullSide))]
+    [XmlInclude(typeof(SwordsSide))]
     [Serializable]
     public abstract class DiceSide
     {

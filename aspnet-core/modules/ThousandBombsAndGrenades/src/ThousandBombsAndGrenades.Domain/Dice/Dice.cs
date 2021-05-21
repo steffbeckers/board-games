@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using ThousandBombsAndGrenades.Dice.Sides;
 
 namespace ThousandBombsAndGrenades.Dice
@@ -7,8 +8,10 @@ namespace ThousandBombsAndGrenades.Dice
     [Serializable]
     public class Dice
     {
-        public List<DiceSide> Sides { get; set; }
         public DiceSide FacingUp { get; set; }
+
+        [IgnoreDataMember]
+        public List<DiceSide> Sides { get; set; }
 
         public Dice()
         {
@@ -19,6 +22,7 @@ namespace ThousandBombsAndGrenades.Dice
                 new MonkeySide(),
                 new ParrotSide(),
                 new SkullSide(),
+                new SwordsSide(),
             };
         }
 
