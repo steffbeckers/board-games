@@ -1,4 +1,5 @@
 ﻿using System;
+using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
 using Volo.Abp.Application.Dtos;
 
@@ -6,6 +7,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 {
     public class PlayerTurnDto : AuditedEntityDto<Guid>
     {
+        public Guid GameId { get; set; }
+
         public Guid PlayerId { get; set; }
         public PlayerDto Player { get; set; }
 

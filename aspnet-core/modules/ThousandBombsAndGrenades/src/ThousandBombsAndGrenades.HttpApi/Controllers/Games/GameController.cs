@@ -11,9 +11,8 @@ namespace ThousandBombsAndGrenades.Controllers.Games
 {
     [RemoteService]
     [Area("app")]
-    [ControllerName("Game")]
-    [Route("api/thousand-bombs-and-grenades/games")]
-
+    [ControllerName("Games - 1000 Bombs & Grenades")]
+    [Route("api/games/thousand-bombs-and-grenades/games")]
     public class GameController : AbpController, IGamesAppService
     {
         private readonly IGamesAppService _gamesAppService;
@@ -56,14 +55,14 @@ namespace ThousandBombsAndGrenades.Controllers.Games
             return _gamesAppService.RemovePlayerAsync(id, playerId);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("{id}/start")]
         public virtual Task<GameDto> StartAsync(Guid id)
         {
             return _gamesAppService.StartAsync(id);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("{id}/end")]
         public virtual Task<GameDto> EndAsync(Guid id)
         {

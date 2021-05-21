@@ -24,7 +24,7 @@ namespace ThousandBombsAndGrenades
                     x => x.MapFrom(y => y.Card.Description)
                 )
                 .ForMember(
-                    x => x.CardName,
+                    x => x.CardPoints,
                     x => x.MapFrom(y => y.Card.Points)
                 );
         }

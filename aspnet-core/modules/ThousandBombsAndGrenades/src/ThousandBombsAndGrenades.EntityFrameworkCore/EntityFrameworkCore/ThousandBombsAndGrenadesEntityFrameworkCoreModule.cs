@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ThousandBombsAndGrenades.Games;
+using ThousandBombsAndGrenades.PlayerTurns;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.DependencyInjection;
 using Volo.Abp.Modularity;
@@ -20,7 +21,8 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 /* Add custom repositories here. Example:
                  * options.AddRepository<Question, EfCoreQuestionRepository>();
                  */
-                options.AddRepository<Game, EfCoreGameRepository>();
+                options.AddRepository<Game, EfCorePlayerTurnRepository>();
+                options.AddRepository<PlayerTurn, EfCorePlayerTurnRepository>();
             });
 
             Configure<AbpEntityOptions>(options =>
@@ -30,6 +32,13 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     gameOptions.DefaultWithDetailsFunc = query =>
                         query.Include(x => x.Players)
                             .Include(x => x.PlayerTurns);
+                });
+
+                options.Entity<PlayerTurn>(playerTurnOptions =>
+                {
+                    playerTurnOptions.DefaultWithDetailsFunc = query =>
+                        query.Include(x => x.Game)
+                            .Include(x => x.Player);
                 });
             });
         }
