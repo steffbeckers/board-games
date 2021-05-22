@@ -63,6 +63,20 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // TODO: Calculate points?
         }
 
+        public void ReturnDice(int index)
+        {
+            // Validation
+            // TODO: You can't return a dice if none were picked yet
+
+            DiceRoll diceRoll = DiceRolls.LastOrDefault();
+            if (diceRoll == null) return;
+
+            Dice.Dice dice = PickedDice[index];
+            PickedDice.Remove(dice);
+
+            // TODO: Calculate points?
+        }
+
         public void End()
         {
             // TODO: Calculate points?
