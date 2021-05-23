@@ -66,7 +66,9 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void ReturnDice(int index)
         {
             // Validation
-            // TODO: You can't return a dice if none were picked yet
+            // TODO:
+            // - You can't return a dice if none were picked yet
+            // - You can't return Dice of type Skull
 
             DiceRoll diceRoll = DiceRolls.LastOrDefault();
             if (diceRoll == null) return;
@@ -79,6 +81,10 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public void End()
         {
+            // Validation
+            // TODO:
+            // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
+
             // TODO: Calculate points?
 
             Game.PlayersTurnEnded();

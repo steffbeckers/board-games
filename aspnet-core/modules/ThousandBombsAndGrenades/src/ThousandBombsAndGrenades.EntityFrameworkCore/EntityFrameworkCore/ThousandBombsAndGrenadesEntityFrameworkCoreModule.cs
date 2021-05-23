@@ -38,6 +38,9 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 {
                     playerTurnOptions.DefaultWithDetailsFunc = query =>
                         query.Include(x => x.Game)
+                                .ThenInclude(x => x.Players)
+                            .Include(x => x.Game)
+                                .ThenInclude(x => x.PlayerTurns)
                             .Include(x => x.Player);
                 });
             });

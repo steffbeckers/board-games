@@ -40,5 +40,26 @@ namespace ThousandBombsAndGrenades.Controllers.PlayerTurns
         {
             return _playerTurnsAppService.RollDiceAsync(id);
         }
+
+        [HttpGet]
+        [Route("{id}/pick-dice")]
+        public virtual Task<PlayerTurnDto> PickDiceAsync(Guid id, int index)
+        {
+            return _playerTurnsAppService.PickDiceAsync(id, index);
+        }
+
+        [HttpGet]
+        [Route("{id}/return-dice")]
+        public virtual Task<PlayerTurnDto> ReturnDiceAsync(Guid id, int index)
+        {
+            return _playerTurnsAppService.ReturnDiceAsync(id, index);
+        }
+
+        [HttpGet]
+        [Route("{id}/end")]
+        public virtual Task<PlayerTurnDto> EndAsync(Guid id)
+        {
+            return _playerTurnsAppService.EndAsync(id);
+        }
     }
 }

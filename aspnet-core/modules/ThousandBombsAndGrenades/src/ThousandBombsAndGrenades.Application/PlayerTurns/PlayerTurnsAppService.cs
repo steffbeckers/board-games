@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ThousandBombsAndGrenades.Games;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 
@@ -34,6 +33,30 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         {
             PlayerTurn playerTurn = await _playerTurnRepository.GetAsync(id);
             playerTurn.RollDice();
+            playerTurn = await _playerTurnRepository.UpdateAsync(playerTurn, autoSave: true);
+            return ObjectMapper.Map<PlayerTurn, PlayerTurnDto>(playerTurn);
+        }
+
+        public async Task<PlayerTurnDto> PickDiceAsync(Guid id, int index)
+        {
+            PlayerTurn playerTurn = await _playerTurnRepository.GetAsync(id);
+            playerTurn.PickDice(index);
+            playerTurn = await _playerTurnRepository.UpdateAsync(playerTurn, autoSave: true);
+            return ObjectMapper.Map<PlayerTurn, PlayerTurnDto>(playerTurn);
+        }
+
+        public async Task<PlayerTurnDto> ReturnDiceAsync(Guid id, int index)
+        {
+            PlayerTurn playerTurn = await _playerTurnRepository.GetAsync(id);
+            playerTurn.ReturnDice(index);
+            playerTurn = await _playerTurnRepository.UpdateAsync(playerTurn, autoSave: true);
+            return ObjectMapper.Map<PlayerTurn, PlayerTurnDto>(playerTurn);
+        }
+
+        public async Task<PlayerTurnDto> EndAsync(Guid id)
+        {
+            PlayerTurn playerTurn = await _playerTurnRepository.GetAsync(id);
+            playerTurn.End();
             playerTurn = await _playerTurnRepository.UpdateAsync(playerTurn, autoSave: true);
             return ObjectMapper.Map<PlayerTurn, PlayerTurnDto>(playerTurn);
         }

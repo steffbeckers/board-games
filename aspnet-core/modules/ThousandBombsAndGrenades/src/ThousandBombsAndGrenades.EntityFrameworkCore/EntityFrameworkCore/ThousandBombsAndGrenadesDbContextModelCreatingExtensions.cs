@@ -65,12 +65,12 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.HasMany(x => x.Players)
                     .WithOne(x => x.Game)
                     .HasForeignKey(x => x.GameId)
-                    .IsRequired();
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 b.HasMany(x => x.PlayerTurns)
                     .WithOne(x => x.Game)
                     .HasForeignKey(x => x.GameId)
-                    .IsRequired();
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<Player>(b =>
@@ -79,8 +79,15 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "Players", options.Schema);
 
                 b.ConfigureByConvention();
+                
+                b.Property(x => x.Name)
+                    .IsRequired()
+                    .HasMaxLength(PlayerConsts.NameMaxLength);
 
-                b.Property(x => x.Name).IsRequired().HasMaxLength(PlayerConsts.NameMaxLength);
+                b.HasOne(x => x.Game)
+                    .WithMany(x => x.Players)
+                    .HasForeignKey(x => x.GameId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<PlayerTurn>(b =>
@@ -89,8 +96,6 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "PlayerTurns", options.Schema);
 
                 b.ConfigureByConvention();
-
-                b.HasOne(x => x.Player).WithOne().OnDelete(DeleteBehavior.NoAction);
 
                 b.Property(x => x.Card).HasConversion(
                     v => v.SerializeXML(false),
@@ -106,6 +111,16 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     v => v.SerializeXML(false),
                     v => v.DeserializeXML<List<Dice.Dice>>()
                 );
+
+                b.HasOne(x => x.Game)
+                    .WithMany(x => x.PlayerTurns)
+                    .HasForeignKey(x => x.GameId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(x => x.Player)
+                    .WithMany()
+                    .HasForeignKey(x => x.PlayerId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
