@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
@@ -26,6 +27,16 @@ namespace ThousandBombsAndGrenades
                 .ForMember(
                     x => x.CardPoints,
                     x => x.MapFrom(y => y.Card.Points)
+                );
+            CreateMap<DiceRoll, DiceRollDto>();
+            CreateMap<Dice.Dice, DiceDto>()
+                .ForMember(
+                    x => x.FacingUp,
+                    x => x.MapFrom(y => y.FacingUp.Name)
+                )
+                .ForMember(
+                    x => x.Points,
+                    x => x.MapFrom(y => y.FacingUp.Points)
                 );
         }
     }

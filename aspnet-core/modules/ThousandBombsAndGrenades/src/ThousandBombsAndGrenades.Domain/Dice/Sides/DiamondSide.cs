@@ -7,6 +7,7 @@ namespace ThousandBombsAndGrenades.Dice.Sides
     {
         public DiamondSide()
         {
+            Name = "Diamond";
             Points = 100;
         }
     }

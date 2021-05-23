@@ -7,6 +7,7 @@ namespace ThousandBombsAndGrenades.Dice.Sides
     {
         public GoldenCoinSide()
         {
+            Name = "Golden coin";
             Points = 100;
         }
     }

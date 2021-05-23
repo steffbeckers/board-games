@@ -12,6 +12,7 @@ namespace ThousandBombsAndGrenades.Dice.Sides
     [Serializable]
     public abstract class DiceSide
     {
-        public int Points { get; set; }
+        public virtual string Name { get; set; }
+        public int? Points { get; set; }
     }
 }

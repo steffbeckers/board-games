@@ -79,7 +79,7 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "Players", options.Schema);
 
                 b.ConfigureByConvention();
-                
+
                 b.Property(x => x.Name)
                     .IsRequired()
                     .HasMaxLength(PlayerConsts.NameMaxLength);
