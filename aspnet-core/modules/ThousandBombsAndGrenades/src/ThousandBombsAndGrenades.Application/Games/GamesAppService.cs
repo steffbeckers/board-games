@@ -25,12 +25,10 @@ namespace ThousandBombsAndGrenades.Games
 
         public async Task<PagedResultDto<GameDto>> GetListAsync()
         {
-            var totalCount = await _gameRepository.GetCountAsync();
-            var games = await _gameRepository.GetListAsync();
-
+            List<Game> games = await _gameRepository.GetListAsync();
             return new PagedResultDto<GameDto>
             {
-                TotalCount = totalCount,
+                TotalCount = games.Count,
                 Items = ObjectMapper.Map<List<Game>, List<GameDto>>(games)
             };
         }
