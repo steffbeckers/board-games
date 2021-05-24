@@ -13,6 +13,6 @@ namespace ThousandBombsAndGrenades.Dice.Sides
     public abstract class DiceSide
     {
         public virtual string Name { get; set; }
-        public int? Points { get; set; }
+        public int Points { get; set; }
     }
 }

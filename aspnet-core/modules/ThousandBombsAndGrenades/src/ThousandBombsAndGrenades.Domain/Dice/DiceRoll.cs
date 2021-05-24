@@ -7,10 +7,12 @@ namespace ThousandBombsAndGrenades.Dice
     public class DiceRoll
     {
         public List<Dice> Dice { get; set; }
+        public List<Dice> Picked { get; set; }
 
         public DiceRoll()
         {
             Dice = new List<Dice>();
+            Picked = new List<Dice>();
         }
 
         public List<Dice> RollDice(int count)

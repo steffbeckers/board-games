@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
+using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -13,6 +14,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
     {
         public Card Card { get; set; }
         public int Points { get; private set; }
+        public bool SkullIslandActive { get; set; }
 
         public Guid GameId { get; set; }
         public Game Game { get; set; }
@@ -45,6 +47,55 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             DiceRoll diceRoll = new DiceRoll();
             diceRoll.RollDice(GameConsts.DiceCount - PickedDice.Count);
             DiceRolls.Add(diceRoll);
+
+            // Automatically pick skull dice
+            int skullDiceRolled = 0;
+            foreach (Dice.Dice dice in diceRoll.Dice.ToList())
+            {
+                if (dice.FacingUp.GetType() == typeof(SkullSide))
+                {
+                    PickDice(diceRoll.Dice.IndexOf(dice));
+                    skullDiceRolled++;
+                }
+            }
+
+            // Skull island
+            int skullCount = CalculateSkullCount();
+            if (DiceRolls.Count == 1 && skullCount >= 4)
+            {
+                SkullIslandActive = true;
+            }
+            // Still in skull island
+            else if (SkullIslandActive && skullDiceRolled > 0)
+            {
+            }
+            // Dead
+            else if (skullCount >= 3)
+            {
+                End();
+            }
+        }
+
+        private int CalculateSkullCount()
+        {
+            int skullCount = 0;
+
+            // From card
+            if (Card.GetType() == typeof(SkullCard))
+            {
+                skullCount += ((SkullCard)Card).Count;
+            }
+
+            // From dice
+            foreach (Dice.Dice dice in PickedDice)
+            {
+                if (dice.FacingUp.GetType() == typeof(SkullSide))
+                {
+                    skullCount += 1;
+                }
+            }
+
+            return skullCount;
         }
 
         public void PickDice(int index)
@@ -57,6 +108,9 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             Dice.Dice dice = diceRoll.Dice[index];
             if (dice == null) return;
+
+            diceRoll.Picked.Add(dice);
+            diceRoll.Dice.Remove(dice);
 
             PickedDice.Add(dice);
 
@@ -74,6 +128,11 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             if (diceRoll == null) return;
 
             Dice.Dice dice = PickedDice[index];
+            if (dice == null) return;
+
+            diceRoll.Dice.Add(dice);
+            diceRoll.Picked.Remove(dice);
+
             PickedDice.Remove(dice);
 
             // TODO: Calculate points?
@@ -86,6 +145,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
 
             // TODO: Calculate points?
+            // TODO: What with skull island points?
 
             Game.PlayersTurnEnded();
         }

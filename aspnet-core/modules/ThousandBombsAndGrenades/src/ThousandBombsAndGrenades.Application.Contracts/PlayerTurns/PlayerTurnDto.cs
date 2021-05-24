@@ -16,10 +16,12 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public string CardName { get; set; }
         public string CardDescription { get; set; }
         public int CardPoints { get; set; }
+        public int CardCount { get; set; }
 
         public List<DiceRollDto> DiceRolls { get; set; }
         public List<DiceDto> PickedDice { get; set; }
 
         public int Points { get; set; }
+        public bool SkullIslandActive { get; set; }
     }
 }
