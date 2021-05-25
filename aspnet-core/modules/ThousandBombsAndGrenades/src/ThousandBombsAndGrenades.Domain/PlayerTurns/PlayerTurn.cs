@@ -76,6 +76,58 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             }
         }
 
+        public void PickDice(int index)
+        {
+            // Validation
+            // TODO: You can't pick a dice if there are no dice rolled
+
+            DiceRoll diceRoll = DiceRolls.LastOrDefault();
+            if (diceRoll == null) return;
+
+            Dice.Dice dice = diceRoll.Dice[index];
+            if (dice == null) return;
+
+            diceRoll.Picked.Add(dice);
+            diceRoll.Dice.Remove(dice);
+
+            PickedDice.Add(dice);
+
+            Points = CalculatePoints();
+        }
+
+        public void ReturnDice(int index)
+        {
+            // Validation
+            // TODO:
+            // - You can't return a dice if none were picked yet
+            // - You can't return Dice of type Skull
+
+            DiceRoll diceRoll = DiceRolls.LastOrDefault();
+            if (diceRoll == null) return;
+
+            Dice.Dice dice = PickedDice[index];
+            if (dice == null) return;
+
+            diceRoll.Dice.Add(dice);
+            diceRoll.Picked.Remove(dice);
+
+            PickedDice.Remove(dice);
+
+            Points = CalculatePoints();
+        }
+
+        public void End()
+        {
+            // Validation
+            // TODO:
+            // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
+
+            Points = CalculatePoints();
+            // TODO: What with skull island points?
+
+            Game.PlayersTurnEnded();
+        }
+
         private int CalculateSkullCount()
         {
             int skullCount = 0;
@@ -98,56 +150,27 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             return skullCount;
         }
 
-        public void PickDice(int index)
+        private int CalculatePoints()
         {
-            // Validation
-            // TODO: You can't pick a dice if there are no dice rolled
+            int points = 0;
 
-            DiceRoll diceRoll = DiceRolls.LastOrDefault();
-            if (diceRoll == null) return;
+            // From card
+            if (Card != null)
+            {
+                points += Card.Points;
+            }
 
-            Dice.Dice dice = diceRoll.Dice[index];
-            if (dice == null) return;
+            // From dice
+            foreach (Dice.Dice dice in PickedDice)
+            {
+                points += dice.FacingUp.Points;
+            }
 
-            diceRoll.Picked.Add(dice);
-            diceRoll.Dice.Remove(dice);
-
-            PickedDice.Add(dice);
-
-            // TODO: Calculate points?
-        }
-
-        public void ReturnDice(int index)
-        {
-            // Validation
             // TODO:
-            // - You can't return a dice if none were picked yet
-            // - You can't return Dice of type Skull
+            // - Combinations
+            // - Full tresure chest
 
-            DiceRoll diceRoll = DiceRolls.LastOrDefault();
-            if (diceRoll == null) return;
-
-            Dice.Dice dice = PickedDice[index];
-            if (dice == null) return;
-
-            diceRoll.Dice.Add(dice);
-            diceRoll.Picked.Remove(dice);
-
-            PickedDice.Remove(dice);
-
-            // TODO: Calculate points?
-        }
-
-        public void End()
-        {
-            // Validation
-            // TODO:
-            // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
-
-            // TODO: Calculate points?
-            // TODO: What with skull island points?
-
-            Game.PlayersTurnEnded();
+            return points;
         }
     }
 }
