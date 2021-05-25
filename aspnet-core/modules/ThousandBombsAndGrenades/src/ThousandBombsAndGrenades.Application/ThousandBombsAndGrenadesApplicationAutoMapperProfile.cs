@@ -30,19 +30,20 @@ namespace ThousandBombsAndGrenades
                     x => x.MapFrom(y => y.Card.Points)
                 )
                 // TODO
-                .ForMember(
-                    x => x.CardCount,
-                    x =>
-                    {
-                        x.PreCondition(
-                            y =>
-                            {
-                                return y.Card.GetType() == typeof(SkullCard);
-                            }
-                        );
-                        x.MapFrom(y => ((SkullCard)y.Card).Count);
-                    }
-                );
+                .ForMember(x => x.CardCount, x => x.Ignore());
+                //.ForMember(
+                //    x => x.CardCount,
+                //    x =>
+                //    {
+                //        x.PreCondition(
+                //            y =>
+                //            {
+                //                return y.Card.GetType() == typeof(SkullCard);
+                //            }
+                //        );
+                //        x.MapFrom(y => ((SkullCard)y.Card).Count);
+                //    }
+                //);
                 //.ForMember(
                 //    x => x.CardCount,
                 //    x =>

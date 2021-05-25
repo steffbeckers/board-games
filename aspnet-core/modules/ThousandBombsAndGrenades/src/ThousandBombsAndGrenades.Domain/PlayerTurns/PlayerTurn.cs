@@ -34,6 +34,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void DrawCard()
         {
             Card = Game.DeckOfCards.DrawCard();
+            Points = CalculatePoints();
         }
 
         public void RollDice()
@@ -101,6 +102,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // TODO:
             // - You can't return a dice if none were picked yet
             // - You can't return Dice of type Skull
+            // - Returning dice from treasure chest
 
             DiceRoll diceRoll = DiceRolls.LastOrDefault();
             if (diceRoll == null) return;
@@ -124,7 +126,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             Points = CalculatePoints();
             // TODO: What with skull island points?
-
             Game.PlayersTurnEnded();
         }
 
