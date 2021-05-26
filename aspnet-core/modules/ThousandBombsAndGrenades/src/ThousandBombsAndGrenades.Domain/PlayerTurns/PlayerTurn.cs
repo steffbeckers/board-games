@@ -125,7 +125,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
 
             Points = CalculatePoints();
-            // TODO: What with skull island points?
+            // TODO: What with skull island points? We need to subtract the other players points.
+
             Game.PlayersTurnEnded();
         }
 
@@ -155,13 +156,11 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         {
             int points = 0;
 
-            // From card
             if (Card != null)
             {
                 points += Card.Points;
             }
 
-            // From dice
             Dictionary<DiceSide, int> diceSideCount = new Dictionary<DiceSide, int>();
             foreach (Dice.Dice dice in PickedDice)
             {
@@ -181,33 +180,45 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             {
                 diceSideCount.TryGetValue(diceSide, out int count);
                 
-                if (Card.GetType() == typeof(AnimalsCard))
+                if (Card.GetType() == typeof(DiamondCard) && diceSide.GetType() == typeof(DiamondSide))
                 {
-                    // TODO
+                    count++;
                 }
-                else if (Card.GetType() == typeof(DiamondCard))
+                else if (Card.GetType() == typeof(GoldenCoinCard) && diceSide.GetType() == typeof(GoldenCoinSide))
                 {
-                    // TODO
-                }
-                else if (Card.GetType() == typeof(GoldenCoinCard))
-                {
-                    // TODO
-                }
-                else if (Card.GetType() == typeof(PirateCard))
-                {
-                    // TODO
+                    count++;
                 }
 
                 switch (count)
                 {
                     case 3:
-                        // TODO
+                        points += 100;
+                        break;
+                    case 4:
+                        points += 200;
+                        break;
+                    case 5:
+                        points += 500;
+                        break;
+                    case 6:
+                        points += 1000;
+                        break;
+                    case 7:
+                        points += 2000;
+                        break;
+                    case 8:
+                        points += 4000;
                         break;
                 }
             }
 
-            // TODO:
-            // - Full treasure chest
+            // TODO: Full treasure chest, when all dice add to points, add 500 points
+
+            // Pirate card
+            if (Card.GetType() == typeof(PirateCard))
+            {
+                points = points * 2;
+            }
 
             return points;
         }
