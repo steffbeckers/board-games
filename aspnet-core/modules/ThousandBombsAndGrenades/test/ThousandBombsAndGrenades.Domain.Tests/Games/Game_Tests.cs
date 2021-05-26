@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
 using Xunit;
@@ -12,9 +13,11 @@ namespace ThousandBombsAndGrenades.Games
     public class Game_Tests : ThousandBombsAndGrenadesDomainTestBase
     {
         [Fact]
-        public async Task ShouldRunGame()
+        public async Task Should_Be_Able_To_Play()
         {
-            Game game = new Game(Guid.NewGuid());
+            Game game = new Game() {
+                DeckOfCards = new DeckOfCards()
+            };
 
             game.AddPlayer("Steff");
             game.AddPlayer("Daisy");
@@ -25,10 +28,6 @@ namespace ThousandBombsAndGrenades.Games
             playerTurn.DrawCard();
             playerTurn.RollDice();
             playerTurn.PickDice(0);
-            playerTurn.PickDice(1);
-            playerTurn.PickDice(5);
-            playerTurn.RollDice();
-            playerTurn.PickDice(1);
             playerTurn.RollDice();
             playerTurn.End();
 
