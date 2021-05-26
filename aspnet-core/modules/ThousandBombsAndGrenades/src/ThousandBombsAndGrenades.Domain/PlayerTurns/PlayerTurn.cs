@@ -118,19 +118,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             Points = CalculatePoints();
         }
 
-        public void End()
-        {
-            // Validation
-            // TODO:
-            // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
-
-            Points = CalculatePoints();
-            // TODO: What with skull island points? We need to subtract the other players points.
-
-            Game.PlayersTurnEnded();
-        }
-
-        private int CalculateSkullCount()
+        public int CalculateSkullCount()
         {
             int skullCount = 0;
 
@@ -152,7 +140,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             return skullCount;
         }
 
-        private int CalculatePoints()
+        public int CalculatePoints()
         {
             int points = 0;
 
@@ -161,30 +149,30 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 points += Card.Points;
             }
 
-            Dictionary<DiceSide, int> diceSideCount = new Dictionary<DiceSide, int>();
+            Dictionary<string, int> diceSideCount = new Dictionary<string, int>();
             foreach (Dice.Dice dice in PickedDice)
             {
                 points += dice.FacingUp.Points;
 
-                if (!diceSideCount.ContainsKey(dice.FacingUp))
+                if (!diceSideCount.ContainsKey(dice.FacingUp.GetType().ToString()))
                 {
-                    diceSideCount.Add(dice.FacingUp, 0);
+                    diceSideCount.Add(dice.FacingUp.GetType().ToString(), 0);
                 }
 
-                diceSideCount.TryGetValue(dice.FacingUp, out int count);
+                diceSideCount.TryGetValue(dice.FacingUp.GetType().ToString(), out int count);
                 count++;
-                diceSideCount[dice.FacingUp] = count;
+                diceSideCount[dice.FacingUp.GetType().ToString()] = count;
             }
 
-            foreach (DiceSide diceSide in diceSideCount.Keys)
+            foreach (string diceSide in diceSideCount.Keys)
             {
                 diceSideCount.TryGetValue(diceSide, out int count);
                 
-                if (Card.GetType() == typeof(DiamondCard) && diceSide.GetType() == typeof(DiamondSide))
+                if (Card.GetType() == typeof(DiamondCard) && diceSide == typeof(DiamondSide).ToString())
                 {
                     count++;
                 }
-                else if (Card.GetType() == typeof(GoldenCoinCard) && diceSide.GetType() == typeof(GoldenCoinSide))
+                else if (Card.GetType() == typeof(GoldenCoinCard) && diceSide == typeof(GoldenCoinSide).ToString())
                 {
                     count++;
                 }
@@ -221,6 +209,18 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             }
 
             return points;
+        }
+        
+        public void End()
+        {
+            // Validation
+            // TODO:
+            // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
+
+            Points = CalculatePoints();
+            // TODO: What with skull island points? We need to subtract the other players points.
+
+            Game.PlayersTurnEnded();
         }
     }
 }
