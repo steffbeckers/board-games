@@ -162,14 +162,52 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             }
 
             // From dice
+            Dictionary<DiceSide, int> diceSideCount = new Dictionary<DiceSide, int>();
             foreach (Dice.Dice dice in PickedDice)
             {
                 points += dice.FacingUp.Points;
+
+                if (!diceSideCount.ContainsKey(dice.FacingUp))
+                {
+                    diceSideCount.Add(dice.FacingUp, 0);
+                }
+
+                diceSideCount.TryGetValue(dice.FacingUp, out int count);
+                count++;
+                diceSideCount[dice.FacingUp] = count;
+            }
+
+            foreach (DiceSide diceSide in diceSideCount.Keys)
+            {
+                diceSideCount.TryGetValue(diceSide, out int count);
+                
+                if (Card.GetType() == typeof(AnimalsCard))
+                {
+                    // TODO
+                }
+                else if (Card.GetType() == typeof(DiamondCard))
+                {
+                    // TODO
+                }
+                else if (Card.GetType() == typeof(GoldenCoinCard))
+                {
+                    // TODO
+                }
+                else if (Card.GetType() == typeof(PirateCard))
+                {
+                    // TODO
+                }
+
+                switch (count)
+                {
+                    case 3:
+                        // TODO
+                        break;
+                }
             }
 
             // TODO:
-            // - Combinations
-            // - Full tresure chest
+            // - Full treasure chest
 
             return points;
         }
