@@ -14,7 +14,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
     public class PlayerTurn_Tests : ThousandBombsAndGrenadesDomainTestBase
     {
         [Fact]
-        public async Task Should_Calculate_Points_Of_2_Golden_Coin_Dice()
+        public void Should_Calculate_Points_Of_2_Golden_Coin_Dice()
         {
             Game game = new Game()
             {
@@ -85,7 +85,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         }
 
         [Fact]
-        public async Task Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_3_Diamond_Dice()
+        public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_3_Diamond_Dice()
         {
             Game game = new Game()
             {
@@ -168,7 +168,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         }
 
         [Fact]
-        public async Task Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_5_Diamond_Dice()
+        public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_5_Diamond_Dice()
         {
             Game game = new Game()
             {
@@ -259,7 +259,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         }
 
         [Fact]
-        public async Task Should_Calculate_Points_Of_3_Golden_Coin_Dice()
+        public void Should_Calculate_Points_Of_3_Golden_Coin_Dice()
         {
             Game game = new Game()
             {
@@ -334,7 +334,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         }
 
         [Fact]
-        public async Task Should_Calculate_Points_Of_4_Diamond_Dice()
+        public void Should_Calculate_Points_Of_4_Diamond_Dice()
         {
             Game game = new Game()
             {
@@ -410,6 +410,177 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             });
 
             playerTurn.CalculatePoints().ShouldBe(600);
+        }
+
+        [Fact]
+        public void Should_Calculate_Points_When_Pirate_Card_Is_Drawn()
+        {
+            Game game = new Game()
+            {
+                DeckOfCards = new DeckOfCards()
+            };
+
+            game.AddPlayer("Steff");
+            game.AddPlayer("Daisy");
+
+            game.Start();
+
+            PlayerTurn playerTurn = game.PlayerTurns.Last();
+
+            playerTurn.Card = new PirateCard();
+
+            playerTurn.DiceRolls.Add(new DiceRoll()
+            {
+                Dice = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    }
+                },
+                Picked = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    }
+                }
+            });
+
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+
+            playerTurn.CalculatePoints().ShouldBe(1200);
+        }
+
+        [Fact]
+        public void Should_Calculate_Points_Dice_That_Add_Up_To_Full_Treasure_Chest()
+        {
+            Game game = new Game()
+            {
+                DeckOfCards = new DeckOfCards()
+            };
+
+            game.AddPlayer("Steff");
+            game.AddPlayer("Daisy");
+
+            game.Start();
+
+            PlayerTurn playerTurn = game.PlayerTurns.Last();
+
+            playerTurn.Card = new SkullCard();
+
+            playerTurn.DiceRolls.Add(new DiceRoll()
+            {
+                Picked = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiamondSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new GoldenCoinSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new GoldenCoinSide()
+                    }
+                }
+            });
+
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new MonkeySide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new MonkeySide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new MonkeySide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiamondSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new GoldenCoinSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new GoldenCoinSide()
+            });
+
+            playerTurn.CalculatePoints().ShouldBe(1200);
         }
     }
 }

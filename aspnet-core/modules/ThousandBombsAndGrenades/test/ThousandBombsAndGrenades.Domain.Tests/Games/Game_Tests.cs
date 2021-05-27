@@ -13,9 +13,10 @@ namespace ThousandBombsAndGrenades.Games
     public class Game_Tests : ThousandBombsAndGrenadesDomainTestBase
     {
         [Fact]
-        public async Task Should_Be_Able_To_Play()
+        public void Should_Be_Able_To_Play()
         {
-            Game game = new Game() {
+            Game game = new Game()
+            {
                 DeckOfCards = new DeckOfCards()
             };
 

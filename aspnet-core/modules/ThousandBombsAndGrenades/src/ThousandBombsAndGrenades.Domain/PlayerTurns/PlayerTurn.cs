@@ -144,39 +144,36 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         {
             int points = 0;
 
+            // From card
             if (Card != null)
             {
                 points += Card.Points;
             }
 
-            Dictionary<string, int> diceSideCount = new Dictionary<string, int>();
+            // From dice
             foreach (Dice.Dice dice in PickedDice)
             {
                 points += dice.FacingUp.Points;
-
-                if (!diceSideCount.ContainsKey(dice.FacingUp.GetType().ToString()))
-                {
-                    diceSideCount.Add(dice.FacingUp.GetType().ToString(), 0);
-                }
-
-                diceSideCount.TryGetValue(dice.FacingUp.GetType().ToString(), out int count);
-                count++;
-                diceSideCount[dice.FacingUp.GetType().ToString()] = count;
             }
 
+            // From dice combinations
+            Dictionary<string, int> diceSideCount = GetDiceSideCount();
             foreach (string diceSide in diceSideCount.Keys)
             {
                 diceSideCount.TryGetValue(diceSide, out int count);
-                
+
+                // Diamond card
                 if (Card.GetType() == typeof(DiamondCard) && diceSide == typeof(DiamondSide).ToString())
                 {
                     count++;
                 }
+                // Golden coin card
                 else if (Card.GetType() == typeof(GoldenCoinCard) && diceSide == typeof(GoldenCoinSide).ToString())
                 {
                     count++;
                 }
 
+                // Points based on number of dice combination
                 switch (count)
                 {
                     case 3:
@@ -200,9 +197,13 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 }
             }
 
-            // TODO: Full treasure chest, when all dice add to points, add 500 points
+            // Full treasure chest, when all dice add to points, add 500 points
+            if (HasFullTreasureChest())
+            {
+                points = points + 500;
+            }
 
-            // Pirate card
+            // Pirate card, when active calculate all points and double them at the end
             if (Card.GetType() == typeof(PirateCard))
             {
                 points = points * 2;
@@ -210,7 +211,61 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             return points;
         }
-        
+
+        private Dictionary<string, int> GetDiceSideCount()
+        {
+            Dictionary<string, int> diceSideCount = new Dictionary<string, int>();
+
+            foreach (Dice.Dice dice in PickedDice)
+            {
+                if (!diceSideCount.ContainsKey(dice.FacingUp.GetType().ToString()))
+                {
+                    diceSideCount.Add(dice.FacingUp.GetType().ToString(), 0);
+                }
+
+                diceSideCount.TryGetValue(dice.FacingUp.GetType().ToString(), out int count);
+                count++;
+                diceSideCount[dice.FacingUp.GetType().ToString()] = count;
+            }
+
+            return diceSideCount;
+        }
+
+        private bool HasFullTreasureChest()
+        {
+            // When not all dice are picked, you can't have a full treasure chest
+            if (PickedDice.Count != 8)
+            {
+                return false;
+            }
+
+            Dictionary<string, int> diceSideCount = GetDiceSideCount();
+            foreach (string diceSide in diceSideCount.Keys)
+            {
+                diceSideCount.TryGetValue(diceSide, out int count);
+
+                // If any skulls, you can't have a full treasure chest
+                if (diceSide == typeof(SkullSide).ToString())
+                {
+                    return false;
+                }
+                else if (diceSide == typeof(SwordsSide).ToString() && count < 3)
+                {
+                    return false;
+                }
+                else if (diceSide == typeof(ParrotSide).ToString() && count < 3)
+                {
+                    return false;
+                }
+                else if (diceSide == typeof(MonkeySide).ToString() && count < 3)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public void End()
         {
             // Validation
