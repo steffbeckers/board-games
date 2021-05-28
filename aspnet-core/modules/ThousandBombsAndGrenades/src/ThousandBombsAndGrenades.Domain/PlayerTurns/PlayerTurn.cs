@@ -102,7 +102,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // TODO:
             // - You can't return a dice if none were picked yet
             // - You can't return Dice of type Skull
-            // - Returning dice from treasure chest
+            // - Returning dice from treasure chest card
 
             DiceRoll diceRoll = DiceRolls.LastOrDefault();
             if (diceRoll == null) return;
