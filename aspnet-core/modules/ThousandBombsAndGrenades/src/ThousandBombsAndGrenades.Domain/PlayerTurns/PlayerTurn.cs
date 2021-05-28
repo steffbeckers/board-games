@@ -118,6 +118,11 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             Points = CalculatePoints();
         }
 
+        public bool HasEnded()
+        {
+            return Game.PlayerTurns.Last() != this;
+        }
+
         public int CalculateSkullCount()
         {
             int skullCount = 0;

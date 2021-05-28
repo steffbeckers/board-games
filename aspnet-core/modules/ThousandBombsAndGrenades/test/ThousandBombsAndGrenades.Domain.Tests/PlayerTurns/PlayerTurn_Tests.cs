@@ -583,7 +583,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             playerTurn.CalculatePoints().ShouldBe(1200);
         }
 
-        [Fact(Skip = "TODO")]
+        [Fact]
         public void Should_End_After_No_Skull_Side_Dice_Are_Rolled_When_Skull_Island_Is_Active()
         {
             Game game = new Game()
@@ -619,7 +619,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                     new Dice.Dice()
                     {
                         FacingUp = new MonkeySide()
-                    },
+                        },
                     new Dice.Dice()
                     {
                         FacingUp = new MonkeySide()
@@ -650,6 +650,23 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             {
                 FacingUp = new SkullSide()
             });
+
+            playerTurn.SkullIslandActive = true;
+
+            playerTurn.RollDice();
+
+            DiceRoll lastDiceRoll = playerTurn.DiceRolls.Last();
+
+            bool lastDiceRollContainsSkullDice = lastDiceRoll.Picked.FirstOrDefault(x => x.FacingUp.GetType() == typeof(SkullSide)) != null;
+
+            if (lastDiceRollContainsSkullDice)
+            {
+                playerTurn.HasEnded().ShouldBeFalse();
+            }
+            else
+            {
+                playerTurn.HasEnded().ShouldBeTrue();
+            }
         }
     }
 }
