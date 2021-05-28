@@ -582,5 +582,74 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             playerTurn.CalculatePoints().ShouldBe(1200);
         }
+
+        [Fact(Skip = "TODO")]
+        public void Should_End_After_No_Skull_Side_Dice_Are_Rolled_When_Skull_Island_Is_Active()
+        {
+            Game game = new Game()
+            {
+                DeckOfCards = new DeckOfCards()
+            };
+
+            game.AddPlayer("Steff");
+            game.AddPlayer("Daisy");
+
+            game.Start();
+
+            PlayerTurn playerTurn = game.PlayerTurns.Last();
+
+            playerTurn.Card = new SkullCard(2);
+
+            playerTurn.DiceRolls.Add(new DiceRoll()
+            {
+                Dice = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new GoldenCoinSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new GoldenCoinSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new MonkeySide()
+                    }
+                },
+                Picked = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new SkullSide()
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new SkullSide()
+                    }
+                }
+            });
+
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new SkullSide()
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new SkullSide()
+            });
+        }
     }
 }

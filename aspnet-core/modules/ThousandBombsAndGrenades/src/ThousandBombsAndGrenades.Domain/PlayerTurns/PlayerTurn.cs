@@ -70,8 +70,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             else if (SkullIslandActive && skullDiceRolled > 0)
             {
             }
-            // Dead
-            else if (skullCount >= 3)
+            // Skull island finished or dead
+            else if (SkullIslandActive && skullDiceRolled == 0 || skullCount >= 3)
             {
                 End();
             }
