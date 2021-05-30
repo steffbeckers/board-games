@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
-import { DynamicLayoutComponent } from '@abp/ng.core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { GamesListComponent } from './components/games-list/games-list.component';
 import { ThousandBombsAndGrenadesComponent } from './components/thousand-bombs-and-grenades.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    component: DynamicLayoutComponent,
-    children: [
-      {
+    {
         path: '',
+        pathMatch: 'full',
         component: ThousandBombsAndGrenadesComponent,
-      },
-    ],
-  },
+        children: [
+            {
+                path: '',
+                component: GamesListComponent
+            }
+        ],
+    },
 ];
 
 @NgModule({

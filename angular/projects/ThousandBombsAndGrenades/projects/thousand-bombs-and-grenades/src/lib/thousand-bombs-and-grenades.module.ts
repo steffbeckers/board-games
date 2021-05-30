@@ -3,9 +3,10 @@ import { CoreModule, LazyModuleFactory } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { ThousandBombsAndGrenadesComponent } from './components/thousand-bombs-and-grenades.component';
 import { ThousandBombsAndGrenadesRoutingModule } from './thousand-bombs-and-grenades-routing.module';
+import { GamesListComponent } from './components/games-list/games-list.component';
 
 @NgModule({
-  declarations: [ThousandBombsAndGrenadesComponent],
+  declarations: [ThousandBombsAndGrenadesComponent, GamesListComponent],
   imports: [CoreModule, ThemeSharedModule, ThousandBombsAndGrenadesRoutingModule],
   exports: [ThousandBombsAndGrenadesComponent],
 })

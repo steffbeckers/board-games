@@ -1,6 +1,6 @@
+import type { PlayerTurnDto } from './models';
 import { RestService } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { PlayerTurnDto } from '../../player-turns/models';
 
 @Injectable({
   providedIn: 'root',

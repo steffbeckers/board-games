@@ -1,8 +1,8 @@
+import type { GameDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { GameDto } from '../../games/models';
-import type { PlayerDto } from '../../players/models';
+import type { PlayerDto } from '../players/models';
 
 @Injectable({
   providedIn: 'root',

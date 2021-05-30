@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ThousandBombsAndGrenadesService } from '../services/thousand-bombs-and-grenades.service';
-
 @Component({
   selector: 'lib-thousand-bombs-and-grenades',
-  template: ` <p>thousand-bombs-and-grenades works!</p> `,
+  templateUrl: 'thousand-bombs-and-grenades.component.html',
   styles: [],
 })
 export class ThousandBombsAndGrenadesComponent implements OnInit {
-  constructor(private service: ThousandBombsAndGrenadesService) {}
+    constructor() {}
 
-  ngOnInit(): void {
-    this.service.sample().subscribe((sample) => {
-        console.log("Sample value: " + sample.value)
-    });
-  }
+    ngOnInit(): void {}
 }
