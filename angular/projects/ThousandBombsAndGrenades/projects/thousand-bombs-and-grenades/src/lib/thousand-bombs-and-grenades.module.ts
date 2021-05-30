@@ -1,12 +1,14 @@
-import { NgModule, NgModuleFactory, ModuleWithProviders } from '@angular/core';
 import { CoreModule, LazyModuleFactory } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { ModuleWithProviders, NgModule, NgModuleFactory } from '@angular/core';
+
+import { GameDetailComponent } from './components/game-detail/game-detail.component';
+import { GamesListComponent } from './components/games-list/games-list.component';
 import { ThousandBombsAndGrenadesComponent } from './components/thousand-bombs-and-grenades.component';
 import { ThousandBombsAndGrenadesRoutingModule } from './thousand-bombs-and-grenades-routing.module';
-import { GamesListComponent } from './components/games-list/games-list.component';
 
 @NgModule({
-  declarations: [ThousandBombsAndGrenadesComponent, GamesListComponent],
+  declarations: [ThousandBombsAndGrenadesComponent, GamesListComponent, GameDetailComponent],
   imports: [CoreModule, ThemeSharedModule, ThousandBombsAndGrenadesRoutingModule],
   exports: [ThousandBombsAndGrenadesComponent],
 })
