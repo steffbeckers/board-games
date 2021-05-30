@@ -1,15 +1,17 @@
-﻿using Localization.Resources.AbpUi;
+using Localization.Resources.AbpUi;
 using Microsoft.Extensions.DependencyInjection;
 using ThousandBombsAndGrenades.Localization;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.AspNetCore.SignalR;
 
 namespace ThousandBombsAndGrenades
 {
     [DependsOn(
         typeof(ThousandBombsAndGrenadesApplicationContractsModule),
-        typeof(AbpAspNetCoreMvcModule))]
+        typeof(AbpAspNetCoreMvcModule),
+        typeof(AbpAspNetCoreSignalRModule))]
     public class ThousandBombsAndGrenadesHttpApiModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)

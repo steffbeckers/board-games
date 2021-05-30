@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="4.3.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.SignalR" Version="4.3.0" />
     <ProjectReference Include="..\ThousandBombsAndGrenades.Application.Contracts\ThousandBombsAndGrenades.Application.Contracts.csproj" />
   </ItemGroup>
 
