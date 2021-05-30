@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Volo.Abp.Domain.Services;
 
 namespace ThousandBombsAndGrenades.Games
@@ -18,10 +19,8 @@ namespace ThousandBombsAndGrenades.Games
         /// <returns>The new game</returns>
         public async Task<Game> CreateAsync()
         {
-            // TODO: Check for existing running game for current user
-
             // Create a new game
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new Deck.DeckOfCards()
             };

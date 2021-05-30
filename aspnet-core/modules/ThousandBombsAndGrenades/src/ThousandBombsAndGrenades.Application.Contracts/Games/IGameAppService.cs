@@ -6,7 +6,7 @@ using Volo.Abp.Application.Services;
 
 namespace ThousandBombsAndGrenades.Games
 {
-    public interface IGamesAppService : IApplicationService
+    public interface IGameAppService : IApplicationService
     {
         Task<PagedResultDto<GameDto>> GetListAsync();
         Task<GameDto> GetAsync(Guid id);

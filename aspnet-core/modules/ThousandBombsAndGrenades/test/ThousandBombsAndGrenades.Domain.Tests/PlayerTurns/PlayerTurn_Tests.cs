@@ -8,6 +8,7 @@ using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
 using Xunit;
 using Shouldly;
+using System;
 
 namespace ThousandBombsAndGrenades.PlayerTurns
 {
@@ -16,7 +17,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -87,7 +88,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_3_Diamond_Dice()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -170,7 +171,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_5_Diamond_Dice()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -261,7 +262,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_3_Golden_Coin_Dice()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -336,7 +337,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_4_Diamond_Dice()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -415,7 +416,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_When_Pirate_Card_Is_Drawn()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -494,7 +495,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Dice_That_Add_Up_To_Full_Treasure_Chest()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };
@@ -586,7 +587,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_End_After_No_Skull_Side_Dice_Are_Rolled_When_Skull_Island_Is_Active()
         {
-            Game game = new Game()
+            Game game = new Game(Guid.NewGuid())
             {
                 DeckOfCards = new DeckOfCards()
             };

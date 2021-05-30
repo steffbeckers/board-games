@@ -9,12 +9,12 @@ using Volo.Abp.Application.Services;
 namespace ThousandBombsAndGrenades.Games
 {
     [RemoteService(IsEnabled = false)]
-    public class GamesAppService : ApplicationService, IGamesAppService
+    public class GameAppService : ApplicationService, IGameAppService
     {
         private readonly IGameRepository _gameRepository;
         private readonly GameManager _gameManager;
 
-        public GamesAppService(
+        public GameAppService(
             IGameRepository gameRepository,
             GameManager gameManager
         )

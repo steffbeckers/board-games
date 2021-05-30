@@ -18,8 +18,9 @@ namespace ThousandBombsAndGrenades.Games
         public List<Player> Players { get; private set; }
         public List<PlayerTurn> PlayerTurns { get; private set; }
 
-        public Game()
+        public Game(Guid id)
         {
+            Id = id;
             Players = new List<Player>();
             PlayerTurns = new List<PlayerTurn>();
         }

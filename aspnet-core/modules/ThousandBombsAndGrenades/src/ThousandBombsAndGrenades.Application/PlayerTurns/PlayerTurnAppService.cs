@@ -6,11 +6,11 @@ using Volo.Abp.Application.Services;
 namespace ThousandBombsAndGrenades.PlayerTurns
 {
     [RemoteService(IsEnabled = false)]
-    public class PlayerTurnsAppService : ApplicationService, IPlayerTurnsAppService
+    public class PlayerTurnAppService : ApplicationService, IPlayerTurnAppService
     {
         private readonly IPlayerTurnRepository _playerTurnRepository;
 
-        public PlayerTurnsAppService(IPlayerTurnRepository playerTurnRepository)
+        public PlayerTurnAppService(IPlayerTurnRepository playerTurnRepository)
         {
             _playerTurnRepository = playerTurnRepository;
         }

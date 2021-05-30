@@ -4,7 +4,7 @@ using Volo.Abp.Application.Services;
 
 namespace ThousandBombsAndGrenades.PlayerTurns
 {
-    public interface IPlayerTurnsAppService : IApplicationService
+    public interface IPlayerTurnAppService : IApplicationService
     {
         Task<PlayerTurnDto> GetAsync(Guid id);
         Task<PlayerTurnDto> DrawCardAsync(Guid id);

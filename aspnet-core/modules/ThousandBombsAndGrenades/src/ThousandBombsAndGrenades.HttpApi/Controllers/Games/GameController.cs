@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace ThousandBombsAndGrenades.Controllers.Games
+namespace ThousandBombsAndGrenades.Games
 {
     [RemoteService]
     [Area("app")]
     [ControllerName("Games - 1000 Bombs & Grenades")]
     [Route("api/games/thousand-bombs-and-grenades/games")]
-    public class GameController : AbpController, IGamesAppService
+    public class GameController : AbpController, IGameAppService
     {
-        private readonly IGamesAppService _gamesAppService;
+        private readonly IGameAppService _gamesAppService;
 
-        public GameController(IGamesAppService gamesAppService)
+        public GameController(IGameAppService gamesAppService)
         {
             _gamesAppService = gamesAppService;
         }

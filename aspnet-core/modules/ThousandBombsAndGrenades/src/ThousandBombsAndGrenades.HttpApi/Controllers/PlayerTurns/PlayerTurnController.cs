@@ -5,17 +5,17 @@ using ThousandBombsAndGrenades.PlayerTurns;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace ThousandBombsAndGrenades.Controllers.PlayerTurns
+namespace ThousandBombsAndGrenades.PlayerTurns
 {
     [RemoteService]
     [Area("app")]
     [ControllerName("Games - 1000 Bombs & Grenades")]
     [Route("api/games/thousand-bombs-and-grenades/player-turns")]
-    public class PlayerTurnController : AbpController, IPlayerTurnsAppService
+    public class PlayerTurnController : AbpController, IPlayerTurnAppService
     {
-        private readonly IPlayerTurnsAppService _playerTurnsAppService;
+        private readonly IPlayerTurnAppService _playerTurnsAppService;
 
-        public PlayerTurnController(IPlayerTurnsAppService playerTurnsAppService)
+        public PlayerTurnController(IPlayerTurnAppService playerTurnsAppService)
         {
             _playerTurnsAppService = playerTurnsAppService;
         }
