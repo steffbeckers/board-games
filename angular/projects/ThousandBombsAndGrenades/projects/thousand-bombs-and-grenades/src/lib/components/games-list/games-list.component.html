@@ -1,4 +1,21 @@
-<h1>Games</h1>
+<h3>Games</h3>
+<button (click)="startNewGame()" class="btn btn-primary">Start new game</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr [routerLink]="game.id" *ngFor="let game of games.items">
+            <td>{{ game.id | uppercase}}</td>
+            <td>{{ game.startDate | date: "dd/MM/yyyy HH:mm" }}</td>
+            <td>{{ game.endDate | date: "dd/MM/yyyy HH:mm" }}</td>
+        </tr>
+    </tbody>
+</table>
 <div *ngIf="games" style="white-space: pre;">
     {{ games | json }}
 </div>

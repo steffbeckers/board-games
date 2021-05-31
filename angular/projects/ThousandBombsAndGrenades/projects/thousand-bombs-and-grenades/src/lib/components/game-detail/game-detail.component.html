@@ -1,1 +1,7 @@
-<p>game-detail works!</p>
+<div *ngIf="game">
+    <h3>Game {{ game.id | uppercase }}</h3>
+    <button routerLink=".." class="btn btn-primary">Back to games</button>
+    <div style="white-space: pre">
+        {{ game | json }}
+    </div>
+</div>

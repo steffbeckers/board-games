@@ -8,7 +8,6 @@ import { ThousandBombsAndGrenadesComponent } from './components/thousand-bombs-a
 const routes: Routes = [
     {
         path: '',
-        pathMatch: 'full',
         component: ThousandBombsAndGrenadesComponent,
         children: [
             {
