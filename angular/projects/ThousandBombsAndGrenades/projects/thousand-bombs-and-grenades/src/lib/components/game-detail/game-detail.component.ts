@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { GameDto, GameService } from '../../proxy/games';
+import { RealtimeGameService } from '../../services/realtime-game.service';
 
 @Component({
   selector: 'lib-game-detail',
@@ -11,12 +12,19 @@ import { GameDto, GameService } from '../../proxy/games';
 export class GameDetailComponent implements OnInit {
     game: GameDto;
 
-    constructor(private route: ActivatedRoute, private gameService: GameService) {}
+    constructor(private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((routeParams) => {
             const gameId = routeParams.get('id');
             this.getGameDetail(gameId);
+
+            this.realtimeGameService.connect().then(() => {
+                this.realtimeGameService.listenForGameUpdates(gameId, (game: GameDto) => {
+                    console.log(game);
+                    this.game = game;
+                })
+            });
         });
     }
 

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="Volo.Abp.Ddd.Domain" Version="4.3.0" />
     <ProjectReference Include="..\ThousandBombsAndGrenades.Domain.Shared\ThousandBombsAndGrenades.Domain.Shared.csproj" />

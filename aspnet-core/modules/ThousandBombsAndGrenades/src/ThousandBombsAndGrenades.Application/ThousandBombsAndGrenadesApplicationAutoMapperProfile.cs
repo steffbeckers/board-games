@@ -14,6 +14,10 @@ namespace ThousandBombsAndGrenades
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
             CreateMap<Game, GameDto>();
+            CreateMap<Game, GameEto>()
+                .ForMember(x => x.EntityType, x => x.Ignore())
+                .ForMember(x => x.KeysAsString, x => x.Ignore())
+                .ForMember(x => x.Properties, x => x.Ignore());
             CreateMap<Player, PlayerDto>();
             CreateMap<PlayerTurn, PlayerTurnDto>()
                 .ForMember(
