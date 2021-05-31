@@ -9,6 +9,6 @@ namespace ThousandBombsAndGrenades
         )]
     public class ThousandBombsAndGrenadesConsoleApiClientModule : AbpModule
     {
-        
+
     }
 }

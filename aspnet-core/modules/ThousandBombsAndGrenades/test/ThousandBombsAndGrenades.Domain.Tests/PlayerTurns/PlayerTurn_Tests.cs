@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Shouldly;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
 using Xunit;
-using Shouldly;
-using System;
 
 namespace ThousandBombsAndGrenades.PlayerTurns
 {

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using IdentityModel.Client;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using IdentityModel.Client;
-using Microsoft.Extensions.Configuration;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.IdentityModel;
 
@@ -14,7 +14,7 @@ namespace ThousandBombsAndGrenades
         private readonly IConfiguration _configuration;
 
         public ClientDemoService(
-            IIdentityModelAuthenticationService authenticationService, 
+            IIdentityModelAuthenticationService authenticationService,
             IConfiguration configuration)
         {
             _authenticationService = authenticationService;

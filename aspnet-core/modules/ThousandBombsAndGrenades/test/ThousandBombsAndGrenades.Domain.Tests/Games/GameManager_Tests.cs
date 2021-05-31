@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace ThousandBombsAndGrenades.Games
+﻿namespace ThousandBombsAndGrenades.Games
 {
     //public class GameManager_Tests : ThousandBombsAndGrenadesDomainTestBase
     //{

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
@@ -31,32 +30,32 @@ namespace ThousandBombsAndGrenades
                 )
                 // TODO
                 .ForMember(x => x.CardCount, x => x.Ignore());
-                //.ForMember(
-                //    x => x.CardCount,
-                //    x =>
-                //    {
-                //        x.PreCondition(
-                //            y =>
-                //            {
-                //                return y.Card.GetType() == typeof(SkullCard);
-                //            }
-                //        );
-                //        x.MapFrom(y => ((SkullCard)y.Card).Count);
-                //    }
-                //);
-                //.ForMember(
-                //    x => x.CardCount,
-                //    x =>
-                //    {
-                //        x.PreCondition(
-                //            y =>
-                //            {
-                //                return y.Card.GetType() == typeof(PirateShipCard);
-                //            }
-                //        );
-                //        x.MapFrom(y => ((PirateShipCard)y.Card).SwordCount);
-                //    }
-                //);
+            //.ForMember(
+            //    x => x.CardCount,
+            //    x =>
+            //    {
+            //        x.PreCondition(
+            //            y =>
+            //            {
+            //                return y.Card.GetType() == typeof(SkullCard);
+            //            }
+            //        );
+            //        x.MapFrom(y => ((SkullCard)y.Card).Count);
+            //    }
+            //);
+            //.ForMember(
+            //    x => x.CardCount,
+            //    x =>
+            //    {
+            //        x.PreCondition(
+            //            y =>
+            //            {
+            //                return y.Card.GetType() == typeof(PirateShipCard);
+            //            }
+            //        );
+            //        x.MapFrom(y => ((PirateShipCard)y.Card).SwordCount);
+            //    }
+            //);
             CreateMap<DiceRoll, DiceRollDto>();
             CreateMap<Dice.Dice, DiceDto>()
                 .ForMember(

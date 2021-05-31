@@ -27,7 +27,7 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 });
             });
         }
-        
+
         private static SqliteConnection CreateDatabaseAndGetConnection()
         {
             var connection = new SqliteConnection("Data Source=:memory:");
@@ -36,7 +36,7 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
             new ThousandBombsAndGrenadesDbContext(
                 new DbContextOptionsBuilder<ThousandBombsAndGrenadesDbContext>().UseSqlite(connection).Options
             ).GetService<IRelationalDatabaseCreator>().CreateTables();
-            
+
             return connection;
         }
     }

@@ -2,9 +2,9 @@ using Localization.Resources.AbpUi;
 using Microsoft.Extensions.DependencyInjection;
 using ThousandBombsAndGrenades.Localization;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.SignalR;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.AspNetCore.SignalR;
 
 namespace ThousandBombsAndGrenades
 {

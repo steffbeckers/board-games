@@ -12,6 +12,6 @@ namespace ThousandBombsAndGrenades
         )]
     public class ThousandBombsAndGrenadesDomainTestModule : AbpModule
     {
-        
+
     }
 }

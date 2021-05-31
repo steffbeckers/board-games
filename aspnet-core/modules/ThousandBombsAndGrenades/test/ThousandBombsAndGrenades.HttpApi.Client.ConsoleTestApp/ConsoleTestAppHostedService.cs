@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 
 namespace ThousandBombsAndGrenades.HttpApi.Client.ConsoleTestApp
