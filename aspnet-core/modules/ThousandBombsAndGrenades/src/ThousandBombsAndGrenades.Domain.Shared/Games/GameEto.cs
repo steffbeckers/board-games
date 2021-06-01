@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-using System;
-using Volo.Abp.Domain.Entities.Events.Distributed;
+﻿using System;
 
 namespace ThousandBombsAndGrenades.Games
 {
-    [AutoMap(typeof(Game))]
-    public class GameEto : EntityEto
+    public class GameEto
     {
         public Guid Id { get; set; }
         public DateTime? StartDate { get; set; }

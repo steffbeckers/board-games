@@ -19,8 +19,8 @@ export class GameDetailComponent implements OnInit {
             const gameId = routeParams.get('id');
             this.getGameDetail(gameId);
 
-            this.realtimeGameService.connect().then(() => {
-                this.realtimeGameService.listenForGameUpdates(gameId, (game: GameDto) => {
+            this.realtimeGameService.connect(gameId).then(() => {
+                this.realtimeGameService.listenForGameUpdates((game: GameDto) => {
                     console.log(game);
                     this.game = game;
                 })
