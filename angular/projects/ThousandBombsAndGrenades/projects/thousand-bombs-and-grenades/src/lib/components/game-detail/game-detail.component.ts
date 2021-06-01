@@ -11,6 +11,7 @@ import { RealtimeGameService } from '../../services/realtime-game.service';
 })
 export class GameDetailComponent implements OnInit {
     game: GameDto;
+    playerName: string;
 
     constructor(private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
 
@@ -28,9 +29,34 @@ export class GameDetailComponent implements OnInit {
         });
     }
 
+    startGame(): void {
+        this.gameService.start(this.game.id).subscribe();
+    }
+
+    endGame(): void {
+        this.gameService.end(this.game.id).subscribe();
+    }
+
+    addPlayer(): void {
+        this.gameService.addPlayer(this.game.id, { name: this.playerName }).subscribe(() => {
+            this.playerName = null;
+        })
+    }
+
+    // drawCard(): void {
+    //     let playerTurn = this.lastPlayerTurn();
+    //     if (!playerTurn) return;
+
+    //     this.playerTurnService.drawCard(playerTurn.id).subscribe();
+    // }
+
     private getGameDetail(id: string): void {
         this.gameService.get(id).subscribe((game: GameDto) => {
             this.game = game;
         });
     }
+
+    // private lastPlayerTurn(): PlayerTurnDto {
+    //     return this.game.playerTurns[this.game.playerTurns.length - 1];
+    // }
 }
