@@ -14,6 +14,12 @@ namespace ThousandBombsAndGrenades.Games
         public DateTime? EndDate { get; private set; }
 
         public DeckOfCards DeckOfCards { get; set; }
+        public PlayerTurn CurrentPlayerTurn {
+            get
+            {
+                return PlayerTurns.OrderByDescending(x => x.CreationTime).FirstOrDefault();
+            }
+        }
 
         public List<Player> Players { get; private set; }
         public List<PlayerTurn> PlayerTurns { get; private set; }

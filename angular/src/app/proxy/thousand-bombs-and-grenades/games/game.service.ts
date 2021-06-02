@@ -25,10 +25,24 @@ export class GameService {
     },
     { apiName: this.apiName });
 
+  drawCard = (id: string) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/draw-card`,
+    },
+    { apiName: this.apiName });
+
   end = (id: string) =>
     this.restService.request<any, GameDto>({
       method: 'GET',
       url: `/api/games/thousand-bombs-and-grenades/games/${id}/end`,
+    },
+    { apiName: this.apiName });
+
+  endTurn = (id: string) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/end-turn`,
     },
     { apiName: this.apiName });
 
@@ -46,10 +60,33 @@ export class GameService {
     },
     { apiName: this.apiName });
 
+  pickDice = (id: string, index: number) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/pick-dice`,
+      params: { index },
+    },
+    { apiName: this.apiName });
+
   removePlayer = (id: string, playerId: string) =>
     this.restService.request<any, GameDto>({
       method: 'DELETE',
       url: `/api/games/thousand-bombs-and-grenades/games/${id}/players/${playerId}`,
+    },
+    { apiName: this.apiName });
+
+  returnDice = (id: string, index: number) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/return-dice`,
+      params: { index },
+    },
+    { apiName: this.apiName });
+
+  rollDice = (id: string) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/roll-dice`,
     },
     { apiName: this.apiName });
 

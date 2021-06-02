@@ -62,6 +62,41 @@ namespace ThousandBombsAndGrenades.Games
         }
 
         [HttpGet]
+        [Route("{id}/draw-card")]
+        public virtual Task<GameDto> DrawCardAsync(Guid id)
+        {
+            return _gamesAppService.DrawCardAsync(id);
+        }
+
+        [HttpGet]
+        [Route("{id}/roll-dice")]
+        public virtual Task<GameDto> RollDiceAsync(Guid id)
+        {
+            return _gamesAppService.RollDiceAsync(id);
+        }
+
+        [HttpGet]
+        [Route("{id}/pick-dice")]
+        public virtual Task<GameDto> PickDiceAsync(Guid id, int index)
+        {
+            return _gamesAppService.PickDiceAsync(id, index);
+        }
+
+        [HttpGet]
+        [Route("{id}/return-dice")]
+        public virtual Task<GameDto> ReturnDiceAsync(Guid id, int index)
+        {
+            return _gamesAppService.ReturnDiceAsync(id, index);
+        }
+
+        [HttpGet]
+        [Route("{id}/end-turn")]
+        public virtual Task<GameDto> EndTurnAsync(Guid id)
+        {
+            return _gamesAppService.EndTurnAsync(id);
+        }
+
+        [HttpGet]
         [Route("{id}/end")]
         public virtual Task<GameDto> EndAsync(Guid id)
         {

@@ -14,6 +14,11 @@ namespace ThousandBombsAndGrenades.Games
         Task<GameDto> AddPlayerAsync(Guid id, PlayerDto playerDto);
         Task<GameDto> RemovePlayerAsync(Guid id, Guid playerId);
         Task<GameDto> StartAsync(Guid id);
+        Task<GameDto> DrawCardAsync(Guid id);
+        Task<GameDto> RollDiceAsync(Guid id);
+        Task<GameDto> PickDiceAsync(Guid id, int index);
+        Task<GameDto> ReturnDiceAsync(Guid id, int index);
+        Task<GameDto> EndTurnAsync(Guid id);
         Task<GameDto> EndAsync(Guid id);
     }
 }

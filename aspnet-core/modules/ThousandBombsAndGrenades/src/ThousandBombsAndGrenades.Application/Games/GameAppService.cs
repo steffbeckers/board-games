@@ -69,6 +69,46 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        public async Task<GameDto> DrawCardAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.DrawCard();
+            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<GameDto> RollDiceAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.RollDice();
+            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<GameDto> PickDiceAsync(Guid id, int index)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.PickDice(index);
+            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<GameDto> ReturnDiceAsync(Guid id, int index)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.ReturnDice(index);
+            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<GameDto> EndTurnAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.End();
+            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
         public async Task<GameDto> EndAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
