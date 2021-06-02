@@ -29,6 +29,7 @@
                 <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.picked; let i=index" (click)="returnDice(i)" class="btn btn-primary">{{dice.facingUp}}</button>
             </div>
         </div>
+        <button (click)="endTurn()" class="btn btn-primary">End turn</button>
     </div>
     <div style="white-space: pre">
         {{ game | json }}

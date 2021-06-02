@@ -60,6 +60,10 @@ export class GameDetailComponent implements OnInit {
     returnDice(index: number): void {
         this.gameService.returnDice(this.game.id, index).subscribe();
     }
+    
+    endTurn(): void {
+        this.gameService.endTurn(this.game.id).subscribe();
+    }
 
     endGame(): void {
         this.gameService.end(this.game.id).subscribe();
