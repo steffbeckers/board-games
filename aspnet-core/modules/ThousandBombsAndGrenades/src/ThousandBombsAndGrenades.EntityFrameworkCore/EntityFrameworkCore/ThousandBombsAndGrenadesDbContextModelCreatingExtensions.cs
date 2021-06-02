@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Deck;
-using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
@@ -58,8 +59,8 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.Property(x => x.DeckOfCards).HasConversion(
-                    v => v.SerializeXML(false),
-                    v => v.DeserializeXML<DeckOfCards>()
+                    v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    v => JsonConvert.DeserializeObject<DeckOfCards>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
                 b.HasMany(x => x.Players)
@@ -98,8 +99,8 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.Property(x => x.Card).HasConversion(
-                    v => v.SerializeXML(false),
-                    v => v.DeserializeXML<Card>()
+                    v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    v => JsonConvert.DeserializeObject<Card>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
                 b.Property(x => x.DiceRolls).HasConversion(

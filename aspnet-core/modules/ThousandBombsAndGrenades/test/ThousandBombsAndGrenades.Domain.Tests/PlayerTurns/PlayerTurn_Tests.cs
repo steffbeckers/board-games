@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Deck;
-using ThousandBombsAndGrenades.Deck.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
@@ -28,7 +28,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -99,7 +99,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -182,7 +182,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -273,7 +273,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -348,7 +348,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -427,7 +427,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new PirateCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -506,7 +506,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard();
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -598,7 +598,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new SkullCard(2);
+            playerTurn.Card = new Card() { Name = CardConsts.Skull, Count = 2 };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {
@@ -655,7 +655,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             playerTurn.RollDice();
 
-            DiceRoll lastDiceRoll = playerTurn.DiceRolls.Last();
+            DiceRoll lastDiceRoll = playerTurn.LastDiceRoll;
 
             bool lastDiceRollContainsSkullDice = lastDiceRoll.Picked.FirstOrDefault(x => x.FacingUp.GetType() == typeof(SkullSide)) != null;
 

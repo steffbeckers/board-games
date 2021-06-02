@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ThousandBombsAndGrenades.Deck.Cards;
+using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
@@ -135,9 +135,13 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             int skullCount = 0;
 
             // From card
-            if (Card.GetType() == typeof(SkullCard))
+            if (Card.Name == "Skull")
             {
-                skullCount += ((SkullCard)Card).Count;
+                skullCount += 1;
+            }
+            else if (Card.Name == "Skull2")
+            {
+                skullCount += 2;
             }
 
             // From dice
@@ -159,7 +163,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // From card
             if (Card != null)
             {
-                points += Card.Points;
+                points += Card.Points.HasValue ? Card.Points.Value : 0;
             }
 
             // From dice
@@ -175,12 +179,12 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 diceSideCount.TryGetValue(diceSide, out int count);
 
                 // Diamond card
-                if (Card.GetType() == typeof(DiamondCard) && diceSide == typeof(DiamondSide).ToString())
+                if (Card.Name == CardConsts.Diamond && diceSide == typeof(DiamondSide).ToString())
                 {
                     count++;
                 }
                 // Golden coin card
-                else if (Card.GetType() == typeof(GoldenCoinCard) && diceSide == typeof(GoldenCoinSide).ToString())
+                else if (Card.Name == CardConsts.GoldenCoin && diceSide == typeof(GoldenCoinSide).ToString())
                 {
                     count++;
                 }
@@ -216,7 +220,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             }
 
             // Pirate card, when active calculate all points and double them at the end
-            if (Card.GetType() == typeof(PirateCard))
+            if (Card.Name == CardConsts.Pirate)
             {
                 points = points * 2;
             }

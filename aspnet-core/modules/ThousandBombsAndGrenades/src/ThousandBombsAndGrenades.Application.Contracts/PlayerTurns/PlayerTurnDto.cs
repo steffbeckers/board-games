@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Players;
 using Volo.Abp.Application.Dtos;
@@ -13,13 +14,9 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public Guid PlayerId { get; set; }
         public PlayerDto Player { get; set; }
 
-        public string CardName { get; set; }
-        public string CardDescription { get; set; }
-        public int CardPoints { get; set; }
-        public int CardCount { get; set; }
+        public CardDto Card { get; set; }
 
         public DiceRollDto LastDiceRoll { get; set; }
-
         public List<DiceRollDto> DiceRolls { get; set; }
         public List<DiceDto> PickedDice { get; set; }
 
