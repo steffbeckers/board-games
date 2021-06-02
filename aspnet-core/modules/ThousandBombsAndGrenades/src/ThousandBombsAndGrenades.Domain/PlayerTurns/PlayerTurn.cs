@@ -22,6 +22,13 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public Guid PlayerId { get; set; }
         public Player Player { get; set; }
 
+        public DiceRoll LastDiceRoll {
+            get
+            {
+                return DiceRolls.LastOrDefault();
+            }
+        }
+
         public List<DiceRoll> DiceRolls { get; private set; }
         public List<Dice.Dice> PickedDice { get; private set; }
 

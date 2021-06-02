@@ -10,6 +10,7 @@ export interface PlayerTurnDto extends AuditedEntityDto<string> {
   cardDescription?: string;
   cardPoints: number;
   cardCount: number;
+  lastDiceRoll: DiceRollDto;
   diceRolls: DiceRollDto[];
   pickedDice: DiceDto[];
   points: number;

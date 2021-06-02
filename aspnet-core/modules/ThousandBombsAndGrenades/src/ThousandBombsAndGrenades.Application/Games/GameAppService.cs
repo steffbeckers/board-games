@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThousandBombsAndGrenades.Players;
+using ThousandBombsAndGrenades.PlayerTurns;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -12,15 +13,18 @@ namespace ThousandBombsAndGrenades.Games
     public class GameAppService : ApplicationService, IGameAppService
     {
         private readonly IGameRepository _gameRepository;
+        private readonly IPlayerTurnRepository _playerTurnRepository;
         private readonly GameManager _gameManager;
 
         public GameAppService(
             IGameRepository gameRepository,
-            GameManager gameManager
+            GameManager gameManager,
+            IPlayerTurnRepository playerTurnRepository
         )
         {
             _gameRepository = gameRepository;
             _gameManager = gameManager;
+            _playerTurnRepository = playerTurnRepository;
         }
 
         public async Task<PagedResultDto<GameDto>> GetListAsync()
@@ -49,7 +53,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.AddPlayer(playerDto.Name);
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -57,7 +61,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.RemovePlayer(playerId);
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -65,7 +69,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.Start();
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -73,7 +77,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.CurrentPlayerTurn.DrawCard();
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -81,7 +85,8 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.CurrentPlayerTurn.RollDice();
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -89,7 +94,8 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.CurrentPlayerTurn.PickDice(index);
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -97,7 +103,8 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.CurrentPlayerTurn.ReturnDice(index);
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -105,7 +112,8 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.CurrentPlayerTurn.End();
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
@@ -113,7 +121,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.End();
-            game = await _gameRepository.UpdateAsync(game, autoSave: true);
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
     }

@@ -1,0 +1,36 @@
+<div *ngIf="game">
+    <h3>Game {{ game.id | uppercase }}</h3>
+    <button *ngIf="!game.startDate" (click)="startGame()" class="btn btn-primary" [disabled]="game.players.length < 2">Start game</button>
+    <button *ngIf="game.startDate && !game.endDate" (click)="endGame()" class="btn btn-primary">End game</button>
+    <div>
+        <h4>Players</h4>
+        <ul>
+            <li *ngFor="let player of game.players">{{ player.name }}</li>
+        </ul>
+        <div *ngIf="!game.startDate">
+            <input [(ngModel)]="playerName" type="text">
+            <button (click)="addPlayer()" class="btn btn-primary" [disabled]="!playerName">Add player</button>
+        </div>
+    </div>
+    <div *ngIf="game.currentPlayerTurn && !game.endDate">
+        <h4>{{ game.currentPlayerTurn.player.name }}'s turn</h4>
+        <button (click)="drawCard()" class="btn btn-primary" [disabled]="game.currentPlayerTurn.cardName">Draw card</button>
+        <div *ngIf="game.currentPlayerTurn.cardName">
+            {{ game.currentPlayerTurn.cardName }} card active
+        </div>
+        <button *ngIf="game.currentPlayerTurn.cardName" (click)="rollDice()" class="btn btn-primary">Roll dice</button>
+        <div *ngIf="game.currentPlayerTurn.lastDiceRoll">
+            <div>
+                <div>Rolled dice</div>
+                <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.dice; let i=index" (click)="pickDice(i)" class="btn btn-primary">{{dice.facingUp}}</button>
+            </div>
+            <div>
+                <div>Picked dice</div>
+                <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.picked; let i=index" (click)="returnDice(i)" class="btn btn-primary">{{dice.facingUp}}</button>
+            </div>
+        </div>
+    </div>
+    <div style="white-space: pre">
+        {{ game | json }}
+    </div>
+</div>

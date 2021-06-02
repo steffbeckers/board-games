@@ -18,6 +18,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public int CardPoints { get; set; }
         public int CardCount { get; set; }
 
+        public DiceRollDto LastDiceRoll { get; set; }
+
         public List<DiceRollDto> DiceRolls { get; set; }
         public List<DiceDto> PickedDice { get; set; }
 

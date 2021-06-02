@@ -28,7 +28,7 @@ const routes: Routes = [
   {
       path: '1000-bombs-and-grenades',
       loadChildren: () => 
-        import('../../projects/ThousandBombsAndGrenades/projects/thousand-bombs-and-grenades/src/public-api').then(m => m.ThousandBombsAndGrenadesModule.forLazy()),
+        import('./games/thousand-bombs-and-grenades/thousand-bombs-and-grenades.module').then(m => m.ThousandBombsAndGrenadesModule.forLazy()),
   }
 ];
 
