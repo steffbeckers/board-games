@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Dice;
@@ -12,15 +13,10 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 {
     public class PlayerTurn : AuditedEntity<Guid>
     {
-        public Card Card { get; set; }
         public int Points { get; private set; }
         public bool SkullIslandActive { get; set; }
 
-        public Guid GameId { get; set; }
-        public Game Game { get; set; }
-
-        public Guid PlayerId { get; set; }
-        public Player Player { get; set; }
+        public Card Card { get; set; }
 
         public DiceRoll LastDiceRoll {
             get
@@ -29,13 +25,19 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             }
         }
 
-        public List<DiceRoll> DiceRolls { get; private set; }
-        public List<Dice.Dice> PickedDice { get; private set; }
+        public Guid GameId { get; set; }
+        public Game Game { get; set; }
+
+        public Guid PlayerId { get; set; }
+        public Player Player { get; set; }
+
+        public ICollection<DiceRoll> DiceRolls { get; private set; }
+        public ICollection<Dice.Dice> PickedDice { get; private set; }
 
         public PlayerTurn()
         {
-            DiceRolls = new List<DiceRoll>();
-            PickedDice = new List<Dice.Dice>();
+            DiceRolls = new Collection<DiceRoll>();
+            PickedDice = new Collection<Dice.Dice>();
         }
 
         public void DrawCard()
@@ -114,7 +116,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             DiceRoll diceRoll = DiceRolls.LastOrDefault();
             if (diceRoll == null) return;
 
-            Dice.Dice dice = PickedDice[index];
+            Dice.Dice dice = PickedDice.ElementAt(index);
             if (dice == null) return;
 
             diceRoll.Dice.Add(dice);

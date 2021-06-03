@@ -14,10 +14,6 @@ namespace ThousandBombsAndGrenades.Players
         public Guid GameId { get; set; }
         public Game Game { get; set; }
 
-        public Player()
-        {
-        }
-
         public Player(Guid id, string name)
         {
             Id = id;

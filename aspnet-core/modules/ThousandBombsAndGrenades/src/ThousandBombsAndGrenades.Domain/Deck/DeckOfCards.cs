@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ThousandBombsAndGrenades.Cards;
 
@@ -7,7 +8,7 @@ namespace ThousandBombsAndGrenades.Deck
 {
     public class DeckOfCards
     {
-        public List<Card> Cards { get; private set; }
+        public ICollection<Card> Cards { get; private set; }
 
         public DeckOfCards()
         {
@@ -104,7 +105,7 @@ namespace ThousandBombsAndGrenades.Deck
                 Name = CardConsts.Waiter
             };
 
-            Cards = new List<Card> {
+            Cards = new Collection<Card> {
                 // 4 Animals
                 animalsCard,
                 animalsCard,
@@ -155,7 +156,7 @@ namespace ThousandBombsAndGrenades.Deck
 
             for (int i = 1; i <= Cards.Count; i++)
             {
-                Cards[i - 1].Id = i;
+                Cards.ElementAt(i - 1).Id = i;
             }
 
             Shuffle();
@@ -170,9 +171,9 @@ namespace ThousandBombsAndGrenades.Deck
             {
                 n--;
                 int k = rng.Next(n + 1);
-                Card value = Cards[k];
-                Cards[k] = Cards[n];
-                Cards[n] = value;
+                Card value = Cards.ElementAt(k);
+                Cards.ToList()[k] = Cards.ElementAt(n);
+                Cards.ToList()[n] = value;
             }
         }
     }

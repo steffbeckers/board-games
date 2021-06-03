@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Players;
@@ -21,14 +22,14 @@ namespace ThousandBombsAndGrenades.Games
             }
         }
 
-        public List<Player> Players { get; private set; }
-        public List<PlayerTurn> PlayerTurns { get; private set; }
+        public ICollection<Player> Players { get; private set; }
+        public ICollection<PlayerTurn> PlayerTurns { get; private set; }
 
         public Game(Guid id)
         {
             Id = id;
-            Players = new List<Player>();
-            PlayerTurns = new List<PlayerTurn>();
+            Players = new Collection<Player>();
+            PlayerTurns = new Collection<PlayerTurn>();
         }
 
         /// <summary>
@@ -78,15 +79,15 @@ namespace ThousandBombsAndGrenades.Games
             {
                 PlayerTurn lastTurn = PlayerTurns.Last();
                 Player player = Players.OrderBy(x => x.SortOrder).First(x => x.Id == lastTurn.PlayerId);
-                int playerIndex = Players.IndexOf(player);
+                int playerIndex = Players.ToList().IndexOf(player);
                 playerIndex++;
                 if (playerIndex >= Players.Count)
                 {
                     playerIndex = 0;
                 }
 
-                playerTurn.PlayerId = Players[playerIndex].Id;
-                playerTurn.Player = Players[playerIndex];
+                playerTurn.PlayerId = Players.ElementAt(playerIndex).Id;
+                playerTurn.Player = Players.ElementAt(playerIndex);
             }
 
             PlayerTurns.Add(playerTurn);
@@ -174,7 +175,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             for (int i = 0; i < Players.Count; i++)
             {
-                Players[i].SortOrder = i + 1;
+                Players.ElementAt(i).SortOrder = i + 1;
             }
         }
 
