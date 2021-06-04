@@ -1,7 +1,5 @@
-﻿using Xunit;
-using Shouldly;
-using ThousandBombsAndGrenades.Cards;
-using System.Linq;
+﻿using Shouldly;
+using Xunit;
 
 namespace ThousandBombsAndGrenades.Deck
 {

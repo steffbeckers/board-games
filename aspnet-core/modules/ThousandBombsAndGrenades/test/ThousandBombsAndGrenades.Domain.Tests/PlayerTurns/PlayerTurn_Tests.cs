@@ -5,7 +5,6 @@ using System.Linq;
 using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Dice;
-using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
 using Xunit;
 
@@ -36,49 +35,83 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(200);
@@ -107,61 +140,110 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(600);
@@ -190,69 +272,128 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(1200);
@@ -281,53 +422,92 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(400);
@@ -356,57 +536,101 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(600);
@@ -435,57 +659,101 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(1200);
@@ -514,70 +782,128 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new DiamondSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new MonkeySide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Monkey
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new MonkeySide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Monkey
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new MonkeySide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Monkey
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new DiamondSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new GoldenCoinSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.GoldenCoin,
+                    Points = 100
+                }
             });
 
             playerTurn.CalculatePoints().ShouldBe(1200);
@@ -606,49 +932,81 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new GoldenCoinSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.GoldenCoin,
+                            Points = 100
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
-                        },
-                    new Dice.Dice()
-                    {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new MonkeySide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
                     }
                 },
                 Picked = new List<Dice.Dice>()
                 {
                     new Dice.Dice()
                     {
-                        FacingUp = new SkullSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Skull
+                        }
                     },
                     new Dice.Dice()
                     {
-                        FacingUp = new SkullSide()
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Skull
+                        }
                     }
                 }
             });
 
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new SkullSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Skull
+                }
             });
             playerTurn.PickedDice.Add(new Dice.Dice()
             {
-                FacingUp = new SkullSide()
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Skull
+                }
             });
 
             playerTurn.SkullIslandActive = true;
@@ -657,7 +1015,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             DiceRoll lastDiceRoll = playerTurn.LastDiceRoll;
 
-            bool lastDiceRollContainsSkullDice = lastDiceRoll.Picked.FirstOrDefault(x => x.FacingUp.GetType() == typeof(SkullSide)) != null;
+            bool lastDiceRollContainsSkullDice = lastDiceRoll.Picked.FirstOrDefault(x => x.FacingUp.Name == DiceSideConsts.Skull) != null;
 
             if (lastDiceRollContainsSkullDice)
             {

@@ -15,7 +15,8 @@ namespace ThousandBombsAndGrenades.Games
         public DateTime? EndDate { get; private set; }
 
         public DeckOfCards DeckOfCards { get; set; }
-        public PlayerTurn CurrentPlayerTurn {
+        public PlayerTurn CurrentPlayerTurn
+        {
             get
             {
                 return PlayerTurns?.OrderByDescending(x => x.CreationTime).FirstOrDefault();
@@ -33,7 +34,7 @@ namespace ThousandBombsAndGrenades.Games
             PlayerTurns = new Collection<PlayerTurn>();
         }
 
-        private Game() {}
+        private Game() { }
 
         /// <summary>
         /// To start the game.
@@ -67,8 +68,7 @@ namespace ThousandBombsAndGrenades.Games
 
         public void NextPlayerTurn()
         {
-            PlayerTurn playerTurn = new PlayerTurn();
-            playerTurn.GameId = Id;
+            PlayerTurn playerTurn = new PlayerTurn(Guid.NewGuid(), Id);
             playerTurn.Game = this;
 
             // First player's turn

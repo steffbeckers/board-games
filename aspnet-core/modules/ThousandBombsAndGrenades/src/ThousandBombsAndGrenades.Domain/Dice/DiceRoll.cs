@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ThousandBombsAndGrenades.Dice
 {
-    [Serializable]
     public class DiceRoll
     {
-        public List<Dice> Dice { get; set; }
-        public List<Dice> Picked { get; set; }
+        public ICollection<Dice> Dice { get; set; }
+        public ICollection<Dice> Picked { get; set; }
 
         public DiceRoll()
         {
-            Dice = new List<Dice>();
-            Picked = new List<Dice>();
+            Dice = new Collection<Dice>();
+            Picked = new Collection<Dice>();
         }
 
         public List<Dice> RollDice(int count)
@@ -21,10 +21,11 @@ namespace ThousandBombsAndGrenades.Dice
             {
                 Dice dice = new Dice();
                 dice.Roll();
+
                 Dice.Add(dice);
             }
 
-            return Dice;
+            return Dice.ToList();
         }
     }
 }

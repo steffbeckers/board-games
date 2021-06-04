@@ -36,6 +36,8 @@ namespace ThousandBombsAndGrenades
         {
             Console.WriteLine();
             Console.WriteLine($"***** {nameof(TestWithDynamicProxiesAsync)} *****");
+
+            await Task.CompletedTask;
         }
 
         /* Shows how to use HttpClient to perform a request to the HTTP API.

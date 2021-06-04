@@ -2,9 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Dice;
@@ -104,13 +101,13 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 );
 
                 b.Property(x => x.DiceRolls).HasConversion(
-                    v => v.SerializeXML(false),
-                    v => v.DeserializeXML<List<DiceRoll>>()
+                    v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    v => JsonConvert.DeserializeObject<List<DiceRoll>>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
                 b.Property(x => x.PickedDice).HasConversion(
-                    v => v.SerializeXML(false),
-                    v => v.DeserializeXML<List<Dice.Dice>>()
+                    v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    v => JsonConvert.DeserializeObject<List<Dice.Dice>>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
                 b.HasOne(x => x.Game)
@@ -123,35 +120,6 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     .HasForeignKey(x => x.PlayerId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
-        }
-    }
-
-    public static class XMLExtensions
-    {
-        public static string SerializeXML<T>(this T value, bool indent = false)
-        {
-            if (value == null) return string.Empty;
-
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { Indent = indent }))
-                {
-                    xmlSerializer.Serialize(xmlWriter, value);
-                    return stringWriter.ToString();
-                }
-            }
-        }
-
-        public static T DeserializeXML<T>(this string value)
-        {
-            if (string.IsNullOrEmpty(value)) return default(T);
-
-            using (StringReader stringReader = new StringReader(value))
-            {
-                return (T)new XmlSerializer(typeof(T)).Deserialize(stringReader);
-            }
         }
     }
 }

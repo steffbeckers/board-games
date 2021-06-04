@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameDto, GameService } from 'src/app/proxy/thousand-bombs-and-grenades/games';
 
 import { RealtimeGameService } from '../../services/realtime-game.service';
@@ -13,32 +13,41 @@ export class GameDetailComponent implements OnInit {
     game: GameDto;
     playerName: string;
 
-    constructor(private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
+    constructor(private router: Router, private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((routeParams) => {
             const gameId = routeParams.get('id');
             this.getGameDetail(gameId);
-
-            this.realtimeGameService.connect(gameId).then(() => {
-                this.realtimeGameService.listenForGameUpdates((game: GameDto) => {
-                    console.log(game);
-                    this.game = game;
-                })
-            });
         });
     }
 
     private getGameDetail(id: string): void {
-        this.gameService.get(id).subscribe((game: GameDto) => {
-            this.game = game;
-        });
+        this.gameService.get(id).subscribe(
+            (game: GameDto) => {
+                this.game = game;
+
+                this.realtimeGameService.connect(this.game.id).then(() => {
+                    this.realtimeGameService.listenForGameUpdates((game: GameDto) => {
+                        this.game = game;
+                    })
+                });
+            },
+            () => {
+                this.router.navigateByUrl("/1000-bombs-and-grenades");
+            }
+        );
     }
     
     addPlayer(): void {
+        if (!this.playerName) return;
         this.gameService.addPlayer(this.game.id, { name: this.playerName }).subscribe(() => {
             this.playerName = null;
         })
+    }
+
+    removePlayer(id: string): void {
+        this.gameService.removePlayer(this.game.id, id).subscribe();
     }
 
     startGame(): void {

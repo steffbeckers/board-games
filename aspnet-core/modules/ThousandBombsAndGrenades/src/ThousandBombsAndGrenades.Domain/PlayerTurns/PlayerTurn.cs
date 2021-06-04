@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Dice;
-using ThousandBombsAndGrenades.Dice.Sides;
 using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -18,7 +17,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public Card Card { get; set; }
 
-        public DiceRoll LastDiceRoll {
+        public DiceRoll LastDiceRoll
+        {
             get
             {
                 return DiceRolls.LastOrDefault();
@@ -34,11 +34,15 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public ICollection<DiceRoll> DiceRolls { get; private set; }
         public ICollection<Dice.Dice> PickedDice { get; private set; }
 
-        public PlayerTurn()
+        public PlayerTurn(Guid id, Guid gameId)
         {
+            Id = id;
+            GameId = gameId;
             DiceRolls = new Collection<DiceRoll>();
             PickedDice = new Collection<Dice.Dice>();
         }
+
+        private PlayerTurn() {}
 
         public void DrawCard()
         {
@@ -62,9 +66,10 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             int skullDiceRolled = 0;
             foreach (Dice.Dice dice in diceRoll.Dice.ToList())
             {
-                if (dice.FacingUp.GetType() == typeof(SkullSide))
+                if (dice.FacingUp.Name == DiceSideConsts.Skull)
                 {
-                    PickDice(diceRoll.Dice.IndexOf(dice));
+                    List<Dice.Dice> diceRollDice = diceRoll.Dice.ToList();
+                    PickDice(diceRollDice.IndexOf(dice));
                     skullDiceRolled++;
                 }
             }
@@ -94,7 +99,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             DiceRoll diceRoll = DiceRolls.LastOrDefault();
             if (diceRoll == null) return;
 
-            Dice.Dice dice = diceRoll.Dice[index];
+            List<Dice.Dice> diceRollDice = diceRoll.Dice.ToList();
+            Dice.Dice dice = diceRollDice[index];
             if (dice == null) return;
 
             diceRoll.Picked.Add(dice);
@@ -145,7 +151,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // From dice
             foreach (Dice.Dice dice in PickedDice)
             {
-                if (dice.FacingUp.GetType() == typeof(SkullSide))
+                if (dice.FacingUp.Name == DiceSideConsts.Skull)
                 {
                     skullCount += 1;
                 }
@@ -167,7 +173,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // From dice
             foreach (Dice.Dice dice in PickedDice)
             {
-                points += dice.FacingUp.Points;
+                points += dice.FacingUp.Points ?? 0;
             }
 
             // From dice combinations
@@ -177,12 +183,12 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 diceSideCount.TryGetValue(diceSide, out int count);
 
                 // Diamond card
-                if (Card.Name == CardConsts.Diamond && diceSide == typeof(DiamondSide).ToString())
+                if (Card.Name == CardConsts.Diamond && diceSide == DiceSideConsts.Diamond)
                 {
                     count++;
                 }
                 // Golden coin card
-                else if (Card.Name == CardConsts.GoldenCoin && diceSide == typeof(GoldenCoinSide).ToString())
+                else if (Card.Name == CardConsts.GoldenCoin && diceSide == DiceSideConsts.GoldenCoin)
                 {
                     count++;
                 }
@@ -259,19 +265,19 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 diceSideCount.TryGetValue(diceSide, out int count);
 
                 // If any skulls, you can't have a full treasure chest
-                if (diceSide == typeof(SkullSide).ToString())
+                if (diceSide == DiceSideConsts.Skull)
                 {
                     return false;
                 }
-                else if (diceSide == typeof(SwordsSide).ToString() && count < 3)
+                else if (diceSide == DiceSideConsts.Swords && count < 3)
                 {
                     return false;
                 }
-                else if (diceSide == typeof(ParrotSide).ToString() && count < 3)
+                else if (diceSide == DiceSideConsts.Parrot && count < 3)
                 {
                     return false;
                 }
-                else if (diceSide == typeof(MonkeySide).ToString() && count < 3)
+                else if (diceSide == DiceSideConsts.Monkey && count < 3)
                 {
                     return false;
                 }

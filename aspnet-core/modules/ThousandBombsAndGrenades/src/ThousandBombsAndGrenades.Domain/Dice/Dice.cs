@@ -1,32 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using ThousandBombsAndGrenades.Dice.Sides;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ThousandBombsAndGrenades.Dice
 {
-    [Serializable]
     public class Dice
     {
         public DiceSide FacingUp { get; set; }
-        private List<DiceSide> Sides { get; set; }
+        private ICollection<DiceSide> Sides { get; set; }
 
         public Dice()
         {
-            Sides = new List<DiceSide>
+            Sides = new Collection<DiceSide>
             {
-                new DiamondSide(),
-                new GoldenCoinSide(),
-                new MonkeySide(),
-                new ParrotSide(),
-                new SkullSide(),
-                new SwordsSide(),
+                new DiceSide() {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                },
+                new DiceSide() {
+                    Name = DiceSideConsts.GoldenCoin,
+                    DisplayName = "Golden coin",
+                    Points = 100
+                },
+                new DiceSide() {
+                    Name = DiceSideConsts.Monkey
+                },
+                new DiceSide() {
+                    Name = DiceSideConsts.Parrot
+                },
+                new DiceSide() {
+                    Name = DiceSideConsts.Skull
+                },
+                new DiceSide() {
+                    Name = DiceSideConsts.Swords
+                }
             };
         }
 
         public void Roll()
         {
-            Random rng = new Random();
-            FacingUp = Sides[rng.Next(Sides.Count)];
+            FacingUp = Sides.ElementAt(new Random().Next(Sides.Count));
         }
     }
 }
