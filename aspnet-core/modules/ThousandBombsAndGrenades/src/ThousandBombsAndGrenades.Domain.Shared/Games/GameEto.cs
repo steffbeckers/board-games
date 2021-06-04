@@ -2,6 +2,7 @@
 
 namespace ThousandBombsAndGrenades.Games
 {
+    [Serializable]
     public class GameEto
     {
         public Guid Id { get; set; }

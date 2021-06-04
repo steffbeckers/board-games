@@ -32,6 +32,8 @@ namespace ThousandBombsAndGrenades.Games
             PlayerTurns = new Collection<PlayerTurn>();
         }
 
+        private Game() {}
+
         /// <summary>
         /// To start the game.
         /// </summary>

@@ -14,16 +14,13 @@ namespace ThousandBombsAndGrenades.Games
     {
         private readonly IGameRepository _gameRepository;
         private readonly IPlayerTurnRepository _playerTurnRepository;
-        private readonly GameManager _gameManager;
 
         public GameAppService(
             IGameRepository gameRepository,
-            GameManager gameManager,
             IPlayerTurnRepository playerTurnRepository
         )
         {
             _gameRepository = gameRepository;
-            _gameManager = gameManager;
             _playerTurnRepository = playerTurnRepository;
         }
 
@@ -45,7 +42,11 @@ namespace ThousandBombsAndGrenades.Games
 
         public async Task<GameDto> CreateAsync()
         {
-            Game game = await _gameManager.CreateAsync();
+            Game game = new Game(Guid.NewGuid())
+            {
+                DeckOfCards = new Deck.DeckOfCards()
+            };
+            game = await _gameRepository.InsertAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 

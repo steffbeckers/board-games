@@ -9,32 +9,13 @@ namespace ThousandBombsAndGrenades.Deck
     public class DeckOfCards
     {
         public ICollection<Card> Cards { get; private set; }
+        public int CardsDrawn { get; private set; }
 
         public DeckOfCards()
         {
-            ShuffleNewDeck();
-        }
+            // Initialize deck
+            if (Cards != null) return;
 
-        public Card DrawCard()
-        {
-            // Draw the top card
-            Card card = Cards.FirstOrDefault();
-
-            // If no card, shuffle a new deck and draw its top card
-            if (card == null)
-            {
-                ShuffleNewDeck();
-                card = Cards.First();
-            }
-
-            // Remove the card from the deck
-            Cards.Remove(card);
-
-            return card;
-        }
-
-        private void ShuffleNewDeck()
-        {
             Card animalsCard = new Card()
             {
                 Name = CardConsts.Animals
@@ -52,7 +33,7 @@ namespace ThousandBombsAndGrenades.Deck
                 DisplayName = "Golden coin",
                 Points = 100
             };
-            
+
             Card pirateCard = new Card()
             {
                 Name = CardConsts.Pirate
@@ -154,15 +135,30 @@ namespace ThousandBombsAndGrenades.Deck
                 waiterCard,
             };
 
-            for (int i = 1; i <= Cards.Count; i++)
-            {
-                Cards.ElementAt(i - 1).Id = i;
-            }
-
+            // When initializing, shuffle the deck
             Shuffle();
         }
 
-        private void Shuffle()
+        public Card DrawCard()
+        {
+            // Draw the top card
+            Card card = Cards.FirstOrDefault();
+
+            // Move the drawn card to the bottom
+            Cards.Remove(card);
+            Cards.Add(card);
+
+            // If whole deck is drawn, shuffle again
+            CardsDrawn++;
+            if (CardsDrawn > Cards.Count)
+            {
+                Shuffle();
+            }
+
+            return card;
+        }
+
+        public void Shuffle()
         {
             Random rng = new Random();
 

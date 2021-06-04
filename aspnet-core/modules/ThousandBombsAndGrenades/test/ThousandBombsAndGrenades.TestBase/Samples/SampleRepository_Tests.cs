@@ -21,7 +21,7 @@ namespace ThousandBombsAndGrenades.Samples
         [Fact]
         public async Task Method1Async()
         {
-
+            await Task.CompletedTask;
         }
     }
 }
