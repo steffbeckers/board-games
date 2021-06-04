@@ -162,15 +162,24 @@ namespace ThousandBombsAndGrenades.Deck
         {
             Random rng = new Random();
 
-            int n = Cards.Count;
+            List<Card> cards = Cards.ToList();
+
+            int n = cards.Count;
             while (n > 1)
             {
                 n--;
                 int k = rng.Next(n + 1);
-                Card value = Cards.ElementAt(k);
-                Cards.ToList()[k] = Cards.ElementAt(n);
-                Cards.ToList()[n] = value;
+                Card value = cards.ElementAt(k);
+                cards[k] = cards.ElementAt(n);
+                cards[n] = value;
             }
+
+            Cards = cards;
+        }
+
+        public override string ToString()
+        {
+            return Cards.Select(x => x.Name).JoinAsString(";");
         }
     }
 }

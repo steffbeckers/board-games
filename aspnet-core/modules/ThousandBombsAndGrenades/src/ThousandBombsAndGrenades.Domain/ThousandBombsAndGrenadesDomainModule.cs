@@ -20,7 +20,7 @@ namespace ThousandBombsAndGrenades
 
             Configure<AbpAutoMapperOptions>(options =>
             {
-                options.AddProfile<ThousandBombsAndGrenadesDomainAutoMapperProfile>(validate: true);
+                options.AddMaps<ThousandBombsAndGrenadesDomainModule>(validate: true);
             });
 
             Configure<AbpDistributedEntityEventOptions>(options =>

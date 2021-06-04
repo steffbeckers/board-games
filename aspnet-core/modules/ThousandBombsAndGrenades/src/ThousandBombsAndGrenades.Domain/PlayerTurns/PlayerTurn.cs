@@ -137,13 +137,9 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             int skullCount = 0;
 
             // From card
-            if (Card.Name == "Skull")
+            if (Card.Name == CardConsts.Skull)
             {
-                skullCount += 1;
-            }
-            else if (Card.Name == "Skull2")
-            {
-                skullCount += 2;
+                skullCount += Card.Count ?? 0;
             }
 
             // From dice

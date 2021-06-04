@@ -427,7 +427,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             PlayerTurn playerTurn = game.PlayerTurns.Last();
 
-            playerTurn.Card = new Card() { Name = CardConsts.Skull };
+            playerTurn.Card = new Card() { Name = CardConsts.Pirate };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
             {

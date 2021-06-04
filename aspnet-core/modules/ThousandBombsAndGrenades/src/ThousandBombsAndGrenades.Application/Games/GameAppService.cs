@@ -42,10 +42,7 @@ namespace ThousandBombsAndGrenades.Games
 
         public async Task<GameDto> CreateAsync()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new Deck.DeckOfCards()
-            };
+            Game game = new Game(Guid.NewGuid());
             game = await _gameRepository.InsertAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }

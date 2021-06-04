@@ -18,7 +18,7 @@ namespace ThousandBombsAndGrenades.Games
         public PlayerTurn CurrentPlayerTurn {
             get
             {
-                return PlayerTurns.OrderByDescending(x => x.CreationTime).FirstOrDefault();
+                return PlayerTurns?.OrderByDescending(x => x.CreationTime).FirstOrDefault();
             }
         }
 
@@ -28,6 +28,7 @@ namespace ThousandBombsAndGrenades.Games
         public Game(Guid id)
         {
             Id = id;
+            DeckOfCards = new DeckOfCards();
             Players = new Collection<Player>();
             PlayerTurns = new Collection<PlayerTurn>();
         }

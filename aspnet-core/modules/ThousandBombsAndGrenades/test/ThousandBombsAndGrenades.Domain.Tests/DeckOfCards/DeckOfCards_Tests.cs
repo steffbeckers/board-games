@@ -1,5 +1,7 @@
 ﻿using Xunit;
 using Shouldly;
+using ThousandBombsAndGrenades.Cards;
+using System.Linq;
 
 namespace ThousandBombsAndGrenades.Deck
 {
@@ -11,6 +13,18 @@ namespace ThousandBombsAndGrenades.Deck
             DeckOfCards deckOfCards = new DeckOfCards();
 
             deckOfCards.Cards.Count.ShouldBe(35);
+        }
+
+        [Fact]
+        public void Should_Shuffle_Cards()
+        {
+            DeckOfCards deckOfCards = new DeckOfCards();
+
+            string before = deckOfCards.ToString();
+            deckOfCards.Shuffle();
+            string after = deckOfCards.ToString();
+
+            before.ShouldNotBe(after);
         }
     }
 }
