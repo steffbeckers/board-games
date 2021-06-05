@@ -98,6 +98,21 @@ namespace ThousandBombsAndGrenades.Games
 
         public void PlayersTurnEnded()
         {
+            PlayerTurn playerTurn = CurrentPlayerTurn;
+            Player player = CurrentPlayerTurn.Player;
+
+            if (playerTurn.SkullIslandActive)
+            {
+                foreach (Player otherPlayer in Players.Where(x => x.Id != player.Id))
+                {
+                    otherPlayer.Points -= playerTurn.Points;
+                }
+            }
+            else
+            {
+                player.Points = CurrentPlayerTurn.Points;
+            }
+
             NextPlayerTurn();
         }
 

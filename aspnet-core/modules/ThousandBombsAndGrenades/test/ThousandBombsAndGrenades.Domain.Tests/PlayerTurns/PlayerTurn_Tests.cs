@@ -22,7 +22,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         }
 
         [Fact]
-        public void Should_Draw_A_Card_From_Deck()
+        public void Should_Draw_A_Card()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
@@ -32,10 +32,40 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         }
 
         [Fact]
+        public void Should_Roll_Dice()
+        {
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
+
+            playerTurn.LastDiceRoll.ShouldBeNull();
+            playerTurn.RollDice();
+            playerTurn.LastDiceRoll.ShouldNotBeNull();
+            (playerTurn.LastDiceRoll.Dice.Count + playerTurn.LastDiceRoll.Picked.Count).ShouldBe(GameConsts.DiceCount);
+        }
+
+        [Fact]
+        public void Should_Roll_Dice_Multiple_Times()
+        {
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
+            playerTurn.Card = new Card() { Name = CardConsts.Skull };
+
+            playerTurn.RollDice();
+
+            if (playerTurn.LastDiceRoll.Dice.Count > 0)
+            {
+                playerTurn.RollDice();
+                playerTurn.DiceRolls.Count.ShouldBe(2);
+            }
+            else
+            {
+                playerTurn.DiceRolls.Count.ShouldBe(1);
+            }
+        }
+
+        [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -130,7 +160,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_3_Diamond_Dice()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -252,7 +281,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_5_Diamond_Dice()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -392,7 +420,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_Calculate_Points_Of_3_Golden_Coin_Dice()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -496,7 +523,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_Calculate_Points_Of_4_Diamond_Dice()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -609,7 +635,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_Calculate_Points_When_Pirate_Card_Is_Drawn()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Pirate };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -722,7 +747,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_Calculate_Points_Dice_That_Add_Up_To_Full_Treasure_Chest()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
             playerTurn.DiceRolls.Add(new DiceRoll()
@@ -862,7 +886,6 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public void Should_End_After_No_Skull_Side_Dice_Are_Rolled_When_Skull_Island_Is_Active()
         {
             PlayerTurn playerTurn = _game.CurrentPlayerTurn;
-
             playerTurn.Card = new Card() { Name = CardConsts.Skull, Count = 2 };
 
             playerTurn.DiceRolls.Add(new DiceRoll()

@@ -13,14 +13,17 @@ namespace ThousandBombsAndGrenades.Games
     public class GameAppService : ApplicationService, IGameAppService
     {
         private readonly IGameRepository _gameRepository;
+        private readonly IPlayerRepository _playerRepository;
         private readonly IPlayerTurnRepository _playerTurnRepository;
 
         public GameAppService(
             IGameRepository gameRepository,
+            IPlayerRepository playerRepository,
             IPlayerTurnRepository playerTurnRepository
         )
         {
             _gameRepository = gameRepository;
+            _playerRepository = playerRepository;
             _playerTurnRepository = playerTurnRepository;
         }
 
@@ -110,6 +113,7 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = await _gameRepository.GetAsync(id);
             game.CurrentPlayerTurn.End();
+            await _playerRepository.UpdateManyAsync(game.Players);
             await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);

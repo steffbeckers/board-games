@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ThousandBombsAndGrenades.Games;
+using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.DependencyInjection;
@@ -21,7 +22,8 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 /* Add custom repositories here. Example:
                  * options.AddRepository<Question, EfCoreQuestionRepository>();
                  */
-                options.AddRepository<Game, EfCorePlayerTurnRepository>();
+                options.AddRepository<Game, EfCoreGameRepository>();
+                options.AddRepository<Player, EfCorePlayerRepository>();
                 options.AddRepository<PlayerTurn, EfCorePlayerTurnRepository>();
             });
 

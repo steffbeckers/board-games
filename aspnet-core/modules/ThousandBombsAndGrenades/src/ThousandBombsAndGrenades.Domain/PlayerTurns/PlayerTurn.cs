@@ -96,15 +96,14 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // Validation
             // TODO: You can't pick a dice if there are no dice rolled
 
-            DiceRoll diceRoll = DiceRolls.LastOrDefault();
-            if (diceRoll == null) return;
+            if (LastDiceRoll == null) return;
 
-            List<Dice.Dice> diceRollDice = diceRoll.Dice.ToList();
+            List<Dice.Dice> diceRollDice = LastDiceRoll.Dice.ToList();
             Dice.Dice dice = diceRollDice[index];
             if (dice == null) return;
 
-            diceRoll.Picked.Add(dice);
-            diceRoll.Dice.Remove(dice);
+            LastDiceRoll.Picked.Add(dice);
+            LastDiceRoll.Dice.Remove(dice);
 
             PickedDice.Add(dice);
 
@@ -119,14 +118,13 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             // - You can't return Dice of type Skull
             // - Returning dice from treasure chest card
 
-            DiceRoll diceRoll = DiceRolls.LastOrDefault();
-            if (diceRoll == null) return;
+            if (LastDiceRoll == null) return;
 
-            Dice.Dice dice = PickedDice.ElementAt(index);
+            Dice.Dice dice = LastDiceRoll.Picked.ElementAt(index);
             if (dice == null) return;
 
-            diceRoll.Dice.Add(dice);
-            diceRoll.Picked.Remove(dice);
+            LastDiceRoll.Dice.Add(dice);
+            LastDiceRoll.Picked.Remove(dice);
 
             PickedDice.Remove(dice);
 
