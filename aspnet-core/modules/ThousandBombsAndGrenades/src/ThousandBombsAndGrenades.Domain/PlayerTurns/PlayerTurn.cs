@@ -238,14 +238,14 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
             foreach (Dice.Dice dice in PickedDice)
             {
-                if (!diceSideCount.ContainsKey(dice.FacingUp.GetType().ToString()))
+                if (!diceSideCount.ContainsKey(dice.FacingUp.Name))
                 {
-                    diceSideCount.Add(dice.FacingUp.GetType().ToString(), 0);
+                    diceSideCount.Add(dice.FacingUp.Name, 0);
                 }
 
-                diceSideCount.TryGetValue(dice.FacingUp.GetType().ToString(), out int count);
+                diceSideCount.TryGetValue(dice.FacingUp.Name, out int count);
                 count++;
-                diceSideCount[dice.FacingUp.GetType().ToString()] = count;
+                diceSideCount[dice.FacingUp.Name] = count;
             }
 
             return diceSideCount;
