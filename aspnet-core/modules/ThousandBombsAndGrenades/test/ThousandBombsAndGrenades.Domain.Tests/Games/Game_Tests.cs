@@ -11,10 +11,7 @@ namespace ThousandBombsAndGrenades.Games
         [Fact]
         public void Should_Be_Able_To_Play()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
+            Game game = new Game(Guid.NewGuid());
 
             game.AddPlayer("Steff");
             game.AddPlayer("Daisy");

@@ -3,29 +3,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ThousandBombsAndGrenades.Cards;
-using ThousandBombsAndGrenades.Deck;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Games;
 using Xunit;
 
 namespace ThousandBombsAndGrenades.PlayerTurns
 {
-    public class PlayerTurn_Tests : ThousandBombsAndGrenadesDomainTestBase
+    public class PlayerTurn_Tests : ThousandBombsAndGrenadesDomainTestBase, IDisposable
     {
+        private readonly Game _game;
+
+        public PlayerTurn_Tests()
+        {
+            _game = new Game(Guid.NewGuid());
+            _game.AddPlayer("Player 1");
+            _game.AddPlayer("Player 2");
+            _game.Start();
+        }
+
+        [Fact]
+        public void Should_Draw_A_Card_From_Deck()
+        {
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
+
+            playerTurn.Card.ShouldBeNull();
+            playerTurn.DrawCard();
+            playerTurn.Card.ShouldNotBeNull();
+        }
+
         [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
@@ -120,17 +129,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_3_Diamond_Dice()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
@@ -252,17 +251,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_2_Golden_Coin_Dice_And_5_Diamond_Dice()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
@@ -402,17 +391,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_3_Golden_Coin_Dice()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
@@ -516,17 +495,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Of_4_Diamond_Dice()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
@@ -639,17 +608,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_When_Pirate_Card_Is_Drawn()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Pirate };
 
@@ -762,17 +721,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_Calculate_Points_Dice_That_Add_Up_To_Full_Treasure_Chest()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull };
 
@@ -912,17 +861,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         [Fact]
         public void Should_End_After_No_Skull_Side_Dice_Are_Rolled_When_Skull_Island_Is_Active()
         {
-            Game game = new Game(Guid.NewGuid())
-            {
-                DeckOfCards = new DeckOfCards()
-            };
-
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
-
-            game.Start();
-
-            PlayerTurn playerTurn = game.PlayerTurns.Last();
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
 
             playerTurn.Card = new Card() { Name = CardConsts.Skull, Count = 2 };
 
