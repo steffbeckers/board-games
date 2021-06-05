@@ -5,7 +5,7 @@
     <div>
         <h4>Players (2-5)</h4>
         <ul>
-            <li *ngFor="let player of game.players">{{ player.name }} <span (click)="removePlayer(player.id)">X</span></li>
+            <li *ngFor="let player of game.players">{{ player.name }}<span *ngIf="player.points"> - Points: {{ player.points }}</span></li>
         </ul>
         <div *ngIf="!game.startDate">
             <input [(ngModel)]="playerName" (keyup.enter)="addPlayer()" type="text">
