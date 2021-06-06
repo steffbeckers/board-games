@@ -38,6 +38,10 @@ export class GameDetailComponent implements OnInit {
             }
         );
     }
+
+    join(): void {
+        this.gameService.join(this.game.id).subscribe();
+    }
     
     addPlayer(): void {
         if (!this.playerName) return;
@@ -50,7 +54,7 @@ export class GameDetailComponent implements OnInit {
         this.gameService.removePlayer(this.game.id, id).subscribe();
     }
 
-    startGame(): void {
+    start(): void {
         this.gameService.start(this.game.id).subscribe();
     }
 
@@ -74,7 +78,7 @@ export class GameDetailComponent implements OnInit {
         this.gameService.endTurn(this.game.id).subscribe();
     }
 
-    endGame(): void {
+    end(): void {
         this.gameService.end(this.game.id).subscribe();
     }
 }

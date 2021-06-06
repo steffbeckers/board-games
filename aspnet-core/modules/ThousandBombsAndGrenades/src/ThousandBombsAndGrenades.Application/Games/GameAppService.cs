@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThousandBombsAndGrenades.Players;
@@ -46,14 +47,39 @@ namespace ThousandBombsAndGrenades.Games
         public async Task<GameDto> CreateAsync()
         {
             Game game = new Game(Guid.NewGuid());
-            game = await _gameRepository.InsertAsync(game);
+            game = await _gameRepository.InsertAsync(game, autoSave: true);
+
+            // If logged in, add the current user to the game automatically
+            if (CurrentUser.IsAuthenticated)
+            {
+                game.AddPlayer(new Player(Guid.NewGuid(), CurrentUser.UserName)
+                {
+                    UserId = CurrentUser.Id
+                });
+                game = await _gameRepository.UpdateAsync(game);
+            }
+
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        [Authorize]
+        public async Task<GameDto> JoinAsync(Guid id)
+        {
+            // TODO: Check if game is joinable?
+
+            Game game = await _gameRepository.GetAsync(id);
+            game.AddPlayer(new Player(Guid.NewGuid(), CurrentUser.UserName)
+            {
+                UserId = CurrentUser.Id
+            });
+            game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
         public async Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.AddPlayer(addPlayerDto.Name);
+            game.AddPlayer(new Player(Guid.NewGuid(), addPlayerDto.Name));
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }

@@ -40,6 +40,13 @@ namespace ThousandBombsAndGrenades.Games
             return _gamesAppService.CreateAsync();
         }
 
+        [HttpGet]
+        [Route("{id}/join")]
+        public Task<GameDto> JoinAsync(Guid id)
+        {
+            return _gamesAppService.JoinAsync(id);
+        }
+
         [HttpPost]
         [Route("{id}/players")]
         public Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto)

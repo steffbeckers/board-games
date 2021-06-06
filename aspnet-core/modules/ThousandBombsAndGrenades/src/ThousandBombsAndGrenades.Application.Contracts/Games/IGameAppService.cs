@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Threading.Tasks;
 using ThousandBombsAndGrenades.Players;
 using Volo.Abp.Application.Dtos;
@@ -11,6 +12,7 @@ namespace ThousandBombsAndGrenades.Games
         Task<PagedResultDto<GameDto>> GetListAsync();
         Task<GameDto> GetAsync(Guid id);
         Task<GameDto> CreateAsync();
+        Task<GameDto> JoinAsync(Guid id);
         Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto);
         Task<GameDto> RemovePlayerAsync(Guid id, Guid playerId);
         Task<GameDto> StartAsync(Guid id);

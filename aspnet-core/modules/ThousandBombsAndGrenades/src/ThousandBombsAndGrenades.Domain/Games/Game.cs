@@ -129,8 +129,8 @@ namespace ThousandBombsAndGrenades.Games
         /// <summary>
         /// To add a player to the game.
         /// </summary>
-        /// <param name="name">The player's name</param>
-        public void AddPlayer(string name)
+        /// <param name="player">The player</param>
+        public void AddPlayer(Player player)
         {
             // We can't add players when the game is already finished
             if (IsFinished())
@@ -145,7 +145,7 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Check if player is already added to the game
-            if (Players.Any(x => x.Name.ToLower() == name.ToLower()))
+            if (Players.Any(x => x.Name.ToLower() == player.Name.ToLower()))
             {
                 // If the player is already added, we don't need to add him again
                 return;
@@ -158,7 +158,7 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Add the player to the game
-            Players.Add(new Player(Guid.NewGuid(), name));
+            Players.Add(player);
 
             CalculatePlayersSortOrders();
         }

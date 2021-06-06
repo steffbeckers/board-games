@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ThousandBombsAndGrenades.Deck;
+using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
 using Xunit;
 
@@ -13,8 +13,8 @@ namespace ThousandBombsAndGrenades.Games
         {
             Game game = new Game(Guid.NewGuid());
 
-            game.AddPlayer("Steff");
-            game.AddPlayer("Daisy");
+            game.AddPlayer(new Player(Guid.NewGuid(), "Player 1"));
+            game.AddPlayer(new Player(Guid.NewGuid(), "Player 2"));
 
             game.Start();
 

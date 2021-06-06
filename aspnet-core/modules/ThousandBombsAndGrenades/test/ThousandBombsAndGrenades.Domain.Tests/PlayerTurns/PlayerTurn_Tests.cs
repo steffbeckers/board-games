@@ -5,6 +5,7 @@ using System.Linq;
 using ThousandBombsAndGrenades.Cards;
 using ThousandBombsAndGrenades.Dice;
 using ThousandBombsAndGrenades.Games;
+using ThousandBombsAndGrenades.Players;
 using Xunit;
 
 namespace ThousandBombsAndGrenades.PlayerTurns
@@ -16,8 +17,8 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public PlayerTurn_Tests()
         {
             _game = new Game(Guid.NewGuid());
-            _game.AddPlayer("Player 1");
-            _game.AddPlayer("Player 2");
+            _game.AddPlayer(new Player(Guid.NewGuid(), "Player 1"));
+            _game.AddPlayer(new Player(Guid.NewGuid(), "Player 2"));
             _game.Start();
         }
 

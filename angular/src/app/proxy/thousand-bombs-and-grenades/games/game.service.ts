@@ -60,6 +60,13 @@ export class GameService {
     },
     { apiName: this.apiName });
 
+  join = (id: string) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/join`,
+    },
+    { apiName: this.apiName });
+
   pickDice = (id: string, index: number) =>
     this.restService.request<any, GameDto>({
       method: 'GET',

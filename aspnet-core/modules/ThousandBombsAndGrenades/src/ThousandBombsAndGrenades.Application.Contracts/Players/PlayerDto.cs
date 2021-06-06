@@ -10,5 +10,6 @@ namespace ThousandBombsAndGrenades.Players
         public string Name { get; set; }
         public int Points { get; set; }
         public int SortOrder { get; set; }
+        public Guid? UserId { get; set; }
     }
 }

@@ -42,7 +42,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             PickedDice = new Collection<Dice.Dice>();
         }
 
-        private PlayerTurn() {}
+        private PlayerTurn() { }
 
         public void DrawCard()
         {

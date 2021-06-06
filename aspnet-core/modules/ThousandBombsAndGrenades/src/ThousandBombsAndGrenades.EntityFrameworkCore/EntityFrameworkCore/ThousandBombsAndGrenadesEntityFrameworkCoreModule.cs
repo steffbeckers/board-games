@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using ThousandBombsAndGrenades.Games;
 using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
@@ -32,17 +33,17 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 options.Entity<Game>(gameOptions =>
                 {
                     gameOptions.DefaultWithDetailsFunc = query =>
-                        query.Include(x => x.Players)
-                            .Include(x => x.PlayerTurns);
+                        query.Include(x => x.Players.OrderBy(x => x.SortOrder))
+                            .Include(x => x.PlayerTurns.OrderByDescending(x => x.CreationTime));
                 });
 
                 options.Entity<PlayerTurn>(playerTurnOptions =>
                 {
                     playerTurnOptions.DefaultWithDetailsFunc = query =>
                         query.Include(x => x.Game)
-                                .ThenInclude(x => x.Players)
+                                .ThenInclude(x => x.Players.OrderBy(x => x.SortOrder))
                             .Include(x => x.Game)
-                                .ThenInclude(x => x.PlayerTurns)
+                                .ThenInclude(x => x.PlayerTurns.OrderByDescending(x => x.CreationTime))
                             .Include(x => x.Player);
                 });
             });
