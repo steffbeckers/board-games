@@ -1,6 +1,5 @@
 
 export interface CardDto {
-  id: number;
   name?: string;
   displayName?: string;
   description?: string;

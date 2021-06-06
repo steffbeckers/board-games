@@ -42,9 +42,9 @@ namespace ThousandBombsAndGrenades.Games
 
         [HttpPost]
         [Route("{id}/players")]
-        public Task<GameDto> AddPlayerAsync(Guid id, PlayerDto playerDto)
+        public Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto)
         {
-            return _gamesAppService.AddPlayerAsync(id, playerDto);
+            return _gamesAppService.AddPlayerAsync(id, addPlayerDto);
         }
 
         [HttpDelete]

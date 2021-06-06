@@ -52,14 +52,23 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public void RollDice()
         {
-            // Validation
             if (Card == null)
             {
                 throw new PlayerTurnHasToStartByDrawingACardFirstException();
             }
 
+            // Dice count to roll
+            int diceCountToRoll = GameConsts.DiceCount - PickedDice.Count;
+
+            // You must roll at least 2 dice
+            if (diceCountToRoll <= 1)
+            {
+                return;
+            }
+
+            // Add a new dice roll
             DiceRoll diceRoll = new DiceRoll();
-            diceRoll.RollDice(GameConsts.DiceCount - PickedDice.Count);
+            diceRoll.RollDice(diceCountToRoll);
             DiceRolls.Add(diceRoll);
 
             // Automatically pick skull dice
@@ -84,23 +93,27 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             else if (SkullIslandActive && skullDiceRolled > 0)
             {
             }
-            // Skull island finished or dead
-            else if (SkullIslandActive && skullDiceRolled == 0 || skullCount >= 3)
+            // Skull island finished
+            else if (SkullIslandActive && skullDiceRolled == 0)
             {
                 End();
+            }
+            // Dead by skull count
+            else if (skullCount >= 3)
+            {
+                End(true);
             }
         }
 
         public void PickDice(int index)
         {
-            // Validation
-            // TODO: You can't pick a dice if there are no dice rolled
-
             if (LastDiceRoll == null) return;
 
-            List<Dice.Dice> diceRollDice = LastDiceRoll.Dice.ToList();
-            Dice.Dice dice = diceRollDice[index];
+            Dice.Dice dice = LastDiceRoll.Dice.ElementAt(index);
             if (dice == null) return;
+
+            // When skull island is active you can only pick skulls
+            if (SkullIslandActive && dice.FacingUp.Name != DiceSideConsts.Skull) return;
 
             LastDiceRoll.Picked.Add(dice);
             LastDiceRoll.Dice.Remove(dice);
@@ -112,21 +125,22 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public void ReturnDice(int index)
         {
-            // Validation
-            // TODO:
-            // - You can't return a dice if none were picked yet
-            // - You can't return Dice of type Skull
-            // - Returning dice from treasure chest card
+            // TODO: Returning dice from treasure chest card
 
             if (LastDiceRoll == null) return;
+            if (LastDiceRoll.Picked.Count == 0) return;
 
             Dice.Dice dice = LastDiceRoll.Picked.ElementAt(index);
             if (dice == null) return;
 
+            // You can't return Dice of type Skull
+            // TODO: When waiter card active, 1 skull can be returned during the player's turn
+            if (dice.FacingUp.Name == DiceSideConsts.Skull) return;
+
             LastDiceRoll.Dice.Add(dice);
             LastDiceRoll.Picked.Remove(dice);
 
-            PickedDice.Remove(dice);
+            PickedDice.Remove(PickedDice.Where(x => x.FacingUp.Name == dice.FacingUp.Name).FirstOrDefault());
 
             Points = CalculatePoints();
         }
@@ -160,6 +174,11 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public int CalculatePoints()
         {
+            if (SkullIslandActive)
+            {
+                return CalculateSkullIslandPoints();
+            }
+
             int points = 0;
 
             // From card
@@ -230,6 +249,34 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             return points;
         }
 
+        private int CalculateSkullIslandPoints()
+        {
+            int skulls = 0;
+
+            // From card
+            if (Card != null && Card.Name == CardConsts.Skull)
+            {
+                skulls += Card.Count ?? 1;
+            }
+
+            // From dice
+            foreach (Dice.Dice dice in PickedDice.Where(x => x.FacingUp.Name == DiceSideConsts.Skull))
+            {
+                skulls += 1;
+            }
+
+            // -100 points for all other players
+            int points = skulls * -100;
+
+            // Pirate card, when active calculate all points and double them at the end
+            if (Card.Name == CardConsts.Pirate)
+            {
+                points = points * 2;
+            }
+
+            return points;
+        }
+
         private Dictionary<string, int> GetDiceSideCount()
         {
             Dictionary<string, int> diceSideCount = new Dictionary<string, int>();
@@ -284,14 +331,26 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             return true;
         }
 
-        public void End()
+        public void End(bool deadBySkullCount = false)
         {
             // Validation
             // TODO:
             // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
 
-            Points = CalculatePoints();
-            // TODO: What with skull island points? We need to subtract the other players points.
+            if (!deadBySkullCount)
+            {
+                // Pick all left over dice, from last roll
+                for (int i = 0; i < LastDiceRoll.Dice.Count; i++)
+                {
+                    PickDice(i);
+                }
+
+                Points = CalculatePoints();
+            }
+            else
+            {
+                Points = 0;
+            }
 
             Game.PlayersTurnEnded();
         }

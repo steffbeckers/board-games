@@ -5,7 +5,7 @@
     <div>
         <h4>Players (2-5)</h4>
         <ul>
-            <li *ngFor="let player of game.players">{{ player.name }}<span *ngIf="player.points"> - Points: {{ player.points }}</span></li>
+            <li *ngFor="let player of game.players">{{ player.name }}<br />Points: {{ player.points }}</li>
         </ul>
         <div *ngIf="!game.startDate">
             <input [(ngModel)]="playerName" (keyup.enter)="addPlayer()" type="text">
@@ -15,7 +15,7 @@
     <div *ngIf="game.currentPlayerTurn && !game.endDate">
         <h4>{{ game.currentPlayerTurn.player.name }}'s turn</h4>
         <div>Points: {{ game.currentPlayerTurn.points }}</div>
-        <button (click)="drawCard()" class="btn btn-primary" [disabled]="game.currentPlayerTurn.card">Draw card</button>
+        <button *ngIf="!game.currentPlayerTurn.card" (click)="drawCard()" class="btn btn-primary">Draw card</button>
         <div *ngIf="game.currentPlayerTurn.card?.name">
             {{ game.currentPlayerTurn.card.displayName || game.currentPlayerTurn.card.name }} card active
         </div>
@@ -23,12 +23,16 @@
         <div *ngIf="game.currentPlayerTurn.lastDiceRoll">
             <div>
                 <div>Rolled dice</div>
-                <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.dice; let i=index" (click)="pickDice(i)" class="btn btn-primary">{{dice.facingUp}}</button>
+                <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.dice; let i=index" (click)="pickDice(i)" class="btn btn-primary">{{ dice.facingUp }}</button>
             </div>
             <div>
                 <div>Picked dice</div>
-                <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.picked; let i=index" (click)="returnDice(i)" class="btn btn-primary">{{dice.facingUp}}</button>
+                <button *ngFor="let dice of game.currentPlayerTurn.lastDiceRoll.picked; let i=index" (click)="returnDice(i)" class="btn btn-primary">{{ dice.facingUp }}</button>
             </div>
+        </div>
+        <div>
+            <div>Current dice</div>
+            <button *ngFor="let dice of game.currentPlayerTurn.pickedDice; let i=index" class="btn btn-secondary">{{ dice.facingUp }}</button>
         </div>
         <button *ngIf="game.currentPlayerTurn.card" (click)="endTurn()" class="btn btn-primary">End turn</button>
     </div>

@@ -50,10 +50,10 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
-        public async Task<GameDto> AddPlayerAsync(Guid id, PlayerDto playerDto)
+        public async Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.AddPlayer(playerDto.Name);
+            game.AddPlayer(addPlayerDto.Name);
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }

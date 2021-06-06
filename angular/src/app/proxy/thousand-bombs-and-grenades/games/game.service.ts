@@ -2,7 +2,7 @@ import type { GameDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { PlayerDto } from '../players/models';
+import type { AddPlayerDto } from '../players/models';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +10,11 @@ import type { PlayerDto } from '../players/models';
 export class GameService {
   apiName = 'Default';
 
-  addPlayer = (id: string, playerDto: PlayerDto) =>
+  addPlayer = (id: string, addPlayerDto: AddPlayerDto) =>
     this.restService.request<any, GameDto>({
       method: 'POST',
       url: `/api/games/thousand-bombs-and-grenades/games/${id}/players`,
-      body: playerDto,
+      body: addPlayerDto,
     },
     { apiName: this.apiName });
 

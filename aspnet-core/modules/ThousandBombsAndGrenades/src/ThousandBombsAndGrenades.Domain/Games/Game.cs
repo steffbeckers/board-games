@@ -71,18 +71,19 @@ namespace ThousandBombsAndGrenades.Games
             PlayerTurn playerTurn = new PlayerTurn(Guid.NewGuid(), Id);
             playerTurn.Game = this;
 
-            // First player's turn
             if (!PlayerTurns.Any())
             {
+                // First player's turn
                 Player firstPlayer = Players.OrderBy(x => x.SortOrder).First();
                 playerTurn.PlayerId = firstPlayer.Id;
                 playerTurn.Player = firstPlayer;
             }
             else
             {
+                // TODO: Bug fix next player's turn
                 PlayerTurn lastTurn = PlayerTurns.Last();
                 Player player = Players.OrderBy(x => x.SortOrder).First(x => x.Id == lastTurn.PlayerId);
-                int playerIndex = Players.ToList().IndexOf(player);
+                int playerIndex = Players.OrderBy(x => x.SortOrder).ToList().IndexOf(Players.Where(x => x.Id == player.Id).First());
                 playerIndex++;
                 if (playerIndex >= Players.Count)
                 {
@@ -110,7 +111,7 @@ namespace ThousandBombsAndGrenades.Games
             }
             else
             {
-                player.Points = CurrentPlayerTurn.Points;
+                player.Points += CurrentPlayerTurn.Points;
             }
 
             NextPlayerTurn();

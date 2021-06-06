@@ -11,7 +11,7 @@ namespace ThousandBombsAndGrenades.Games
         Task<PagedResultDto<GameDto>> GetListAsync();
         Task<GameDto> GetAsync(Guid id);
         Task<GameDto> CreateAsync();
-        Task<GameDto> AddPlayerAsync(Guid id, PlayerDto playerDto);
+        Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto);
         Task<GameDto> RemovePlayerAsync(Guid id, Guid playerId);
         Task<GameDto> StartAsync(Guid id);
         Task<GameDto> DrawCardAsync(Guid id);

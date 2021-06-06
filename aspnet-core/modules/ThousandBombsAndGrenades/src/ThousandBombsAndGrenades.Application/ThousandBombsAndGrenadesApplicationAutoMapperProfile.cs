@@ -23,7 +23,7 @@ namespace ThousandBombsAndGrenades
             CreateMap<Dice.Dice, DiceDto>()
                 .ForMember(
                     x => x.FacingUp,
-                    x => x.MapFrom(y => y.FacingUp.Name)
+                    x => x.MapFrom(y => y.FacingUp.DisplayName ?? y.FacingUp.Name)
                 )
                 .ForMember(
                     x => x.Points,

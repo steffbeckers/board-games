@@ -8,5 +8,7 @@ namespace ThousandBombsAndGrenades.Players
     {
         [Required]
         public string Name { get; set; }
+        public int Points { get; set; }
+        public int SortOrder { get; set; }
     }
 }
