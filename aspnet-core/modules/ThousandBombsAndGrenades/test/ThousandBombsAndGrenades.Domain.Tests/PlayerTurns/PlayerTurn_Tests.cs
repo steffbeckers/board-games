@@ -988,5 +988,235 @@ namespace ThousandBombsAndGrenades.PlayerTurns
                 playerTurn.HasEnded().ShouldBeTrue();
             }
         }
+
+        [Fact]
+        public void Should_Calculate_Points_When_Pirate_Ship_Card_Is_Active_And_Swords_Were_Rolled()
+        {
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
+            playerTurn.Card = new Card()
+            {
+                Name = CardConsts.PirateShip,
+                DisplayName = "Pirate ship 3 swords",
+                Points = 500,
+                Count = 3
+            };
+
+            playerTurn.DiceRolls.Add(new DiceRoll()
+            {
+                Dice = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    }
+                },
+                Picked = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Swords
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Swords
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Swords
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
+                    }
+                }
+            });
+
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Swords
+                }
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Swords
+                }
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Swords
+                }
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
+            });
+
+            playerTurn.CalculatePoints().ShouldBe(700);
+        }
+
+        [Fact]
+        public void Should_Calculate_Points_When_Pirate_Ship_Card_Is_Active_And_Swords_Were_Not_Rolled()
+        {
+            PlayerTurn playerTurn = _game.CurrentPlayerTurn;
+            playerTurn.Card = new Card()
+            {
+                Name = CardConsts.PirateShip,
+                DisplayName = "Pirate ship 3 swords",
+                Points = 500,
+                Count = 3
+            };
+
+            playerTurn.DiceRolls.Add(new DiceRoll()
+            {
+                Dice = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Monkey
+                        }
+                    }
+                },
+                Picked = new List<Dice.Dice>()
+                {
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
+                    },
+                    new Dice.Dice()
+                    {
+                        FacingUp = new DiceSide()
+                        {
+                            Name = DiceSideConsts.Diamond,
+                            Points = 100
+                        }
+                    }
+                }
+            });
+
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
+            });
+            playerTurn.PickedDice.Add(new Dice.Dice()
+            {
+                FacingUp = new DiceSide()
+                {
+                    Name = DiceSideConsts.Diamond,
+                    Points = 100
+                }
+            });
+
+            playerTurn.CalculatePoints().ShouldBe(-500);
+        }
     }
 }

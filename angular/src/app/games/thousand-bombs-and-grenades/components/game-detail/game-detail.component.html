@@ -1,5 +1,9 @@
 <div *ngIf="game">
     <h3>Game {{ game.id | uppercase }}</h3>
+    <div *ngIf="game.startDate">
+        <span *ngIf="game.startDate">Started: {{ game.startDate | date: "dd/MM/yyyy HH:mm" }}</span>
+        <span *ngIf="game.endDate"> - Ended: {{ game.endDate | date: "dd/MM/yyyy HH:mm" }}</span>
+    </div>
     <button *ngIf="!game.startDate" (click)="startGame()" class="btn btn-primary" [disabled]="game.players.length < 2">Start game</button>
     <button *ngIf="game.startDate && !game.endDate" (click)="endGame()" class="btn btn-primary">End game</button>
     <div>
@@ -15,6 +19,7 @@
     <div *ngIf="game.currentPlayerTurn && !game.endDate">
         <h4>{{ game.currentPlayerTurn.player.name }}'s turn</h4>
         <div>Points: {{ game.currentPlayerTurn.points }}</div>
+        <div>Skull island active: {{ game.currentPlayerTurn.skullIslandActive }}</div>
         <button *ngIf="!game.currentPlayerTurn.card" (click)="drawCard()" class="btn btn-primary">Draw card</button>
         <div *ngIf="game.currentPlayerTurn.card?.name">
             {{ game.currentPlayerTurn.card.displayName || game.currentPlayerTurn.card.name }} card active

@@ -63,10 +63,10 @@ namespace ThousandBombsAndGrenades.Games
             StartDate = DateTime.Now;
 
             // Select first player
-            NextPlayerTurn();
+            GiveTurnToNextPlayer();
         }
 
-        public void NextPlayerTurn()
+        public void GiveTurnToNextPlayer()
         {
             PlayerTurn playerTurn = new PlayerTurn(Guid.NewGuid(), Id);
             playerTurn.Game = this;
@@ -80,18 +80,17 @@ namespace ThousandBombsAndGrenades.Games
             }
             else
             {
-                // TODO: Bug fix next player's turn
-                PlayerTurn lastTurn = PlayerTurns.Last();
-                Player player = Players.OrderBy(x => x.SortOrder).First(x => x.Id == lastTurn.PlayerId);
-                int playerIndex = Players.OrderBy(x => x.SortOrder).ToList().IndexOf(Players.Where(x => x.Id == player.Id).First());
-                playerIndex++;
-                if (playerIndex >= Players.Count)
+                // Next player's turn
+                int currentPlayersIndex = Players.OrderBy(x => x.SortOrder).ToList().IndexOf(Players.Where(x => x.Id == CurrentPlayerTurn.PlayerId).First());
+                int nextPlayerIndex = currentPlayersIndex + 1;
+                if (nextPlayerIndex >= Players.Count)
                 {
-                    playerIndex = 0;
+                    nextPlayerIndex = 0;
                 }
 
-                playerTurn.PlayerId = Players.ElementAt(playerIndex).Id;
-                playerTurn.Player = Players.ElementAt(playerIndex);
+                Player nextPlayer = Players.OrderBy(x => x.SortOrder).ElementAt(nextPlayerIndex);
+                playerTurn.PlayerId = nextPlayer.Id;
+                playerTurn.Player = nextPlayer;
             }
 
             PlayerTurns.Add(playerTurn);
@@ -104,6 +103,7 @@ namespace ThousandBombsAndGrenades.Games
 
             if (playerTurn.SkullIslandActive)
             {
+                // Subtract other player's points
                 foreach (Player otherPlayer in Players.Where(x => x.Id != player.Id))
                 {
                     otherPlayer.Points -= playerTurn.Points;
@@ -111,10 +111,11 @@ namespace ThousandBombsAndGrenades.Games
             }
             else
             {
+                // Add points to player
                 player.Points += CurrentPlayerTurn.Points;
             }
 
-            NextPlayerTurn();
+            GiveTurnToNextPlayer();
         }
 
         /// <summary>

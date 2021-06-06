@@ -88,20 +88,17 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             if (DiceRolls.Count == 1 && skullCount >= 4)
             {
                 SkullIslandActive = true;
+                Points = CalculatePoints();
             }
             // Still in skull island
             else if (SkullIslandActive && skullDiceRolled > 0)
             {
+                Points = CalculatePoints();
             }
-            // Skull island finished
-            else if (SkullIslandActive && skullDiceRolled == 0)
+            // Skull island finished or dead by skull count
+            else if (SkullIslandActive && skullDiceRolled == 0 || skullCount >= 3)
             {
                 End();
-            }
-            // Dead by skull count
-            else if (skullCount >= 3)
-            {
-                End(true);
             }
         }
 
@@ -174,16 +171,37 @@ namespace ThousandBombsAndGrenades.PlayerTurns
 
         public int CalculatePoints()
         {
+            // When skull island is active we calculate the points to subtract from the other player's points
             if (SkullIslandActive)
             {
                 return CalculateSkullIslandPoints();
             }
 
+            // Dead by skull count
+            int skullCount = CalculateSkullCount();
+            if (skullCount >= 3)
+            {
+                return 0;
+            }
+
             int points = 0;
 
-            // From card
-            if (Card != null)
+            // Pirate ship card
+            if (Card.Name == CardConsts.PirateShip)
             {
+                int swordsDiceCount = PickedDice.Where(x => x.FacingUp.Name == DiceSideConsts.Swords).Sum(x => 1);
+                if (swordsDiceCount < Card.Count)
+                {
+                    return Card.Points.Value * -1;
+                }
+                else
+                {
+                    points += Card.Points.Value;
+                }
+            }
+            else
+            {
+                // From card
                 points += Card.Points.HasValue ? Card.Points.Value : 0;
             }
 
@@ -331,26 +349,19 @@ namespace ThousandBombsAndGrenades.PlayerTurns
             return true;
         }
 
-        public void End(bool deadBySkullCount = false)
+        public void End()
         {
             // Validation
             // TODO:
             // - Already ended the turn? Check if is still last player turn of game? or add Ended flag?
 
-            if (!deadBySkullCount)
+            // Pick all left over dice, from last roll
+            for (int i = 0; i < LastDiceRoll.Dice.Count; i++)
             {
-                // Pick all left over dice, from last roll
-                for (int i = 0; i < LastDiceRoll.Dice.Count; i++)
-                {
-                    PickDice(i);
-                }
+                PickDice(i);
+            }
 
-                Points = CalculatePoints();
-            }
-            else
-            {
-                Points = 0;
-            }
+            Points = CalculatePoints();
 
             Game.PlayersTurnEnded();
         }
