@@ -18,14 +18,15 @@
         </div>
     </div>
     <div *ngIf="game.currentPlayerTurn && !game.endDate">
+        <div>My turn: {{ myTurn }}</div>
         <h4>{{ game.currentPlayerTurn.player.name }}'s turn</h4>
         <div>Points: {{ game.currentPlayerTurn.points }}</div>
         <div>Skull island active: {{ game.currentPlayerTurn.skullIslandActive }}</div>
-        <button *ngIf="!game.currentPlayerTurn.card" (click)="drawCard()" class="btn btn-primary">Draw card</button>
+        <button *ngIf="myTurn && !game.currentPlayerTurn.card" (click)="drawCard()" class="btn btn-primary">Draw card</button>
         <div *ngIf="game.currentPlayerTurn.card?.name">
             {{ game.currentPlayerTurn.card.displayName || game.currentPlayerTurn.card.name }} card active
         </div>
-        <button *ngIf="game.currentPlayerTurn.card?.name" (click)="rollDice()" class="btn btn-primary">Roll dice</button>
+        <button *ngIf="myTurn && game.currentPlayerTurn.card?.name" (click)="rollDice()" class="btn btn-primary">Roll dice</button>
         <div *ngIf="game.currentPlayerTurn.lastDiceRoll">
             <div>
                 <div>Rolled dice</div>
@@ -40,7 +41,7 @@
             <div>Current dice</div>
             <button *ngFor="let dice of game.currentPlayerTurn.pickedDice; let i=index" class="btn btn-secondary">{{ dice.facingUp }}</button>
         </div>
-        <button *ngIf="game.currentPlayerTurn.card" (click)="endTurn()" class="btn btn-primary">End turn</button>
+        <button *ngIf="myTurn && game.currentPlayerTurn.lastDiceRoll" (click)="endTurn()" class="btn btn-primary">End turn</button>
     </div>
     <div style="white-space: pre">
         {{ game | json }}

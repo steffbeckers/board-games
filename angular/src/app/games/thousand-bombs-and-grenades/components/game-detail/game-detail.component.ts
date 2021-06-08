@@ -1,3 +1,4 @@
+import { ConfigStateService } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameDto, GameService } from 'src/app/proxy/thousand-bombs-and-grenades/games';
@@ -12,8 +13,11 @@ import { RealtimeGameService } from '../../services/realtime-game.service';
 export class GameDetailComponent implements OnInit {
     game: GameDto;
     playerName: string;
+    myTurn: boolean;
 
-    constructor(private router: Router, private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
+    constructor(
+        private config: ConfigStateService,
+        private router: Router, private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((routeParams) => {
@@ -26,10 +30,12 @@ export class GameDetailComponent implements OnInit {
         this.gameService.get(id).subscribe(
             (game: GameDto) => {
                 this.game = game;
+                this.setMyTurn();
 
                 this.realtimeGameService.connect(this.game.id).then(() => {
                     this.realtimeGameService.listenForGameUpdates((game: GameDto) => {
                         this.game = game;
+                        this.setMyTurn();
                     })
                 });
             },
@@ -37,6 +43,10 @@ export class GameDetailComponent implements OnInit {
                 this.router.navigateByUrl("/1000-bombs-and-grenades");
             }
         );
+    }
+
+    private setMyTurn(): void {
+        this.myTurn = this.game.currentPlayerTurn?.player.userId === this.config.getOne("currentUser").id;
     }
 
     join(): void {
