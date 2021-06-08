@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ThousandBombsAndGrenades.Players;
 using ThousandBombsAndGrenades.PlayerTurns;
@@ -66,7 +67,6 @@ namespace ThousandBombsAndGrenades.Games
         public async Task<GameDto> JoinAsync(Guid id)
         {
             // TODO: Check if game is joinable?
-
             Game game = await _gameRepository.GetAsync(id);
             game.AddPlayer(new Player(Guid.NewGuid(), CurrentUser.UserName)
             {
@@ -76,18 +76,21 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
-        public async Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto)
+        [Authorize]
+        public async Task<GameDto> LeaveAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.AddPlayer(new Player(Guid.NewGuid(), addPlayerDto.Name));
+            Player player = game.Players.FirstOrDefault(x => x.UserId == CurrentUser.Id);
+            game.RemovePlayer(player);
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
-        public async Task<GameDto> RemovePlayerAsync(Guid id, Guid playerId)
+        public async Task<GameDto> KickPlayerAsync(Guid id, Guid playerId)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.RemovePlayer(playerId);
+            Player player = game.Players.FirstOrDefault(x => x.Id == playerId);
+            game.RemovePlayer(player);
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }

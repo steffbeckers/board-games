@@ -6,7 +6,3 @@ export interface PlayerDto extends AuditedEntityDto<string> {
   sortOrder: number;
   userId?: string;
 }
-
-export interface AddPlayerDto {
-  name: string;
-}

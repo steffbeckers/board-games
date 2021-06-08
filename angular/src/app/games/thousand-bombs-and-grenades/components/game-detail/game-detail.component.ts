@@ -1,4 +1,4 @@
-import { ConfigStateService } from '@abp/ng.core';
+import { ConfigStateService, CurrentUserDto } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GameDto, GameService } from 'src/app/proxy/thousand-bombs-and-grenades/games';
@@ -12,18 +12,23 @@ import { RealtimeGameService } from '../../services/realtime-game.service';
 })
 export class GameDetailComponent implements OnInit {
     game: GameDto;
-    playerName: string;
+    currentUser: CurrentUserDto;
     myTurn: boolean;
 
     constructor(
         private config: ConfigStateService,
-        private router: Router, private route: ActivatedRoute, private gameService: GameService, private realtimeGameService: RealtimeGameService) {}
+        private router: Router,
+        private route: ActivatedRoute,
+        private gameService: GameService,
+        private realtimeGameService: RealtimeGameService
+    ) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((routeParams) => {
             const gameId = routeParams.get('id');
             this.getGameDetail(gameId);
         });
+        this.currentUser = this.config.getDeep("currentUser");
     }
 
     private getGameDetail(id: string): void {
@@ -46,22 +51,19 @@ export class GameDetailComponent implements OnInit {
     }
 
     private setMyTurn(): void {
-        this.myTurn = this.game.currentPlayerTurn?.player.userId === this.config.getOne("currentUser").id;
+        this.myTurn = this.game.currentPlayerTurn?.player.userId === this.currentUser.id;
     }
 
     join(): void {
         this.gameService.join(this.game.id).subscribe();
     }
-    
-    addPlayer(): void {
-        if (!this.playerName) return;
-        this.gameService.addPlayer(this.game.id, { name: this.playerName }).subscribe(() => {
-            this.playerName = null;
-        })
+
+    leave(): void {
+        this.gameService.leave(this.game.id).subscribe();
     }
 
-    removePlayer(id: string): void {
-        this.gameService.removePlayer(this.game.id, id).subscribe();
+    kickPlayer(id: string): void {
+        this.gameService.kickPlayer(this.game.id, id).subscribe();
     }
 
     start(): void {

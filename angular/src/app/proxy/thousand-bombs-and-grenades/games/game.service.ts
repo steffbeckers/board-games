@@ -2,21 +2,12 @@ import type { GameDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { AddPlayerDto } from '../players/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
   apiName = 'Default';
-
-  addPlayer = (id: string, addPlayerDto: AddPlayerDto) =>
-    this.restService.request<any, GameDto>({
-      method: 'POST',
-      url: `/api/games/thousand-bombs-and-grenades/games/${id}/players`,
-      body: addPlayerDto,
-    },
-    { apiName: this.apiName });
 
   create = () =>
     this.restService.request<any, GameDto>({
@@ -67,18 +58,25 @@ export class GameService {
     },
     { apiName: this.apiName });
 
+  kickPlayer = (id: string, playerId: string) =>
+    this.restService.request<any, GameDto>({
+      method: 'DELETE',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/kick-player/${playerId}`,
+    },
+    { apiName: this.apiName });
+
+  leave = (id: string) =>
+    this.restService.request<any, GameDto>({
+      method: 'GET',
+      url: `/api/games/thousand-bombs-and-grenades/games/${id}/leave`,
+    },
+    { apiName: this.apiName });
+
   pickDice = (id: string, index: number) =>
     this.restService.request<any, GameDto>({
       method: 'GET',
       url: `/api/games/thousand-bombs-and-grenades/games/${id}/pick-dice`,
       params: { index },
-    },
-    { apiName: this.apiName });
-
-  removePlayer = (id: string, playerId: string) =>
-    this.restService.request<any, GameDto>({
-      method: 'DELETE',
-      url: `/api/games/thousand-bombs-and-grenades/games/${id}/players/${playerId}`,
     },
     { apiName: this.apiName });
 

@@ -6,16 +6,13 @@
     </div>
     <button *ngIf="!game.startDate" (click)="start()" class="btn btn-primary" [disabled]="game.players.length < 2">Start game</button>
     <button *ngIf="!game.startDate" (click)="join()" class="btn btn-primary" [disabled]="game.players.length >= 5">Join game</button>
+    <button *ngIf="!game.startDate" (click)="leave()" class="btn btn-primary">Leave game</button>
     <button *ngIf="game.startDate && !game.endDate" (click)="end()" class="btn btn-primary">End game</button>
     <div>
         <h4>Players (2-5)</h4>
         <ul>
             <li *ngFor="let player of game.players">{{ player.name }}<br />Points: {{ player.points }}</li>
         </ul>
-        <div *ngIf="!game.startDate">
-            <input [(ngModel)]="playerName" (keyup.enter)="addPlayer()" type="text">
-            <button (click)="addPlayer()" class="btn btn-primary" [disabled]="!playerName">Add player</button>
-        </div>
     </div>
     <div *ngIf="game.currentPlayerTurn && !game.endDate">
         <div>My turn: {{ myTurn }}</div>

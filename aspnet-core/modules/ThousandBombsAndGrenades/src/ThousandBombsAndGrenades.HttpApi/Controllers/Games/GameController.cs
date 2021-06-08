@@ -47,18 +47,18 @@ namespace ThousandBombsAndGrenades.Games
             return _gamesAppService.JoinAsync(id);
         }
 
-        [HttpPost]
-        [Route("{id}/players")]
-        public Task<GameDto> AddPlayerAsync(Guid id, AddPlayerDto addPlayerDto)
+        [HttpGet]
+        [Route("{id}/leave")]
+        public Task<GameDto> LeaveAsync(Guid id)
         {
-            return _gamesAppService.AddPlayerAsync(id, addPlayerDto);
+            return _gamesAppService.LeaveAsync(id);
         }
 
         [HttpDelete]
-        [Route("{id}/players/{playerId}")]
-        public Task<GameDto> RemovePlayerAsync(Guid id, Guid playerId)
+        [Route("{id}/kick-player/{playerId}")]
+        public Task<GameDto> KickPlayerAsync(Guid id, Guid playerId)
         {
-            return _gamesAppService.RemovePlayerAsync(id, playerId);
+            return _gamesAppService.KickPlayerAsync(id, playerId);
         }
 
         [HttpGet]

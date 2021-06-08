@@ -166,8 +166,8 @@ namespace ThousandBombsAndGrenades.Games
         /// <summary>
         /// Removes a player from the game.
         /// </summary>
-        /// <param name="playerId">The player's ID</param>
-        public void RemovePlayer(Guid playerId)
+        /// <param name="player">The player</param>
+        public void RemovePlayer(Player player)
         {
             // We can't add players when the game is already finished
             if (IsFinished())
@@ -182,11 +182,7 @@ namespace ThousandBombsAndGrenades.Games
             }
 
             // Remove the player from the game
-            Player player = Players.FirstOrDefault(x => x.Id == playerId);
-            if (player != null)
-            {
-                Players.Remove(player);
-            }
+            Players.Remove(player);
 
             CalculatePlayersSortOrders();
         }
