@@ -14,6 +14,9 @@ namespace ThousandBombsAndGrenades.Games
         public DateTime? StartDate { get; private set; }
         public DateTime? EndDate { get; private set; }
 
+        // TODO: Private games
+        public bool Private { get; private set; }
+
         public DeckOfCards DeckOfCards { get; set; }
         public PlayerTurn CurrentPlayerTurn
         {
