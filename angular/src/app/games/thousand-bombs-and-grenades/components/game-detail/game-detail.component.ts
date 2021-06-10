@@ -14,6 +14,7 @@ export class GameDetailComponent implements OnInit {
     game: GameDto;
     currentUser: CurrentUserDto;
     myTurn: boolean;
+    joined: boolean;
 
     constructor(
         private config: ConfigStateService,
@@ -36,11 +37,13 @@ export class GameDetailComponent implements OnInit {
             (game: GameDto) => {
                 this.game = game;
                 this.setMyTurn();
+                this.setJoined();
 
                 this.realtimeGameService.connect(this.game.id).then(() => {
                     this.realtimeGameService.listenForGameUpdates((game: GameDto) => {
                         this.game = game;
                         this.setMyTurn();
+                        this.setJoined();
                     })
                 });
             },
@@ -52,6 +55,10 @@ export class GameDetailComponent implements OnInit {
 
     private setMyTurn(): void {
         this.myTurn = this.game.currentPlayerTurn?.player.userId === this.currentUser.id;
+    }
+
+    private setJoined(): void {
+        this.joined = this.game.players.map(x => x.userId).includes(this.currentUser.id);
     }
 
     join(): void {
