@@ -45,29 +45,24 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> CreateAsync()
         {
             Game game = new Game(Guid.NewGuid());
-            game = await _gameRepository.InsertAsync(game, autoSave: true);
-
-            // If logged in, add the current user to the game automatically
-            if (CurrentUser.IsAuthenticated)
+            // Add the current user to the game automatically
+            game.AddPlayer(new Player(Guid.NewGuid(), CurrentUser.UserName)
             {
-                game.AddPlayer(new Player(Guid.NewGuid(), CurrentUser.UserName)
-                {
-                    UserId = CurrentUser.Id
-                });
-                game = await _gameRepository.UpdateAsync(game);
-            }
-
+                UserId = CurrentUser.Id
+            });
+            game = await _gameRepository.InsertAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
         [Authorize]
         public async Task<GameDto> JoinAsync(Guid id)
         {
-            // TODO: Check if game is joinable?
             Game game = await _gameRepository.GetAsync(id);
+            // TODO: Check if game is joinable?
             game.AddPlayer(new Player(Guid.NewGuid(), CurrentUser.UserName)
             {
                 UserId = CurrentUser.Id
