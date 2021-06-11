@@ -81,6 +81,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> KickPlayerAsync(Guid id, Guid playerId)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -90,6 +91,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> StartAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -98,6 +100,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> DrawCardAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -106,6 +109,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> RollDiceAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -115,6 +119,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> PickDiceAsync(Guid id, int index)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -124,6 +129,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> ReturnDiceAsync(Guid id, int index)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -133,6 +139,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> EndTurnAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -143,6 +150,7 @@ namespace ThousandBombsAndGrenades.Games
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
+        [Authorize]
         public async Task<GameDto> EndAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
