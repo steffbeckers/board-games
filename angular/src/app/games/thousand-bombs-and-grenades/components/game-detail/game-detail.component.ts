@@ -81,6 +81,11 @@ export class GameDetailComponent implements OnInit {
         this.gameService.drawCard(this.game.id).subscribe();
     }
 
+    getCardImageURL(): string {
+        const imageName = this.game.currentPlayerTurn?.card?.imageName;
+        return `/assets/games/thousand-bombs-and-grenades/cards/${imageName}`;
+    }
+
     rollDice(): void {
         this.gameService.rollDice(this.game.id).subscribe();
     }

@@ -21,7 +21,8 @@
         <div>Skull island active: {{ game.currentPlayerTurn.skullIslandActive }}</div>
         <button *ngIf="myTurn && !game.currentPlayerTurn.card" (click)="drawCard()" class="btn btn-primary">Draw card</button>
         <div *ngIf="game.currentPlayerTurn.card?.name">
-            {{ game.currentPlayerTurn.card.displayName || game.currentPlayerTurn.card.name }} card active
+            <div>{{ game.currentPlayerTurn.card.displayName || game.currentPlayerTurn.card.name }}</div>
+            <img [src]="getCardImageURL()" />
         </div>
         <button *ngIf="myTurn && game.currentPlayerTurn.card?.name" (click)="rollDice()" class="btn btn-primary">Roll dice</button>
         <div *ngIf="game.currentPlayerTurn.lastDiceRoll">

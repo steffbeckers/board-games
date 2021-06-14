@@ -18,12 +18,14 @@ namespace ThousandBombsAndGrenades.Deck
 
             Card animalsCard = new Card()
             {
-                Name = CardConsts.Animals
+                Name = CardConsts.Animals,
+                ImageName = "AnimalsCard.png"
             };
 
             Card diamondCard = new Card()
             {
                 Name = CardConsts.Diamond,
+                ImageName = "DiamondCard.png",
                 Points = 100
             };
 
@@ -31,18 +33,21 @@ namespace ThousandBombsAndGrenades.Deck
             {
                 Name = CardConsts.GoldenCoin,
                 DisplayName = "Golden coin",
+                ImageName = "GoldenCoinCard.png",
                 Points = 100
             };
 
             Card pirateCard = new Card()
             {
-                Name = CardConsts.Pirate
+                Name = CardConsts.Pirate,
+                ImageName = "PirateCard.png"
             };
 
             Card pirateShip2Card = new Card()
             {
                 Name = CardConsts.PirateShip,
                 DisplayName = "Pirate ship 2 swords",
+                ImageName = "PirateShip2SwordsCard.png",
                 Points = 300,
                 Count = 2
             };
@@ -51,6 +56,7 @@ namespace ThousandBombsAndGrenades.Deck
             {
                 Name = CardConsts.PirateShip,
                 DisplayName = "Pirate ship 3 swords",
+                ImageName = "PirateShip3SwordsCard.png",
                 Points = 500,
                 Count = 3
             };
@@ -59,31 +65,36 @@ namespace ThousandBombsAndGrenades.Deck
             {
                 Name = CardConsts.PirateShip,
                 DisplayName = "Pirate ship 4 swords",
+                ImageName = "PirateShip4SwordsCard.png",
                 Points = 1000,
                 Count = 4
             };
 
             Card skullCard = new Card()
             {
-                Name = CardConsts.Skull
+                Name = CardConsts.Skull,
+                ImageName = "SkullCard.png"
             };
 
             Card skull2Card = new Card()
             {
                 Name = CardConsts.Skull,
                 DisplayName = "2 Skulls",
+                ImageName = "2SkullsCard.png",
                 Count = 2
             };
 
             Card treasureChestCard = new Card()
             {
                 Name = CardConsts.TreasureChest,
-                DisplayName = "Treasure chest"
+                DisplayName = "Treasure chest",
+                ImageName = "TreasureChestCard.png"
             };
 
             Card waiterCard = new Card()
             {
-                Name = CardConsts.Waiter
+                Name = CardConsts.Waiter,
+                ImageName = "WaiterCard.png"
             };
 
             Cards = new Collection<Card> {
