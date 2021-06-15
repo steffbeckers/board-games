@@ -4,10 +4,10 @@
         <span *ngIf="game.startDate">Started: {{ game.startDate | date: "dd/MM/yyyy HH:mm" }}</span>
         <span *ngIf="game.endDate"> - Ended: {{ game.endDate | date: "dd/MM/yyyy HH:mm" }}</span>
     </div>
-    <button *ngIf="!game.startDate" (click)="start()" class="btn btn-primary" [disabled]="game.players.length < 2">Start game</button>
+    <button *ngIf="currentUser.id == game.creatorId && !game.startDate" (click)="start()" class="btn btn-primary" [disabled]="game.players.length < 2">Start game</button>
+    <button *ngIf="currentUser.id == game.creatorId && game.startDate && !game.endDate" (click)="end()" class="btn btn-primary">End game</button>
     <button *ngIf="!joined && !game.startDate" (click)="join()" class="btn btn-primary" [disabled]="game.players.length >= 5">Join game</button>
     <button *ngIf="joined && !game.startDate" (click)="leave()" class="btn btn-primary">Leave game</button>
-    <button *ngIf="game.startDate && !game.endDate" (click)="end()" class="btn btn-primary">End game</button>
     <div>
         <h4>Players (2-5)</h4>
         <ul>
