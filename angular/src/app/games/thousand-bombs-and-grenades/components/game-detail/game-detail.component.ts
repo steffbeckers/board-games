@@ -103,6 +103,8 @@ export class GameDetailComponent implements OnInit {
     }
 
     end(): void {
-        this.gameService.end(this.game.id).subscribe();
+        if (confirm("Are you sure you want to end the game?")) {
+            this.gameService.end(this.game.id).subscribe();
+        }
     }
 }
