@@ -1,5 +1,5 @@
 <div *ngIf="game">
-    <h3>Game {{ game.id | uppercase }}</h3>
+    <h3>Game: {{ game.id | uppercase }}</h3>
     <div *ngIf="game.startDate">
         <span *ngIf="game.startDate">Started: {{ game.startDate | date: "dd/MM/yyyy HH:mm" }}</span>
         <span *ngIf="game.endDate"> - Ended: {{ game.endDate | date: "dd/MM/yyyy HH:mm" }}</span>
