@@ -59,16 +59,6 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     v => JsonConvert.SerializeObject(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
                     v => JsonConvert.DeserializeObject<DeckOfCards>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
-
-                b.HasMany(x => x.Players)
-                    .WithOne(x => x.Game)
-                    .HasForeignKey(x => x.GameId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                b.HasMany(x => x.PlayerTurns)
-                    .WithOne(x => x.Game)
-                    .HasForeignKey(x => x.GameId)
-                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<Player>(b =>
@@ -81,11 +71,6 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                 b.Property(x => x.Name)
                     .IsRequired()
                     .HasMaxLength(PlayerConsts.NameMaxLength);
-
-                b.HasOne(x => x.Game)
-                    .WithMany(x => x.Players)
-                    .HasForeignKey(x => x.GameId)
-                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<PlayerTurn>(b =>
@@ -110,15 +95,10 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     v => JsonConvert.DeserializeObject<List<Dice.Dice>>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
-                b.HasOne(x => x.Game)
-                    .WithMany(x => x.PlayerTurns)
-                    .HasForeignKey(x => x.GameId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                b.HasOne(x => x.Player)
+                b.HasOne<Player>()
                     .WithMany()
                     .HasForeignKey(x => x.PlayerId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
         }
     }

@@ -18,7 +18,7 @@ namespace BoardGames.Migrations
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
+                .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ThousandBombsAndGrenades.Games.Game", b =>
@@ -2114,29 +2114,25 @@ namespace BoardGames.Migrations
                     b.HasOne("ThousandBombsAndGrenades.Games.Game", "Game")
                         .WithMany("PlayerTurns")
                         .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ThousandBombsAndGrenades.Players.Player", "Player")
+                    b.HasOne("ThousandBombsAndGrenades.Players.Player", null)
                         .WithMany()
                         .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Game");
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("ThousandBombsAndGrenades.Players.Player", b =>
                 {
-                    b.HasOne("ThousandBombsAndGrenades.Games.Game", "Game")
+                    b.HasOne("ThousandBombsAndGrenades.Games.Game", null)
                         .WithMany("Players")
                         .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

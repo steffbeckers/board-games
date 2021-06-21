@@ -34,7 +34,9 @@ namespace ThousandBombsAndGrenades.Games
             PlayerTurns = new Collection<PlayerTurn>();
         }
 
-        private Game() { }
+        private Game()
+        {
+        }
 
         /// <summary>
         /// To start the game.
@@ -76,7 +78,6 @@ namespace ThousandBombsAndGrenades.Games
                 // First player's turn
                 Player firstPlayer = Players.OrderBy(x => x.SortOrder).First();
                 playerTurn.PlayerId = firstPlayer.Id;
-                playerTurn.Player = firstPlayer;
             }
             else
             {
@@ -90,7 +91,6 @@ namespace ThousandBombsAndGrenades.Games
 
                 Player nextPlayer = Players.OrderBy(x => x.SortOrder).ElementAt(nextPlayerIndex);
                 playerTurn.PlayerId = nextPlayer.Id;
-                playerTurn.Player = nextPlayer;
             }
 
             PlayerTurns.Add(playerTurn);
@@ -99,12 +99,11 @@ namespace ThousandBombsAndGrenades.Games
         public void PlayersTurnEnded()
         {
             PlayerTurn playerTurn = CurrentPlayerTurn;
-            Player player = CurrentPlayerTurn.Player;
 
             if (playerTurn.SkullIslandActive)
             {
                 // Subtract other player's points
-                foreach (Player otherPlayer in Players.Where(x => x.Id != player.Id))
+                foreach (Player otherPlayer in Players.Where(x => x.Id != playerTurn.PlayerId))
                 {
                     otherPlayer.Points -= playerTurn.Points;
                 }
@@ -112,6 +111,7 @@ namespace ThousandBombsAndGrenades.Games
             else
             {
                 // Add points to player
+                Player player = Players.First(x => x.Id == playerTurn.PlayerId);
                 player.Points += CurrentPlayerTurn.Points;
             }
 
@@ -132,6 +132,8 @@ namespace ThousandBombsAndGrenades.Games
         /// <param name="player">The player</param>
         public void AddPlayer(Player player)
         {
+            player.GameId = Id;
+
             // We can't add players when the game is already finished
             if (IsFinished())
             {

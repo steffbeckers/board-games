@@ -43,8 +43,7 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                         query.Include(x => x.Game)
                                 .ThenInclude(x => x.Players.OrderBy(x => x.SortOrder))
                             .Include(x => x.Game)
-                                .ThenInclude(x => x.PlayerTurns.OrderByDescending(x => x.CreationTime))
-                            .Include(x => x.Player);
+                                .ThenInclude(x => x.PlayerTurns.OrderByDescending(x => x.CreationTime));
                 });
             });
         }
