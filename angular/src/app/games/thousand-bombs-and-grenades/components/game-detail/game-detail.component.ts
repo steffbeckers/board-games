@@ -32,6 +32,10 @@ export class GameDetailComponent implements OnInit {
         this.currentUser = this.config.getDeep("currentUser");
     }
 
+    ngOnDestroy(): void {
+        this.realtimeGameService.stopListeningForGameUpdates();
+    }
+
     private getGameDetail(id: string): void {
         this.gameService.get(id).subscribe(
             (game: GameDto) => {
@@ -66,7 +70,11 @@ export class GameDetailComponent implements OnInit {
     }
 
     leave(): void {
-        this.gameService.leave(this.game.id).subscribe();
+        this.gameService.leave(this.game.id).subscribe(() => {
+            if (this.game.players.length <= 1) {
+                this.router.navigateByUrl("/1000-bombs-and-grenades");
+            }
+        });
     }
 
     kickPlayer(id: string): void {

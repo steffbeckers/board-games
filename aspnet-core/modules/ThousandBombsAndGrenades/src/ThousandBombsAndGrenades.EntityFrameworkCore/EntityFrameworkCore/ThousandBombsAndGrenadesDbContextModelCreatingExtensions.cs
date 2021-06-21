@@ -95,7 +95,7 @@ namespace ThousandBombsAndGrenades.EntityFrameworkCore
                     v => JsonConvert.DeserializeObject<List<Dice.Dice>>(v, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })
                 );
 
-                b.HasOne<Player>()
+                b.HasOne(x => x.Player)
                     .WithMany()
                     .HasForeignKey(x => x.PlayerId)
                     .OnDelete(DeleteBehavior.NoAction);

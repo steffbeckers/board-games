@@ -77,6 +77,11 @@ namespace ThousandBombsAndGrenades.Games
             Game game = await _gameRepository.GetAsync(id);
             Player player = game.Players.FirstOrDefault(x => x.UserId == CurrentUser.Id);
             game.RemovePlayer(player);
+            if (game.Players.Count == 0)
+            {
+                await _gameRepository.DeleteAsync(game);
+                return null;
+            }
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }

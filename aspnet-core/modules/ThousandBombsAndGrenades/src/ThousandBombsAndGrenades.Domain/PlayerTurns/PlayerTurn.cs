@@ -29,6 +29,7 @@ namespace ThousandBombsAndGrenades.PlayerTurns
         public Game Game { get; set; }
 
         public Guid PlayerId { get; set; }
+        public Player Player { get; set; }
 
         public ICollection<DiceRoll> DiceRolls { get; private set; }
         public ICollection<Dice.Dice> PickedDice { get; private set; }

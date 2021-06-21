@@ -22,4 +22,8 @@ export class RealtimeGameService {
             cb(game);
         })
     }
+
+    stopListeningForGameUpdates(): void {
+        this.connection.off("GameUpdate");
+    }
 }
