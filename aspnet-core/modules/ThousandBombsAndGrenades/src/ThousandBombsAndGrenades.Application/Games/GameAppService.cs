@@ -21,28 +21,11 @@ namespace ThousandBombsAndGrenades.Games
         public GameAppService(
             IGameRepository gameRepository,
             IPlayerRepository playerRepository,
-            IPlayerTurnRepository playerTurnRepository
-        )
+            IPlayerTurnRepository playerTurnRepository)
         {
             _gameRepository = gameRepository;
             _playerRepository = playerRepository;
             _playerTurnRepository = playerTurnRepository;
-        }
-
-        public async Task<PagedResultDto<GameDto>> GetListAsync()
-        {
-            List<Game> games = await _gameRepository.GetListAsync();
-            return new PagedResultDto<GameDto>
-            {
-                TotalCount = games.Count,
-                Items = ObjectMapper.Map<List<Game>, List<GameDto>>(games)
-            };
-        }
-
-        public async Task<GameDto> GetAsync(Guid id)
-        {
-            Game game = await _gameRepository.GetAsync(id);
-            return ObjectMapper.Map<Game, GameDto>(game);
         }
 
         [Authorize]
@@ -59,6 +42,51 @@ namespace ThousandBombsAndGrenades.Games
         }
 
         [Authorize]
+        public async Task<GameDto> DrawCardAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.DrawCard();
+            game = await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        [Authorize]
+        public async Task<GameDto> EndAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.End();
+            game = await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        [Authorize]
+        public async Task<GameDto> EndTurnAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            game.CurrentPlayerTurn.End();
+            await _playerRepository.UpdateManyAsync(game.Players);
+            await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
+            game = await _gameRepository.UpdateAsync(game);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<GameDto> GetAsync(Guid id)
+        {
+            Game game = await _gameRepository.GetAsync(id);
+            return ObjectMapper.Map<Game, GameDto>(game);
+        }
+
+        public async Task<PagedResultDto<GameDto>> GetListAsync()
+        {
+            List<Game> games = await _gameRepository.GetListAsync();
+            return new PagedResultDto<GameDto>
+            {
+                TotalCount = games.Count,
+                Items = ObjectMapper.Map<List<Game>, List<GameDto>>(games)
+            };
+        }
+
+        [Authorize]
         public async Task<GameDto> JoinAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
@@ -67,21 +95,6 @@ namespace ThousandBombsAndGrenades.Games
             {
                 UserId = CurrentUser.Id
             });
-            game = await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<Game, GameDto>(game);
-        }
-
-        [Authorize]
-        public async Task<GameDto> LeaveAsync(Guid id)
-        {
-            Game game = await _gameRepository.GetAsync(id);
-            Player player = game.Players.FirstOrDefault(x => x.UserId == CurrentUser.Id);
-            game.RemovePlayer(player);
-            if (game.Players.Count == 0)
-            {
-                await _gameRepository.DeleteAsync(game);
-                return null;
-            }
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
@@ -97,29 +110,16 @@ namespace ThousandBombsAndGrenades.Games
         }
 
         [Authorize]
-        public async Task<GameDto> StartAsync(Guid id)
+        public async Task<GameDto> LeaveAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.Start();
-            game = await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<Game, GameDto>(game);
-        }
-
-        [Authorize]
-        public async Task<GameDto> DrawCardAsync(Guid id)
-        {
-            Game game = await _gameRepository.GetAsync(id);
-            game.CurrentPlayerTurn.DrawCard();
-            game = await _gameRepository.UpdateAsync(game);
-            return ObjectMapper.Map<Game, GameDto>(game);
-        }
-
-        [Authorize]
-        public async Task<GameDto> RollDiceAsync(Guid id)
-        {
-            Game game = await _gameRepository.GetAsync(id);
-            game.CurrentPlayerTurn.RollDice();
-            await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
+            Player player = game.Players.FirstOrDefault(x => x.UserId == CurrentUser.Id);
+            game.RemovePlayer(player);
+            if (game.Players.Count == 0)
+            {
+                await _gameRepository.DeleteAsync(game);
+                return null;
+            }
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
@@ -145,21 +145,20 @@ namespace ThousandBombsAndGrenades.Games
         }
 
         [Authorize]
-        public async Task<GameDto> EndTurnAsync(Guid id)
+        public async Task<GameDto> RollDiceAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.CurrentPlayerTurn.End();
-            await _playerRepository.UpdateManyAsync(game.Players);
+            game.CurrentPlayerTurn.RollDice();
             await _playerTurnRepository.UpdateAsync(game.CurrentPlayerTurn);
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
 
         [Authorize]
-        public async Task<GameDto> EndAsync(Guid id)
+        public async Task<GameDto> StartAsync(Guid id)
         {
             Game game = await _gameRepository.GetAsync(id);
-            game.End();
+            game.Start();
             game = await _gameRepository.UpdateAsync(game);
             return ObjectMapper.Map<Game, GameDto>(game);
         }
